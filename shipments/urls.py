@@ -4,8 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.shipment_list, name='shipment_list'),
-    path('<str:tracking_number>/', views.shipment_detail, name='shipment_detail'),
+    path('webhook/', views.webhook_handler, name='shipment_history'),
     path('create/', views.shipment_create, name='shipment_create'),
-    path('<str:tracking_number>/update/', views.shipment_update, name='shipment_update'),
-    path('<str:tracking_number>/delete/', views.shipment_delete, name='shipment_delete'),
+    path('<str:shipping_number>/', views.shipment_detail, name='shipment_detail'),
+    path('<str:shipping_number>/update/', views.shipment_update, name='shipment_update'),
+    path('<str:shipping_number>/delete/', views.shipment_delete, name='shipment_delete'),
+
 ]
