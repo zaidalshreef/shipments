@@ -50,14 +50,31 @@ def handle_shipment_update(payload):
 
 
 def save_to_database(shipment_data):
-    # Placeholder function to save shipment data to the database
-    pass
-
+    # Extract relevant data from the payload and create a new Shipment object
+    new_shipment = Shipment(
+        event=shipment_data.get('event'),
+        merchant=shipment_data.get('merchant'),
+        created_at=shipment_data.get('created_at'),
+        status=shipment_data.get('status'),
+        shipping_number=shipment_data.get('shipping_number'),
+        data=shipment_data  # Save the entire payload as JSON data
+    )
+    # Save the new shipment to the database
+    new_shipment.save()
 
 def update_database(shipment_data):
-    # Placeholder function to update shipment data in the database
-    pass
-
+    # Extract relevant data from the payload to identify the shipment to update
+    shipping_number = shipment_data.get('shipping_number')
+    # Retrieve the corresponding shipment object from the database
+    shipment = Shipment.objects.get(shipping_number=shipping_number)
+    # Update the shipment attributes based on the payload
+    shipment.event = shipment_data.get('event')
+    shipment.merchant = shipment_data.get('merchant')
+    shipment.created_at = shipment_data.get('created_at')
+    shipment.status = shipment_data.get('status')
+    # Update additional fields as needed
+    # Save the updated shipment to the database
+    shipment.save()
 
 def shipment_list(request):
     shipments = Shipment.objects.all()
