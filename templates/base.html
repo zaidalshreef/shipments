@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- You can put your header content here -->
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- The content of each page will be inserted here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- You can put your footer content here -->
+    </footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shipment List
+{% endblock %}
+
+{% block content %}
+<h1>Shipment List</h1>
+<ul>
+    {% for shipment in shipments %}
+    <li>{{ shipment.shipping_number }} - {{ shipment.status }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
