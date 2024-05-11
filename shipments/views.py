@@ -4,6 +4,9 @@ from .forms import ShipmentForm
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+from pprint import pprint
+
 import json
 
 
@@ -12,9 +15,21 @@ def webhook_handler(request):
     if request.method == 'POST':
         # Parse the JSON payload
         try:
-            payload = json.loads(request.body)
-            event_type = payload.get('event')
-            print(event_type)
+            data = json.loads(request.body)
+            created_at_str = data.get('created_at')
+            created_at = datetime.strptime(created_at_str, '%a %b %d %Y %H:%M:%S GMT%z')
+            created_at_str = created_at.isoformat()
+            # Extract relevant data from the payload
+            payload = {
+                'event': data.get('event'),
+                'merchant': data.get('merchant'),
+                'created_at': created_at_str,
+                'status': data['data'].get('status'),  # Access nested 'status' field
+                'shipping_number': data['data'].get('shipping_number'),  # Access nested 'shipping_number' field
+                'data': data.get('data')  # Include the entire 'data' object
+            }
+            event_type = data.get('event')
+            pprint(data)
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
 
@@ -24,7 +39,14 @@ def webhook_handler(request):
 
         # Process the payload based on the event type
         if event_type == 'shipment.creating':
-            return handle_shipment_creation(payload)
+            # Check if a shipment with the same shipping number already exists
+            existing_shipment = Shipment.objects.filter(shipping_number=payload.get('shipping_number')).first()
+            if existing_shipment:
+                return handle_shipment_update(payload)
+            else:
+                # If the shipment does not exist, create a new shipment object
+                return handle_shipment_creation(payload)
+
         elif event_type == 'shipment.updated':
             return handle_shipment_update(payload)
         else:
@@ -59,16 +81,7 @@ def handle_shipment_update(payload):
 
 
 def save_to_database(shipment_data):
-    # Extract relevant data from the payload and create a new Shipment object
-    new_shipment = Shipment(
-        event=shipment_data.get('event'),
-        merchant=shipment_data.get('merchant'),
-        created_at=shipment_data.get('created_at'),
-        status=shipment_data.get('status'),
-        shipping_number=shipment_data.get('shipping_number'),
-        data=shipment_data  # Save the entire payload as JSON data
-    )
-    # Save the new shipment to the database
+    new_shipment = Shipment(**shipment_data)
     new_shipment.save()
 
 
