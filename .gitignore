@@ -92,4 +92,4 @@ ehthumbs.db
 Thumbs.db
 uwsgi.log
 uwsgi.ini
-db/
+db/password.txt

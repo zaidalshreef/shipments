@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Shipment
 from .forms import ShipmentForm
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -18,7 +19,7 @@ def webhook_handler(request):
             return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
 
         # Validate payload contents
-        if 'data' not in payload:
+        if 'event' not in payload or 'data' not in payload:
             return JsonResponse({'error': 'Missing data in payload'}, status=400)
 
         # Process the payload based on the event type
@@ -33,19 +34,26 @@ def webhook_handler(request):
 
 
 def handle_shipment_creation(payload):
-    shipment_data = payload.get('data')
+    shipment_data = payload
+    required_fields = ['event', 'merchant', 'created_at', 'status', 'shipping_number']
     if not shipment_data:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
+    if not all(field in payload for field in required_fields):
+        return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
     # Perform actions related to shipment creation
     save_to_database(shipment_data)
     return JsonResponse({'message': 'Shipment creation event processed'})
 
 
 def handle_shipment_update(payload):
-    shipment_data = payload.get('data')
-    if not shipment_data:
+    shipment_data = payload
+    if shipment_data is None:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
-    # Perform actions related to shipment update
+
+    shipping_number = shipment_data.get('shipping_number')
+    if shipping_number is None:
+        return JsonResponse({'error': 'Missing shipping number in payload'}, status=400)
+
     update_database(shipment_data)
     return JsonResponse({'message': 'Shipment update event processed'})
 
@@ -67,14 +75,20 @@ def save_to_database(shipment_data):
 def update_database(shipment_data):
     # Extract relevant data from the payload to identify the shipment to update
     shipping_number = shipment_data.get('shipping_number')
-    # Retrieve the corresponding shipment object from the database
-    shipment = Shipment.objects.get(shipping_number=shipping_number)
+
+    # Check if the shipment exists in the database
+    try:
+        shipment = Shipment.objects.get(shipping_number=shipping_number)
+    except ObjectDoesNotExist:
+        raise ValueError("Shipment with shipping number {} does not exist.".format(shipping_number))
+
     # Update the shipment attributes based on the payload
     shipment.event = shipment_data.get('event')
     shipment.merchant = shipment_data.get('merchant')
     shipment.created_at = shipment_data.get('created_at')
     shipment.status = shipment_data.get('status')
     # Update additional fields as needed
+
     # Save the updated shipment to the database
     shipment.save()
 
