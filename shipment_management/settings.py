@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from dotenv import load_dotenv
 from pathlib import Path
 import os
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vxrnxz99$&v84hxgh3o_pzp+t&_$-q-#rq55%e8w3qar#q*f5%'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vxrnxz99$&v84hxgh3o_pzp+t&_$-q-#rq55%e8w3qar#q*f5%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["techsynapse.org", 'localhost',"10.10.10.2"]
+ALLOWED_HOSTS = ["techsynapse.org", "localhost"]
 
 # Application definition
 
@@ -77,11 +79,11 @@ WSGI_APPLICATION = 'shipment_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',  # Database name
-        'USER': 'postgres',  # Database user
-        'PASSWORD': '987654321',
-        'HOST': 'localhost',  # If PostgreSQL is running locally
-        'PORT': '8080',  # Defaults to 5432
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

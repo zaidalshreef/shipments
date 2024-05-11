@@ -1,0 +1,95 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.Pipfile
+.Pipfile.lock
+.poetry/envs/
+
+# IDEs / Editors
+.idea/
+*.iml
+.ipynb_checkpoints
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Testing / Linting / Type Checking
+.mypy_cache/
+.pyre/
+.pytype/
+pytestdebug.log
+pytest_cache/
+.cache
+.pycodestyle
+.pydocstyle
+.bandit
+.coverage
+.coverage.*
+.pycov
+.isort.cfg
+.pyrightconfig.json
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+
+# Miscellaneous
+.env
+*.sage.py
+*.sage.py/
+*.sout
+.spyderproject
+.spyproject
+.ropeproject
+/site
+.venv/
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+uwsgi.log
+uwsgi.ini
+db/

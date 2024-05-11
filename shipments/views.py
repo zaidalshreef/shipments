@@ -13,6 +13,7 @@ def webhook_handler(request):
         try:
             payload = json.loads(request.body)
             event_type = payload.get('event')
+            print(event_type)
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
 
@@ -62,6 +63,7 @@ def save_to_database(shipment_data):
     # Save the new shipment to the database
     new_shipment.save()
 
+
 def update_database(shipment_data):
     # Extract relevant data from the payload to identify the shipment to update
     shipping_number = shipment_data.get('shipping_number')
@@ -75,6 +77,7 @@ def update_database(shipment_data):
     # Update additional fields as needed
     # Save the updated shipment to the database
     shipment.save()
+
 
 def shipment_list(request):
     shipments = Shipment.objects.all()
