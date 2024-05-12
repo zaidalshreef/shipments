@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         // Specify the Docker tool and its version
-        dockerTo 'docker'
+        org.jenkinsci.plugins.docker.commons.tools.DockerTool
     }
     stages {
         stage('Build') {
