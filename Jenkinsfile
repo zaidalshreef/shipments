@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 // Start the Docker containers
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
         }
     }
