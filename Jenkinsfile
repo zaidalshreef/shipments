@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         // Specify the Docker tool and its version
-        docker 'docker'
+        dockerTool 'docker'
     }
     stages {
         stage('Build') {
