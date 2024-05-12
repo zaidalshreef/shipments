@@ -6,17 +6,16 @@ pipeline {
     }
     environment {
         DOCKER_CONFIG = "${HOME}/.docker"
+        DOCKER_COMPOSE_URL = 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64'
     }
     stages {
         stage('Install Docker Compose') {
             steps {
                 script {
-                    // Create Docker CLI plugins directory if it doesn't exist
-                    sh 'mkdir -p $DOCKER_CONFIG/cli-plugins'
                     // Download Docker Compose binary
-                    sh 'curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose'
+                    sh "curl -L ${DOCKER_COMPOSE_URL} -o ${DOCKER_CONFIG}/cli-plugins/docker-compose"
                     // Make Docker Compose binary executable
-                    sh 'chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose'
+                    sh "chmod +x ${DOCKER_CONFIG}/cli-plugins/docker-compose"
                 }
             }
         }
