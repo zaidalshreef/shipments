@@ -4,6 +4,11 @@ pipeline {
         POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
         POSTGRES_NAME = credentials('POSTGRES_NAME')
         POSTGRES_USER = credentials('POSTGRES_USER')
+        DJANGO_SECRET_KEY = credentials('DJANGO_SECRET_KEY')
+        POSTGRES_HOST = credentials('POSTGRES_HOST')
+        POSTGRES_PORT = credentials('POSTGRES_PORT')
+        POSTGRES_PORT = credentials('POSTGRES_DB')
+
     }
     stages {
         stage('Build') {
