@@ -2,8 +2,8 @@ pipeline {
     agent any
      environment {
         POSTGRES_PASSWORD = credentials('POSTGRES_PASSWORD')
-        POSTGRES_NAME=credentials('POSTGRES_NAME')
-        POSTGRES_USER=credentials('POSTGRES_USER')
+        POSTGRES_NAME = credentials('POSTGRES_NAME')
+        POSTGRES_USER = credentials('POSTGRES_USER')
     }
     stages {
         stage('Build') {
