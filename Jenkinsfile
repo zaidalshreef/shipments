@@ -7,7 +7,7 @@ pipeline {
         DJANGO_SECRET_KEY = credentials('DJANGO_SECRET_KEY')
         POSTGRES_HOST = credentials('POSTGRES_HOST')
         POSTGRES_PORT = credentials('POSTGRES_PORT')
-        POSTGRES_PORT = credentials('POSTGRES_DB')
+        POSTGRES_DB = credentials('POSTGRES_DB')
 
     }
     stages {
