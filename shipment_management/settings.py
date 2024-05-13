@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'shipment_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'NAME': postgres,
+        'USER': postgres,
+        'PASSWORD': 987654321,
         'HOST': 'db',
         'PORT': 5432,
     }
