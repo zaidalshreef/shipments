@@ -9,6 +9,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      graylog:
+        condition: "service_started"
     environment:
         - POSTGRES_NAME=${POSTGRES_NAME}
         - POSTGRES_USER=${POSTGRES_USER}
@@ -27,6 +29,9 @@ services:
     image: postgres
     restart: always
     user: postgres
+    depends_on:
+      graylog:
+        condition: "service_started"
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
