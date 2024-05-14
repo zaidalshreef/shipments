@@ -21,7 +21,7 @@ services:
     logging:
       driver: gelf
       options:
-        gelf-address: "udp://graylog:12201"
+        gelf-address: "udp://localhost:12201"
     restart: unless-stopped
 
 
@@ -47,7 +47,7 @@ services:
     logging:
       driver: gelf
       options:
-        gelf-address: "udp://graylog:12201"
+        gelf-address: "udp://localhost:12201"
 
 
   # Graylog stores configuration in MongoDB
