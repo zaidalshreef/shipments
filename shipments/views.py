@@ -107,7 +107,7 @@ def update_database(shipment_data):
 
 def Home(request):
     shipments = Shipment.objects.all()
-    return render(request, 'Home.html', {'shipments': shipments})
+    return render(request, 'Home.html', {'Home': Home})
 
 def shipment_list(request):
     shipments = Shipment.objects.all()
