@@ -132,3 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://techsynapse.org'
 ]
+
+LOGIN_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after login
+LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logout
