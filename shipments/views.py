@@ -41,13 +41,13 @@ def webhook_handler(request):
             # Check if a shipment with the same shipping number already exists
             existing_shipment = Shipment.objects.filter(id=payload.get('id')).first()
             if existing_shipment:
-                return handle_shipment_update(payload)
+                return handle_status_update(payload.get('id'), payload['data'].get('status'))
             else:
                 # If the shipment does not exist, create a new shipment object
                 return handle_shipment_creation(payload)
 
         elif event_type == 'shipment.updated':
-            return handle_shipment_update(payload)
+            return handle_status_update(payload.get('id'), payload['data'].get('status'))
         else:
             return JsonResponse({'error': 'Unknown event type'}, status=400)
     else:
@@ -76,12 +76,13 @@ def handle_shipment_update(payload):
         return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
     update_database(shipment_data)
-    return JsonResponse({'message': 'Shipment update event processed'})
+    return JsonResponse({'message': 'Shipment update event processed'}, status=200)
 
 
 def save_to_database(shipment_data):
     new_shipment = Shipment(**shipment_data)
     new_shipment.save()
+    handle_status_update(new_shipment.id, new_shipment['data'].get('status'))
 
 
 def update_database(shipment_data):
@@ -92,17 +93,16 @@ def update_database(shipment_data):
     try:
         shipment = Shipment.objects.get(id=id)
     except ObjectDoesNotExist:
-        raise ValueError("Shipment with shipping number {} does not exist.".format(id))
+        return JsonResponse({'error': "Shipment with id {} does not exist.".format(id)}, status=400)
 
     # Update the shipment attributes based on the payload
     shipment.event = shipment_data.get('event')
     shipment.merchant = shipment_data.get('merchant')
     shipment.created_at = shipment_data.get('created_at')
-    shipment.status = shipment_data.get('status')
-    # Update additional fields as needed
-
-    # Save the updated shipment to the database
+    shipment.data = shipment_data.get('data')
     shipment.save()
+
+    handle_status_update(shipment.id, shipment_data['data'].get('status'))
 
 
 def handle_status_update(id, status):
