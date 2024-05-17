@@ -56,7 +56,7 @@ services:
     container_name: mongodb
     volumes:
       - "mongo_data:/data/db"
-    restart: unless-stopped
+    restart: always
 
   # The logs themselves are stored in Opensearch
   opensearch:
@@ -81,7 +81,7 @@ services:
         hard: 65536
     ports:
       - 9200:9200/tcp
-    restart: unless-stopped
+    restart: always
 
   graylog:
     image: graylog/graylog:5.1
