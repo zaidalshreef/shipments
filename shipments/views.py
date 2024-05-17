@@ -125,7 +125,7 @@ def handle_status_update(id, status):
 def home(request):
     shipments = Shipment.objects.all()
 
-    return render(request, 'Home.html', {'shipments': shipments})
+    return render(request, 'home.html', {'shipments': shipments})
 
 
 def shipment_list(request):

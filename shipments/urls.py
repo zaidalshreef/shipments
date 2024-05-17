@@ -6,7 +6,7 @@ app_name = 'shipments'
 
 urlpatterns = [
     path('', views.shipment_list, name='shipment_list'),
-    path('Home/', views.Home, name='Home'),
+    path('home/', views.home, name='home'),
     path('webhook/', views.webhook_handler, name='shipment_history'),
     path('create/', views.shipment_create, name='shipment_create'),
     path('<int:id>/', views.shipment_detail, name='shipment_detail'),
