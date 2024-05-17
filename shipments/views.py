@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Shipment
-from .forms import ShipmentForm
-from django.http import JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
-from django.views.decorators.csrf import csrf_exempt
+import json
 from datetime import datetime
 from pprint import pprint
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
-import json
+from .forms import ShipmentForm
+from .models import Shipment, ShipmentStatus
 
 
 @csrf_exempt
@@ -24,8 +24,7 @@ def webhook_handler(request):
                 'event': data.get('event'),
                 'merchant': data.get('merchant'),
                 'created_at': created_at_str,
-                'status': data['data'].get('status'),  # Access nested 'status' field
-                'shipping_number': data['data'].get('shipping_number'),  # Access nested 'shipping_number' field
+                'id': data['data'].get('id'),  # Access nested 'id' field
                 'data': data.get('data')  # Include the entire 'data' object
             }
             event_type = data.get('event')
@@ -40,7 +39,7 @@ def webhook_handler(request):
         # Process the payload based on the event type
         if event_type == 'shipment.creating':
             # Check if a shipment with the same shipping number already exists
-            existing_shipment = Shipment.objects.filter(shipping_number=payload.get('shipping_number')).first()
+            existing_shipment = Shipment.objects.filter(id=payload.get('id')).first()
             if existing_shipment:
                 return handle_shipment_update(payload)
             else:
@@ -57,7 +56,7 @@ def webhook_handler(request):
 
 def handle_shipment_creation(payload):
     shipment_data = payload
-    required_fields = ['event', 'merchant', 'created_at', 'status', 'shipping_number']
+    required_fields = ['event', 'merchant', 'created_at', 'id']
     if not shipment_data:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
     if not all(field in payload for field in required_fields):
@@ -72,9 +71,9 @@ def handle_shipment_update(payload):
     if shipment_data is None:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
 
-    shipping_number = shipment_data.get('shipping_number')
-    if shipping_number is None:
-        return JsonResponse({'error': 'Missing shipping number in payload'}, status=400)
+    id = shipment_data.get('id')
+    if id is None:
+        return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
     update_database(shipment_data)
     return JsonResponse({'message': 'Shipment update event processed'})
@@ -87,13 +86,13 @@ def save_to_database(shipment_data):
 
 def update_database(shipment_data):
     # Extract relevant data from the payload to identify the shipment to update
-    shipping_number = shipment_data.get('shipping_number')
+    id = shipment_data.get('id')
 
     # Check if the shipment exists in the database
     try:
-        shipment = Shipment.objects.get(shipping_number=shipping_number)
+        shipment = Shipment.objects.get(id=id)
     except ObjectDoesNotExist:
-        raise ValueError("Shipment with shipping number {} does not exist.".format(shipping_number))
+        raise ValueError("Shipment with shipping number {} does not exist.".format(id))
 
     # Update the shipment attributes based on the payload
     shipment.event = shipment_data.get('event')
@@ -105,18 +104,37 @@ def update_database(shipment_data):
     # Save the updated shipment to the database
     shipment.save()
 
+
+def handle_status_update(id, status):
+    # Check if the shipment exists
+    try:
+        shipment = Shipment.objects.get(id=id)
+    except Shipment.DoesNotExist:
+        return JsonResponse({'error': 'Shipment not found'}, status=404)
+
+    # Create and save the new status
+    new_status = ShipmentStatus(
+        shipment=shipment,
+        status=status
+    )
+    new_status.save()
+
+    return JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
+
+
 def Home(request):
     shipments = Shipment.objects.all()
-    
+
     return render(request, 'Home.html', {'shipments': shipments})
+
 
 def shipment_list(request):
     shipments = Shipment.objects.all()
     return render(request, 'shipment_list.html', {'shipments': shipments})
 
 
-def shipment_detail(request, shipping_number):
-    shipment = get_object_or_404(Shipment, shipping_number=shipping_number)
+def shipment_detail(request, id):
+    shipment = get_object_or_404(Shipment, id=id)
     return render(request, 'shipment_detail.html', {'shipment': shipment})
 
 
@@ -131,20 +149,20 @@ def shipment_create(request):
     return render(request, 'shipment_form.html', {'form': form})
 
 
-def shipment_update(request, shipping_number):
-    shipment = get_object_or_404(Shipment, shipping_number=shipping_number)
+def shipment_update(request, id):
+    shipment = get_object_or_404(Shipment, id=id)
     if request.method == 'POST':
         form = ShipmentForm(request.POST, instance=shipment)
         if form.is_valid():
             form.save()
-            return redirect('shipment_detail', shipping_number=shipping_number)
+            return redirect('shipment_detail', id=id)
     else:
         form = ShipmentForm(instance=shipment)
     return render(request, 'shipment_form.html', {'form': form})
 
 
-def shipment_delete(request, shipping_number):
-    shipment = get_object_or_404(Shipment, shipping_number=shipping_number)
+def shipment_delete(request, id):
+    shipment = get_object_or_404(Shipment, id=id)
     if request.method == 'POST':
         shipment.delete()
         return redirect('shipment_list')

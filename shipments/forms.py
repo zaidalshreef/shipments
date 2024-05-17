@@ -1,7 +1,5 @@
-
-
 from django import forms
-from .models import Shipment
+from .models import Shipment, ShipmentStatus
 
 
 class ShipmentForm(forms.ModelForm):
@@ -29,3 +27,9 @@ class ShipmentForm(forms.ModelForm):
         """
         model = Shipment
         fields = '__all__'
+
+
+class ShipmentStatusForm(forms.ModelForm):
+    class Meta:
+        model = ShipmentStatus
+        fields = ['status']  # Only include the status field

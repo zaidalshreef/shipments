@@ -1,4 +1,25 @@
+from django.utils import timezone
+
 from django.db import models
+
+
+class ShipmentStatus(models.Model):
+    STATUS_CHOICES = [
+        ('CREATED', 'Created'),
+        ('PROCESSING', 'Processing'),
+        ('PREPARATION', 'Preparation'),
+        ('PICKUP', 'Pickup/Scheduling'),
+        ('TRANSIT', 'Transit'),
+        ('ARRIVAL', 'Arrival at Destination'),
+        ('DELIVERED', 'Delivery'),
+    ]
+
+    shipment = models.ForeignKey('Shipment', related_name='statuses', on_delete=models.CASCADE)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES)
+    date_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.status} - {self.date_time}"
 
 
 class Shipment(models.Model):
@@ -9,8 +30,7 @@ class Shipment(models.Model):
         event (CharField): A description of the shipment event.
         merchant (PositiveIntegerField): The ID of the merchant associated with the shipment.
         created_at (DateTimeField): The date and time when the shipment was created.
-        status (CharField): The current status of the shipment.
-        shipping_number (CharField): The unique identifier for the shipment.
+        id (CharField): The unique identifier for the shipment.
         data (JSONField): Additional data related to the shipment.
 
     Indexes:
@@ -24,8 +44,7 @@ class Shipment(models.Model):
     event = models.CharField(max_length=50, null=True, blank=True)
     merchant = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=50, null=True, blank=True)
-    shipping_number = models.CharField(max_length=100, null=True, blank=True)
+    id = models.PositiveIntegerField(primary_key=True, )
     data = models.JSONField(null=True, blank=True)
 
     class Meta:

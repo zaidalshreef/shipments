@@ -2,13 +2,15 @@
 from django.urls import path
 from . import views
 
+app_name = 'shipments'
+
 urlpatterns = [
     path('', views.shipment_list, name='shipment_list'),
-     path('Home/', views.Home, name='Home'),
+    path('Home/', views.Home, name='Home'),
     path('webhook/', views.webhook_handler, name='shipment_history'),
     path('create/', views.shipment_create, name='shipment_create'),
-    path('<str:shipping_number>/', views.shipment_detail, name='shipment_detail'),
-    path('<str:shipping_number>/update/', views.shipment_update, name='shipment_update'),
-    path('<str:shipping_number>/delete/', views.shipment_delete, name='shipment_delete'),
+    path('<int:id>/', views.shipment_detail, name='shipment_detail'),
+    path('<int:id>/update/', views.shipment_update, name='shipment_update'),
+    path('<int:id>/delete/', views.shipment_delete, name='shipment_delete'),
 
 ]
