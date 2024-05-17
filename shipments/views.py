@@ -122,7 +122,7 @@ def handle_status_update(id, status):
     return JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
 
 
-def Home(request):
+def home(request):
     shipments = Shipment.objects.all()
 
     return render(request, 'Home.html', {'shipments': shipments})
