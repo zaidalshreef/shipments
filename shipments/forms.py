@@ -1,14 +1,14 @@
-from django import forms
 from .models import Shipment, ShipmentStatus
+from django import forms
 
 
 class ShipmentForm(forms.ModelForm):
     """
-    A form class for handling Shipment model instances.
+    A form class for handling specific fields of the Shipment model instances.
 
     Attributes:
         model: The Shipment model instance.
-        fields: All fields of the Shipment model.
+        fields: Only the fields specified for updating the Shipment model.
 
     Methods:
         __init__(self, *args, **kwargs): Initializes the ShipmentForm with the provided arguments.
@@ -23,10 +23,10 @@ class ShipmentForm(forms.ModelForm):
 
         Attributes:
             model: The Shipment model instance.
-            fields: All fields of the Shipment model.
+            fields: Specific fields of the Shipment model.
         """
         model = Shipment
-        fields = '__all__'
+        fields = ['tracking_link', 'tracking_number', 'pdf_label']
 
 
 class ShipmentStatusForm(forms.ModelForm):

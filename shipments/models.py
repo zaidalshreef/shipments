@@ -1,17 +1,19 @@
-from django.utils import timezone
+import uuid
 
+from django.utils import timezone
 from django.db import models
 
 
 class ShipmentStatus(models.Model):
     STATUS_CHOICES = [
+        ('CREATING', 'Creating'),
         ('CREATED', 'Created'),
-        ('PROCESSING', 'Processing'),
-        ('PREPARATION', 'Preparation'),
-        ('PICKUP', 'Pickup/Scheduling'),
-        ('TRANSIT', 'Transit'),
-        ('ARRIVAL', 'Arrival at Destination'),
-        ('DELIVERED', 'Delivery'),
+        ('PENDING', 'Pending'),
+        ('DELIVERED', 'Delivered'),
+        ('DELIVERING', 'Delivering'),
+        ('RETURNED', 'Returned'),
+        ('IN_PROGRESS', 'In Progress'),
+        ('CANCELLED', 'Cancelled'),
     ]
 
     shipment = models.ForeignKey('Shipment', related_name='statuses', on_delete=models.CASCADE)
@@ -23,61 +25,41 @@ class ShipmentStatus(models.Model):
 
 
 class Shipment(models.Model):
-    """
-    A model representing a shipment.
-
-    Attributes:
-        event (CharField): A description of the shipment event.
-        merchant (PositiveIntegerField): The ID of the merchant associated with the shipment.
-        created_at (DateTimeField): The date and time when the shipment was created.
-        id (CharField): The unique identifier for the shipment.
-        data (JSONField): Additional data related to the shipment.
-
-    Indexes:
-        - data: An index on the 'data' field for faster search queries.
-        - event: An index on the 'event' field for faster search queries.
-
-    Methods:
-        - search_shipments(cls, query): A class method that searches for shipments based on a query in the 'data' field.
-
-    """
-    event = models.CharField(max_length=50, null=True, blank=True)
-    merchant = models.PositiveIntegerField(null=True, blank=True)
-    created_at = models.DateTimeField(null=True, blank=True)
-    id = models.PositiveIntegerField(primary_key=True, )
-    data = models.JSONField(null=True, blank=True)
+    event = models.CharField(max_length=50)
+    merchant = models.PositiveIntegerField()
+    created_at = models.DateTimeField()
+    shipment_id = models.PositiveIntegerField(primary_key=True)
+    type = models.CharField(max_length=100)
+    shipping_number = models.CharField(max_length=100, unique=True, default=uuid.uuid4, editable=False)
+    courier_name = models.CharField(max_length=100, null=True, blank=True)
+    courier_logo = models.URLField(max_length=200, null=True, blank=True)
+    tracking_number = models.CharField(max_length=100, null=True, blank=True)
+    tracking_link = models.URLField(max_length=200, null=True, blank=True)
+    payment_method = models.CharField(max_length=50, null=True, blank=True)
+    total = models.JSONField()
+    cash_on_delivery = models.JSONField()
+    label = models.JSONField()
+    total_weight = models.JSONField()
+    created_at_details = models.JSONField()
+    packages = models.JSONField()
+    ship_from = models.JSONField()
+    ship_to = models.JSONField()
+    meta = models.JSONField()
 
     class Meta:
         indexes = [
-            models.Index(fields=['data']),
-            models.Index(fields=['event']),
+            models.Index(fields=['shipping_number']),
+            models.Index(fields=['type']),
         ]
 
     @classmethod
     def search_shipments(cls, query):
-        """
-        A class method that searches for shipments based on a query in the 'data' field.
-
-        Args:
-            query (str): The query string to search for in the 'data' field.
-
-        Returns:
-            QuerySet: A QuerySet of Shipment objects that match the query.
-
-        Raises:
-            ValueError: If the query is not a string.
-
-        """
         if not isinstance(query, str):
             raise ValueError("Query must be a string.")
-        return cls.objects.filter(data__icontains=query)
+        return cls.objects.filter(
+            models.Q(shipping_number__icontains=query) |
+            models.Q(tracking_number__icontains=query)
+        )
 
     def __str__(self):
-        """
-        A string representation of the Shipment object.
-
-        Returns:
-            str: A string representation of the Shipment object, including its ID.
-
-        """
-        return f"Shipment {self.id}"
+        return f"Shipment {self.shipment_id}"

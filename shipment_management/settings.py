@@ -147,3 +147,8 @@ LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logo
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Add your API credentials to settings
+SALLA_API_KEY = 'your_api_key'
+SALLA_API_SECRET = 'your_api_secret'
+SALLA_API_URL = 'https://api.salla.dev/admin/v2/shipments/'
