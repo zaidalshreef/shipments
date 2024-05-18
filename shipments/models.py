@@ -1,5 +1,4 @@
 import uuid
-
 from django.utils import timezone
 from django.db import models
 
@@ -63,3 +62,21 @@ class Shipment(models.Model):
 
     def __str__(self):
         return f"Shipment {self.shipment_id}"
+
+
+class MerchantToken(models.Model):
+    merchant_id = models.PositiveIntegerField(unique=True)
+    access_token = models.CharField(max_length=255)
+    refresh_token = models.CharField(max_length=255)
+    expires_at = models.DateTimeField()
+
+    def is_expired(self):
+        return self.expires_at <= timezone.now()
+
+    def refresh(self):
+        # Logic to refresh the token using the refresh token
+        # Update the access token and expiration time
+        pass
+
+    def __str__(self):
+        return f"Merchant {self.merchant_id}"

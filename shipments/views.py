@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ShipmentForm, ShipmentStatusForm
 from .models import Shipment
-from .services import update_salla_api, handle_status_update
+from .services import update_salla_api, handle_status_update, handle_shipment_update
 
 
 def home(request):
@@ -28,7 +28,7 @@ def update_shipment_details(request, id):
             form.save()
             # Get the last status of the shipment
             last_status = shipment.statuses.latest('date_time').status
-            update_salla_api(shipment, last_status)  # Pass the last status to the Salla API update function
+            handle_shipment_update(shipment)  # Pass the last status to the Salla API update function
             return redirect('shipment_detail', id=id)
     else:
         form = ShipmentForm(instance=shipment)
@@ -40,10 +40,8 @@ def update_status(request, id):
     if request.method == 'POST':
         form = ShipmentStatusForm(request.POST)
         if form.is_valid():
-            status = form.save(commit=False)
-            status.shipment = shipment
-            status.save()
-            update_salla_api(shipment, status.status)  # Update Salla API with new status
+            status = form.cleaned_data['status']
+            handle_status_update(id, status)  # Pass the status to the handle_status_update function
             return redirect('shipment_detail', id=id)
     else:
         form = ShipmentStatusForm()

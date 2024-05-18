@@ -6,8 +6,8 @@ from datetime import datetime
 from pprint import pprint
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
-from .models import Shipment, ShipmentStatus
+from django.conf import settings
+from .models import Shipment, ShipmentStatus, MerchantToken
 
 
 @csrf_exempt
@@ -17,7 +17,17 @@ def webhook_handler(request):
             data = json.loads(request.body)
             pprint(data)
             if data.get('event') == 'app.store.authorize':
-                return JsonResponse({'error': 'app.store.authorize'}, status=400)
+                merchant_id = data.get('merchant')
+                access_token = get_access_token(merchant_id)
+                refresh_tokens = data.get('refresh_token')
+                expires_at = datetime.fromtimestamp(data.get('expires_at'))
+                MerchantToken.objects.create(
+                        merchant_id=merchant_id,
+                        access_token=access_token,
+                        refresh_token=refresh_tokens,
+                        expires_at=expires_at
+                    )
+                return JsonResponse({'message': f' app add it to store for merchant id {merchant_id}'}, status=201)
             created_at_str = data.get('created_at')
             created_at = datetime.strptime(created_at_str, '%a %b %d %Y %H:%M:%S GMT%z')
             created_at_str = created_at.isoformat()
@@ -87,6 +97,7 @@ def handle_status_update(id, status):
         status=status
     )
     new_status.save()
+    update_salla_api(shipment, status)
     return JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
 
 
@@ -111,10 +122,11 @@ def handle_shipment_update(payload, status):
         return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
     update_database(shipment_data, status)
+    update_salla_api(shipment_data, status)
     return JsonResponse({'message': 'Shipment update event processed'}, status=200)
 
 
-def update_database(shipment_data, status):
+def update_database(shipment_data):
     shipment_id = shipment_data.get('shipment_id')
     try:
         shipment = Shipment.objects.get(shipment_id=shipment_id)
@@ -124,13 +136,14 @@ def update_database(shipment_data, status):
     for key, value in shipment_data.items():
         setattr(shipment, key, value)
     shipment.save()
-    handle_status_update(shipment.shipment_id, status)
 
 
 def update_salla_api(shipment, status):
-    api_url = 'https://api.salla.sa/v1/shipments/update'
+    token = get_access_token(shipment.merchant)
+    shipment_id = shipment.shipment_id
+    api_url = f'https://api.salla.dev/admin/v2/shipments/{shipment_id}'
     headers = {
-        'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+        'Authorization': f'Bearer {token}',
         'Content-Type': 'application/json'
     }
     payload = {
@@ -144,3 +157,32 @@ def update_salla_api(shipment, status):
     response = requests.put(api_url, headers=headers, json=payload)
     if response.status_code != 200:
         print(f"Failed to update Salla API: {response.content}")
+
+
+def refresh_token(merchant_token):
+    refresh_url = 'https://accounts.salla.sa/oauth2/token'
+    payload = {
+        'grant_type': 'refresh_token',
+        'refresh_token': merchant_token.refresh_token,
+        'client_id': settings.SALLA_API_KEY,
+        'client_secret': settings.SALLA_API_SECRET,
+    }
+    response = requests.post(refresh_url, data=payload)
+    if response.status_code == 200:
+        token_data = response.json()
+        merchant_token.access_token = token_data.get('access_token')
+        expires_in = token_data.get('expires')
+        merchant_token.expires_at = datetime.fromtimestamp(expires_in)
+        merchant_token.save()
+        return True
+    return False
+
+
+def get_access_token(merchant_id):
+    try:
+        merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
+        if merchant_token.is_expired():
+            refresh_token(merchant_token)
+        return merchant_token.access_token
+    except MerchantToken.DoesNotExist:
+        return None
