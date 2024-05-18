@@ -1,0 +1,20 @@
+.container-fluid {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+  };
+
+  .navbar-toggler {
+    padding:20px;
+    font-size: 32;
+    line-height: 1;
+    color:#fff;
+    background-color: #81b6be
+   
+  }
+  .nav-link
+  {
+    font-size: 32;
+    color: #baddd6;
+  }
