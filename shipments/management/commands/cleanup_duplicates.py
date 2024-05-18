@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         duplicates = (
             Shipment.objects.values('shipping_number')
-            .annotate(count=models.Count('shipment_id'))
+            .annotate(count=models.Count('event'))
             .filter(count__gt=1)
         )
 
