@@ -26,10 +26,10 @@ class ShipmentStatus(models.Model):
 
 class Shipment(models.Model):
     event = models.CharField(max_length=50)
-    merchant = models.PositiveIntegerField()
-    created_at = models.DateTimeField()
+    merchant = models.PositiveIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(null=True, blank=True)
     shipment_id = models.PositiveIntegerField(primary_key=True)
-    type = models.CharField(max_length=100)
+    type = models.CharField(max_length=100, null=True, blank=True)
     shipping_number = models.CharField(max_length=100, unique=True, default=uuid.uuid4, editable=False)
     courier_name = models.CharField(max_length=100, null=True, blank=True)
     courier_logo = models.URLField(max_length=200, null=True, blank=True)
