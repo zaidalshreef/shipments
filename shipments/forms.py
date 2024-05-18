@@ -26,7 +26,7 @@ class ShipmentForm(forms.ModelForm):
             fields: Specific fields of the Shipment model.
         """
         model = Shipment
-        fields = ['tracking_link', 'tracking_number', 'pdf_label']
+        fields = ['tracking_link', 'tracking_number', 'label']
 
 
 class ShipmentStatusForm(forms.ModelForm):
