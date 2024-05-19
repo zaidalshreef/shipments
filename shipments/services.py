@@ -163,6 +163,7 @@ def update_database(shipment_data):
 
 
 def update_salla_api(shipment, status):
+    print(f"Updating Salla API for shipment {shipment.shipment_id} status  {status}")
     token = get_access_token(shipment.merchant)
     shipment_id = shipment.shipment_id
     api_url = f'https://api.salla.dev/admin/v2/shipments/{shipment_id}'
