@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Riyadh'
 
 USE_I18N = True
 
@@ -151,4 +151,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Add your API credentials to settings
 SALLA_API_KEY = '8d20a45d-ca26-4910-b6ca-1b49f0298632'
 SALLA_API_SECRET = '37686b0677d48c01cc8eb9b7ad2e2cea'
-SALLA_API_URL = 'https://api.salla.dev/admin/v2/shipments/'

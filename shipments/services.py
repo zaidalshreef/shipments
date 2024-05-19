@@ -46,6 +46,19 @@ def webhook_handler(request):
 
 
 def handle_store_authorize(data):
+    """
+    Handles the event of an app being added to a store for a specific merchant.
+
+    Args:
+    data (dict): The JSON data containing the event details.
+
+    Returns:
+    JsonResponse: A JSON response indicating the success of adding the app to the store.
+
+    Raises:
+    ValueError: If the 'merchant' field is missing in the data.
+
+    """
     merchant_id = data.get('merchant')
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
@@ -63,16 +76,33 @@ def handle_store_authorize(data):
 def handle_app_installed(data):
     # Handle app installation event here
     merchant_id = data.get('merchant')
-    installation_data = data.get('data')
     # Perform any necessary actions with the installation data
     return JsonResponse({'message': f'App installed for merchant id {merchant_id}'}, status=200)
 
 
 def parse_shipment_data(data):
+    """
+    Parses the shipment data from the incoming JSON payload.
+
+    Args:
+    data (dict): The JSON data containing the shipment details.
+
+    Returns:
+    tuple: A tuple containing the parsed shipment data and its status.
+
+    Raises:
+    ValueError: If the 'created_at' field is missing in the data.
+
+    """
     created_at_str = data.get('created_at')
+    if not created_at_str:
+        raise ValueError("Missing 'created_at' field in the shipment data")
+
     created_at = datetime.strptime(created_at_str, '%a %b %d %Y %H:%M:%S GMT%z')
     created_at_str = created_at.isoformat()
+
     status = data['data'].get('status')
+
     shipment_data = {
         'event': data.get('event'),
         'merchant': data.get('merchant'),
@@ -94,17 +124,45 @@ def parse_shipment_data(data):
         'ship_to': data['data'].get('ship_to'),
         'meta': data['data'].get('meta'),
     }
+
     return shipment_data, status
 
 
 def save_to_database(shipment_data, status):
-    new_shipment = Shipment(**shipment_data)
-    new_shipment.save()
-    handle_status_update(new_shipment.shipment_id, status)
-    update_salla_api(new_shipment, status)
+    """
+    Saves the shipment data to the database and then updates the shipment status.
+
+    Args:
+    shipment_data (dict): The shipment data to be saved.
+    status (str): The status of the shipment.
+
+    Returns:
+    None: This function does not return any value. It saves the shipment data and updates the status.
+
+    Raises:
+    ValueError: If the shipment data is missing any required fields.
+
+    """
+    new_shipment = Shipment(**shipment_data)  # Create a new Shipment object from the shipment data
+    new_shipment.save()  # Save the Shipment object to the database
+    handle_status_update(new_shipment.shipment_id, status)  # Update the shipment status
 
 
 def handle_status_update(shipment_id, status):
+    """
+    Updates the status of a shipment in the database and triggers an update to the Salla API.
+
+    Args:
+    shipment_id (str): The unique identifier of the shipment.
+    status (str): The new status of the shipment.
+
+    Returns:
+    JsonResponse: A JSON response indicating the success of updating the shipment status.
+
+    Raises:
+    Shipment.DoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     try:
         shipment = Shipment.objects.get(shipment_id=shipment_id)
     except Shipment.DoesNotExist:
@@ -120,6 +178,21 @@ def handle_status_update(shipment_id, status):
 
 
 def handle_shipment_creation_or_update(shipment_data, status):
+    """
+    Handles the event of a shipment creation or update.
+
+    Args:
+    shipment_data (dict): The JSON data containing the shipment details.
+    status (str): The status of the shipment.
+
+    Returns:
+    JsonResponse: A JSON response indicating the success of processing the shipment event.
+
+    Raises:
+    ValueError: If the shipment data is missing any required fields.
+    Shipment.DoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     existing_shipment = Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first()
     if existing_shipment:
         if shipment_data.get('type') == 'return':
@@ -130,6 +203,21 @@ def handle_shipment_creation_or_update(shipment_data, status):
 
 
 def handle_shipment_creation(shipment_data, status):
+    """
+    Handles the event of a shipment creation.
+
+    Args:
+    shipment_data (dict): The JSON data containing the shipment details.
+    status (str): The status of the shipment.
+
+    Returns:
+    JsonResponse: A JSON response indicating the success of processing the shipment creation event.
+
+    Raises:
+    ValueError: If the shipment data is missing any required fields.
+    Shipment.DoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     required_fields = ['event', 'merchant', 'created_at', 'shipment_id']
     if not all(field in shipment_data for field in required_fields):
         return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
@@ -138,6 +226,20 @@ def handle_shipment_creation(shipment_data, status):
 
 
 def handle_shipment_update(shipment_data):
+    """
+    Handles the event of a shipment update.
+
+    Args:
+    shipment_data (dict): The JSON data containing the shipment details.
+
+    Returns:
+    JsonResponse: A JSON response indicating the success of processing the shipment update event.
+
+    Raises:
+    ValueError: If the shipment data is missing any required fields.
+    Shipment.DoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     if shipment_data is None:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
 
@@ -153,10 +255,23 @@ def handle_shipment_update(shipment_data):
 
 
 def update_database(shipment_data):
+    """
+    Updates the shipment data in the database.
+
+    Args:
+    shipment_data (dict): The JSON data containing the updated shipment details.
+
+    Returns:
+    None: This function does not return any value. It updates the shipment data in the database.
+
+    Raises:
+    ObjectDoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     shipment_id = shipment_data.get('shipment_id')
     try:
         shipment = Shipment.objects.get(shipment_id=shipment_id)
-    except ObjectDoesNotExist:
+    except Shipment.DoesNotExist:
         return JsonResponse({'error': "Shipment with shipment_id {} does not exist.".format(shipment_id)}, status=400)
 
     for key, value in shipment_data.items():
@@ -165,6 +280,21 @@ def update_database(shipment_data):
 
 
 def update_salla_api(shipment, status):
+    """
+    Updates the shipment details in the Salla API.
+
+    Args:
+    shipment (Shipment): The shipment object containing the updated shipment details.
+    status (str): The new status of the shipment.
+
+    Returns:
+    None: This function does not return any value. It updates the shipment details in the Salla API.
+
+    Raises:
+    ValueError: If the shipment data is missing any required fields.
+    Shipment.DoesNotExist: If the shipment with the given shipment_id does not exist in the database.
+
+    """
     print(f"Updating Salla API for shipment {shipment.shipment_id} status  {status}")
     token = get_access_token(shipment.merchant)
     shipment_id = shipment.shipment_id
@@ -174,7 +304,7 @@ def update_salla_api(shipment, status):
         'Content-Type': 'application/json'
     }
     payload = {
-        'shipment_number': str(shipment.shipping_number),  # Convert UUID to string
+        'shipment_number': str(shipment.shiping_number),  # Convert UUID to string
         'tracking_link': shipment.tracking_link,
         'tracking_number': shipment.tracking_number,
         'status': status,
@@ -187,6 +317,21 @@ def update_salla_api(shipment, status):
 
 
 def refresh_token(merchant_token):
+    """
+    Refreshes the access token for a given merchant token.
+
+    Args:
+    merchant_token (MerchantToken): The merchant token object containing the refresh token.
+
+    Returns:
+    bool: Returns True if the token refresh was successful, False otherwise.
+
+    Raises:
+    ValueError: If the merchant token does not exist.
+
+    This function sends a POST request to the Salla API's token endpoint with the refresh token, client ID, and client secret.
+    If the response status code is 200, it extracts the new access token and expires time from the JSON response and updates the merchant token object in the database.
+    """
     refresh_url = 'https://accounts.salla.sa/oauth2/token'
     payload = {
         'grant_type': 'refresh_token',
@@ -206,6 +351,24 @@ def refresh_token(merchant_token):
 
 
 def get_access_token(merchant_id):
+    """
+    Retrieves the access token for the given merchant ID from the database.
+    If the token is expired, it refreshes the token using the refresh token.
+
+    Args:
+    merchant_id (str): The unique identifier of the merchant.
+
+    Returns:
+    str: The access token for the given merchant ID. If the token does not exist or is expired, returns None.
+
+    Raises:
+    MerchantToken.DoesNotExist: If the merchant token with the given merchant ID does not exist in the database.
+
+    This function first attempts to retrieve the merchant token object from the database using the provided merchant ID.
+    If the token is expired (i.e., its expiration time has passed), it refreshes the token by sending a POST request to the Salla API's token endpoint with the refresh token, client ID, and client secret.
+    If the response status code is 200, it extracts the new access token and expires time from the JSON response and updates the merchant token object in the database.
+    Finally, it returns the access token for the given merchant ID.
+    """
     try:
         merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
         if merchant_token.is_expired():
