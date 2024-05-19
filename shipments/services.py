@@ -1,5 +1,4 @@
-from django.contrib.sites import requests
-from django.core.exceptions import ObjectDoesNotExist
+import requests
 import json
 import uuid
 from datetime import datetime
@@ -8,6 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from .models import Shipment, ShipmentStatus, MerchantToken
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @csrf_exempt
