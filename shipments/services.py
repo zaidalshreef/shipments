@@ -169,12 +169,12 @@ def update_salla_api(shipment, status):
         'Content-Type': 'application/json'
     }
     payload = {
-        'shipment_number': shipment.shipping_number,
+        'shipment_number': str(shipment.shipping_number),  # Convert UUID to string
         'tracking_link': shipment.tracking_link,
         'tracking_number': shipment.tracking_number,
         'status': status,
-        'pdf_label': shipment.label.get('url') if shipment.label else '',
-        'cost': shipment.total.get('amount', 0)
+        'pdf_label': shipment.label.get('url', '') if shipment.label else '',
+        'cost': shipment.total.get('amount', 0)  # Assuming 'total' is a JSONField
     }
     response = requests.put(api_url, headers=headers, json=payload)
     if response.status_code != 200:
