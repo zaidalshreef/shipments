@@ -48,21 +48,7 @@
             <p><strong>Shipment ID:</strong> {{ shipment.id }}</p>
             <p><strong>Current Status:</strong> {{ shipment.status }}</p>
         </div>
-        <form method="post" action="{% url 'shipments:update_status' shipment.id %}">
-            {% csrf_token %}
-            <label for="status">New Status:</label>
-            <select id="status" name="status">
-                <option value="creating">Creating</option>
-                <option value="created">Created</option>
-                <option value="pending">Pending</option>
-                <option value="delivered">Delivered</option>
-                <option value="delivering">Delivering</option>
-                <option value="returned">Returned</option>
-                <option value="in_progress">In Progress</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-            <input type="submit" value="Update Status">
-        </form>
+
     </div>
 </body>
 </html>
