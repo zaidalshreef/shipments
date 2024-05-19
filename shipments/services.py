@@ -18,9 +18,10 @@ def webhook_handler(request):
             pprint(data)
 
             if data.get('event') == 'app.store.authorize':
-                handle_authorization(data)
-                return JsonResponse({'message': f'App added to store for merchant id {data.get("merchant")}'},
-                                    status=201)
+                return handle_store_authorize(data)
+
+            if data.get('event') == 'app.installed':
+                return handle_app_installed(data)
 
             shipment_data, status = parse_shipment_data(data)
             event_type = data.get('event')
@@ -41,7 +42,7 @@ def webhook_handler(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
-def handle_authorization(data):
+def handle_store_authorize(data):
     merchant_id = data.get('merchant')
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
@@ -52,6 +53,15 @@ def handle_authorization(data):
         refresh_token=refresh_tokens,
         expires_at=expires_at
     )
+    return JsonResponse({'message': f'App added to store for merchant id {merchant_id}'}, status=201)
+
+
+def handle_app_installed(data):
+    # Handle app installation event here
+    merchant_id = data.get('merchant')
+    installation_data = data.get('data')
+    # Perform any necessary actions with the installation data
+    return JsonResponse({'message': f'App installed for merchant id {merchant_id}'}, status=200)
 
 
 def parse_shipment_data(data):
