@@ -25,7 +25,7 @@ def shipment_detail(request, shipment_id):
 
 
 def update_shipment_details(request, shipment_id):
-    shipment = get_object_or_404(Shipment, id=shipment_id)
+    shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
     if request.method == 'POST':
         form = ShipmentForm(request.POST, instance=shipment)
         if form.is_valid():
