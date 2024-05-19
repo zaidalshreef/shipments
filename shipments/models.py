@@ -29,7 +29,7 @@ class Shipment(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     shipment_id = models.PositiveIntegerField(primary_key=True)
     type = models.CharField(max_length=100, null=True, blank=True)
-    shipping_number = models.CharField(max_length=100, unique=True, default=uuid.uuid4, editable=False)
+    shipping_number = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     courier_name = models.CharField(max_length=100, null=True, blank=True)
     courier_logo = models.URLField(max_length=200, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
@@ -72,11 +72,6 @@ class MerchantToken(models.Model):
 
     def is_expired(self):
         return self.expires_at <= timezone.now()
-
-    def refresh(self):
-        # Logic to refresh the token using the refresh token
-        # Update the access token and expiration time
-        pass
 
     def __str__(self):
         return f"Merchant {self.merchant_id}"

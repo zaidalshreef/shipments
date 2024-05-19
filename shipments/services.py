@@ -75,7 +75,6 @@ def parse_shipment_data(data):
         'created_at': created_at_str,
         'shipment_id': data['data'].get('id'),
         'type': data['data'].get('type'),
-        'shipping_number': data['data'].get('shipping_number', str(uuid.uuid4())),
         'courier_name': data['data'].get('courier_name'),
         'courier_logo': data['data'].get('courier_logo'),
         'tracking_number': data['data'].get('tracking_number'),
