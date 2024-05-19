@@ -34,7 +34,7 @@ def update_shipment_details(request, shipment_id):
             return redirect('shipment_detail', shipment_id=shipment_id)
     else:
         form = ShipmentForm(instance=shipment)
-    return render(request, 'shipment_form.html', {'form': form})
+    return render(request, 'shipment_form.html', {'form': form , 'shipment': shipment})
 
 
 def update_status(request, shipment_id):
