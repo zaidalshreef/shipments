@@ -20,7 +20,7 @@ def shipment_list(request):
 
 
 def shipment_detail(request, shipment_id):
-    shipment = get_object_or_404(Shipment, id=shipment_id)
+    shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
     return render(request, 'shipment_detail.html', {'shipment': shipment})
 
 
@@ -31,27 +31,27 @@ def update_shipment_details(request, shipment_id):
         if form.is_valid():
             shipment = form.save()  # Save the form data to the instance
             handle_shipment_update(shipment)  # Pass the shipment instance to the handle_shipment_update function
-            return redirect('shipment_detail', id=shipment_id)
+            return redirect('shipment_detail', shipment_id=shipment_id)
     else:
         form = ShipmentForm(instance=shipment)
     return render(request, 'shipment_form.html', {'form': form})
 
 
 def update_status(request, shipment_id):
-    shipment = get_object_or_404(Shipment, id=shipment_id)
+    shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
     if request.method == 'POST':
         form = ShipmentStatusForm(request.POST)
         if form.is_valid():
             status = form.cleaned_data['status']
             handle_status_update(shipment_id, status)  # Pass the status to the handle_status_update function
-            return redirect('shipment_detail', id=shipment_id)
+            return redirect('shipment_detail', ishipment_id=shipment_id)
     else:
         form = ShipmentStatusForm()
     return render(request, 'update_status_form.html', {'form': form, 'shipment': shipment})
 
 
 def shipment_delete(request, shipment_id):
-    shipment = get_object_or_404(Shipment, id=shipment_id)
+    shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
     if request.method == 'POST':
         shipment.delete()
         return redirect('shipment_list')
