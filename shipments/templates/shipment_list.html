@@ -1,14 +1,17 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Shipment List
-{% endblock %}
-
-{% block content %}
-<h1>Shipment List</h1>
-<ul>
-    {% for shipment in shipments %}
-    <li>{{ shipment.data.status }} - {{ shipment.data.id }}</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shipments</title>
+</head>
+<body>
+    <h1>Shipment List</h1>
+    <ul>
+        {% for shipment in shipments %}
+            <li>
+                <a href="{% url 'shipments:shipment_detail' shipment.id %}">{{ shipment.id }}</a> -
+                Status: {{ shipment.statuses.last.status }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

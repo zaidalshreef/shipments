@@ -1,9 +1,43 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shipment Detail</title>
+</head>
+<body>
+    <h1>Shipment Detail</h1>
+    <p>ID: {{ shipment.id }}</p>
+    <p>Event: {{ shipment.event }}</p>
+    <p>Merchant: {{ shipment.merchant }}</p>
+    <p>Created At: {{ shipment.created_at }}</p>
+    <p>Type: {{ shipment.type }}</p>
+    <p>Shipping Number: {{ shipment.shipping_number }}</p>
+    <p>Courier Name: {{ shipment.courier_name }}</p>
+    <p>Courier Logo: <img src="{{ shipment.courier_logo }}" alt="Courier Logo"></p>
+    <p>Tracking Number: {{ shipment.tracking_number }}</p>
+    <p>Tracking Link: <a href="{{ shipment.tracking_link }}">{{ shipment.tracking_link }}</a></p>
+    <p>Payment Method: {{ shipment.payment_method }}</p>
+    <p>Total: {{ shipment.total }}</p>
+    <p>Cash on Delivery: {{ shipment.cash_on_delivery }}</p>
+    <p>Label: <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
+    <p>Total Weight: {{ shipment.total_weight }}</p>
+    <p>Created At Details: {{ shipment.created_at_details }}</p>
+    <p>Packages: {{ shipment.packages }}</p>
+    <p>Ship From: {{ shipment.ship_from }}</p>
+    <p>Ship To: {{ shipment.ship_to }}</p>
+    <p>Meta: {{ shipment.meta }}</p>
 
-{% block title %}
-Shipment List
-{% endblock %}
+    <h2>Status History</h2>
+    <ul>
+        {% for status in shipment.statuses.all %}
+            <li>{{ status.date_time }} - {{ status.status }}</li>
+        {% endfor %}
+    </ul>
 
-{% block content %}
-<!-- Your shipment list content goes here -->
-{% endblock %}
+    <a href="{% url 'shipments:update_shipment_details' shipment.id %}">Update Details</a>
+    <a href="{% url 'shipments:update_status' shipment.id %}">Update Status</a>
+    <form action="{% url 'shipments:shipment_delete' shipment.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>
