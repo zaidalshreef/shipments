@@ -5,27 +5,98 @@ Shipment Detail
 {% endblock %}
 
 {% block content %}
-<h1>Shipment Detail</h1>
-    <p>ID: {{ shipment.id }}</p>
-    <p>Event: {{ shipment.event }}</p>
-    <p>Merchant: {{ shipment.merchant }}</p>
-    <p>Created At: {{ shipment.created_at }}</p>
-    <p>Type: {{ shipment.type }}</p>
-    <p>Shipping Number: {{ shipment.shipping_number }}</p>
-    <p>Courier Name: {{ shipment.courier_name }}</p>
-    <p>Courier Logo: <img src="{{ shipment.courier_logo }}" alt="Courier Logo"></p>
-    <p>Tracking Number: {{ shipment.tracking_number }}</p>
-    <p>Tracking Link: <a href="{{ shipment.tracking_link }}">{{ shipment.tracking_link }}</a></p>
-    <p>Payment Method: {{ shipment.payment_method }}</p>
-    <p>Total: {{ shipment.total }}</p>
-    <p>Cash on Delivery: {{ shipment.cash_on_delivery }}</p>
-    <p>Label: <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
-    <p>Total Weight: {{ shipment.total_weight }}</p>
-    <p>Created At Details: {{ shipment.created_at_details }}</p>
-    <p>Packages: {{ shipment.packages }}</p>
-    <p>Ship From: {{ shipment.ship_from }}</p>
-    <p>Ship To: {{ shipment.ship_to }}</p>
-    <p>Meta: {{ shipment.meta }}</p>
+<style>
+    .shipment-detail {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .shipment-detail h1, .shipment-detail h2 {
+        text-align: center;
+        color: #333;
+    }
+    .shipment-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+    }
+    .shipment-grid p, .shipment-grid img, .shipment-grid a {
+        margin: 0;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        color: #555;
+    }
+    .shipment-grid img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    .shipment-grid a {
+        color: #1a73e8;
+        text-decoration: none;
+    }
+    .shipment-grid a:hover {
+        text-decoration: underline;
+    }
+    .shipment-detail ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .shipment-detail ul li {
+        background-color: #fff;
+        margin: 5px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .shipment-detail button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .shipment-detail button:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
+<div class="shipment-detail">
+    <h1>Shipment Detail</h1>
+    <div class="shipment-grid">
+        <p><strong>ID:</strong> {{ shipment.id }}</p>
+        <p><strong>Event:</strong> {{ shipment.event }}</p>
+        <p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
+        <p><strong>Created At:</strong> {{ shipment.created_at }}</p>
+        <p><strong>Type:</strong> {{ shipment.type }}</p>
+        <p><strong>Shipping Number:</strong> {{ shipment.shipping_number }}</p>
+        <p><strong>Courier Name:</strong> {{ shipment.courier_name }}</p>
+        <p><strong>Courier Logo:</strong> <img src="{{ shipment.courier_logo }}" alt="Courier Logo"></p>
+        <p><strong>Tracking Number:</strong> {{ shipment.tracking_number }}</p>
+        <p><strong>Tracking Link:</strong> <a href="{{ shipment.tracking_link }}">{{ shipment.tracking_link }}</a></p>
+        <p><strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
+        <p><strong>Total:</strong> {{ shipment.total }}</p>
+        <p><strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery }}</p>
+        <p><strong>Label:</strong> <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
+        <p><strong>Total Weight:</strong> {{ shipment.total_weight }}</p>
+        <p><strong>Created At Details:</strong> {{ shipment.created_at_details }}</p>
+        <p><strong>Packages:</strong> {{ shipment.packages }}</p>
+        <p><strong>Ship From:</strong> {{ shipment.ship_from }}</p>
+        <p><strong>Ship To:</strong> {{ shipment.ship_to }}</p>
+        <p><strong>Meta:</strong> {{ shipment.meta }}</p>
+    </div>
 
     <h2>Status History</h2>
     <ul>
@@ -34,10 +105,13 @@ Shipment Detail
         {% endfor %}
     </ul>
 
-    <a href="{% url 'shipments:update_shipment_details' shipment.id %}">Update Details</a>
-    <a href="{% url 'shipments:update_status' shipment.id %}">Update Status</a>
-    <form action="{% url 'shipments:shipment_delete' shipment.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+    <div style="text-align: center;">
+        <a href="{% url 'shipments:update_shipment_details' shipment.id %}">Update Details</a>
+        <a href="{% url 'shipments:update_status' shipment.id %}">Update Status</a>
+        <form action="{% url 'shipments:shipment_delete' shipment.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
