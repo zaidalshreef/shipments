@@ -1,6 +1,7 @@
 import requests
 import json
 import uuid
+import pytz
 from datetime import datetime
 from pprint import pprint
 from django.http import JsonResponse
@@ -47,6 +48,7 @@ def handle_store_authorize(data):
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
     expires_at = datetime.fromtimestamp(data['data'].get('expires'))
+    expires_at = pytz.utc.localize(expires_at)  # Make datetime timezone-aware
     MerchantToken.objects.create(
         merchant_id=merchant_id,
         access_token=access_token,
