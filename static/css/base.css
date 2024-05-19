@@ -3,11 +3,11 @@
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-  };
+  }
 
   .navbar-toggler {
     padding:20px;
-    font-size: 32;
+    font-size: 2rem;
     line-height: 1;
     color:#fff;
     background-color: #81b6be
@@ -15,6 +15,6 @@
   }
   .nav-link
   {
-    font-size: 32;
+    font-size: 2rem;
     color: #baddd6;
   }
