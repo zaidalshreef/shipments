@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Shipment</title>
-</head>
-<body>
-    <h1>Are you sure you want to delete this shipment?</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+Shipment Delete
+{% endblock %}
+
+{% block content %}
+<h1>Are you sure you want to delete this shipment?</h1>
     <p>ID: {{ shipment.id }}</p>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Yes, delete</button>
     </form>
     <a href="{% url 'shipments:shipment_list' %}">Cancel</a>
-</body>
-</html>
+{% endblock %}

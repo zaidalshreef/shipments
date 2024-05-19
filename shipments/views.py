@@ -11,7 +11,11 @@ def home(request):
 
 
 def shipment_list(request):
-    shipments = Shipment.objects.all()
+    try:
+        shipments = Shipment.objects.all()
+    except Shipment.DoesNotExist:
+        shipments = None
+
     return render(request, 'shipment_list.html', {'shipments': shipments})
 
 
