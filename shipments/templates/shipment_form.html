@@ -6,7 +6,7 @@ update Shipment
 
 {% block content %}
 <h1>Update Shipment</h1>
-    <form method="post">
+    <form method="post" action="{% url 'shipments:shipment_update' shipment.shipment_id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>

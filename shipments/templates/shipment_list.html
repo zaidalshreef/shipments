@@ -8,7 +8,7 @@ Shipment List
 <h1>Shipment List</h1>
 <ul>
     {% for shipment in shipments %}
-    <li>{{ shipment.data.status }} - {{ shipment.data.id }}</li>
+    <li>{{ shipment.statuses.last.status }} - {{ shipment.shipment_id }}</li>
     {% endfor %}
 </ul>
 {% endblock %}

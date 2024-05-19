@@ -76,7 +76,7 @@ Shipment Detail
 <div class="shipment-detail">
     <h1>Shipment Detail</h1>
     <div class="shipment-grid">
-        <p><strong>ID:</strong> {{ shipment.id }}</p>
+        <p><strong>ID:</strong> {{ shipment.shipment_id }}</p>
         <p><strong>Event:</strong> {{ shipment.event }}</p>
         <p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
         <p><strong>Created At:</strong> {{ shipment.created_at }}</p>
@@ -106,9 +106,9 @@ Shipment Detail
     </ul>
 
     <div style="text-align: center;">
-        <a href="{% url 'shipments:update_shipment_details' shipment.id %}">Update Details</a>
-        <a href="{% url 'shipments:update_status' shipment.id %}">Update Status</a>
-        <form action="{% url 'shipments:shipment_delete' shipment.id %}" method="post" style="display: inline;">
+        <a href="{% url 'shipments:update_shipment_details' shipment.shipment_id %}">Update Details</a>
+        <a href="{% url 'shipments:update_status' shipment.shipment_id %}">Update Status</a>
+        <form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post" style="display: inline;">
             {% csrf_token %}
             <button type="submit">Delete</button>
         </form>

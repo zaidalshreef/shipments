@@ -1,8 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Update Shipment Status</title>
-    <style>
+
+{% extends 'base.html' %}
+
+{% block title %}
+Update Shipment Status
+{% endblock %}
+
+    {% block content %}
+ <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -40,9 +44,7 @@
             margin: 5px 0;
         }
     </style>
-</head>
-<body>
-    <div class="container">
+      <div class="container">
         <h1>Update Shipment Status</h1>
         <div class="shipment-info">
             <p><strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
@@ -64,5 +66,4 @@
             <input type="submit" value="Update Status">
         </form>
     </div>
-</body>
-</html>
+    {% endblock %}
