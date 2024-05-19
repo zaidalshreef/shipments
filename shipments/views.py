@@ -44,7 +44,7 @@ def update_status(request, shipment_id):
         if form.is_valid():
             status = form.cleaned_data['status']
             handle_status_update(shipment_id, status)  # Pass the status to the handle_status_update function
-            return redirect('shipment_detail', shipment_id=shipment_id)
+            return redirect('shipments:shipment_detail', shipment_id=shipment_id)
     else:
         form = ShipmentStatusForm()
     return render(request, 'update_status_form.html', {'form': form, 'shipment': shipment})
