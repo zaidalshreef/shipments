@@ -5,14 +5,14 @@ from django.db import models
 
 class ShipmentStatus(models.Model):
     STATUS_CHOICES = [
-        ('creating', 'creating'),
-        ('created', 'created'),
-        ('pending', 'pending'),
-        ('delivered', 'delivered'),
-        ('delivering', 'delivering'),
-        ('returned', 'returned'),
-        ('in_progress', 'in_progress'),
-        ('cancelled', 'cancelled'),
+        ('creating', 'Creating'),
+        ('created', 'Created'),
+        ('pending', 'Pending'),
+        ('delivered', 'Delivered'),
+        ('delivering', 'Delivering'),
+        ('returned', 'Returned'),
+        ('in_progress', 'In Progress'),
+        ('cancelled', 'Cancelled'),
     ]
 
     shipment = models.ForeignKey('Shipment', related_name='statuses', on_delete=models.CASCADE)

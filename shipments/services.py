@@ -25,6 +25,8 @@ def webhook_handler(request):
                 return handle_app_installed(data)
 
             shipment_data, status = parse_shipment_data(data)
+            if status == 'creating':
+                status = 'created'
             event_type = data.get('event')
 
         except json.JSONDecodeError:
