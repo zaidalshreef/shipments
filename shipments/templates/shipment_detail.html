@@ -106,7 +106,7 @@ Shipment Detail
     </ul>
 
     <div style="text-align: center;">
-        <a href="{% url 'shipments:update_shipment_details' shipment.shipment_id %}">Update Details</a>
+        <a href="{% url 'shipments:shipment_update' shipment.shipment_id %}">Update Details</a>
         <a href="{% url 'shipments:update_status' shipment.shipment_id %}">Update Status</a>
         <form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post" style="display: inline;">
             {% csrf_token %}
