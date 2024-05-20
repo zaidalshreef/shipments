@@ -1,8 +1,8 @@
 .container-fluid {
-    align-items: right;
-    justify-content: space-between;
-    color: #81b6be
-  };
+    align-items: right !important;
+    justify-content: space-between !important;
+    color: #81b6be !important;
+  }
 
   .navbar-toggler {
     padding:20px;
