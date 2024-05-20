@@ -1,20 +1,19 @@
 .container-fluid {
-    display: flex;
-    flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-  }
+    background-color: #81b6be
+  };
 
   .navbar-toggler {
     padding:20px;
-    font-size: 2rem;
+    font-size: 32px;
     line-height: 1;
     color:#fff;
-    background-color: #81b6be
+   
    
   }
   .nav-link
   {
-    font-size: 2rem;
+    font-size: 32px;
     color: #baddd6;
   }
