@@ -1,7 +1,7 @@
 .container-fluid {
     align-items: right !important;
     justify-content: space-between !important;
-    color: #81b6be !important;
+    background-color: #81b6be !important;
   }
 
   .navbar-toggler {
