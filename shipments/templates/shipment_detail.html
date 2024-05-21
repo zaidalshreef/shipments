@@ -37,7 +37,7 @@ Shipment Detail
                 {% endfor %}
             </ul>
 
-            <a href="{% url 'shipments:update_shipment_details' shipment.shipment_id %}" class="btn btn-warning mt-3">Update Details</a>
+            <a href="{% url 'shipments:shipment_update' shipment.shipment_id %}" class="btn btn-warning mt-3">Update Details</a>
             <a href="{% url 'shipments:update_status' shipment.shipment_id %}" class="btn btn-secondary mt-3">Update Status</a>
             <form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post" class="mt-3">
                 {% csrf_token %}
