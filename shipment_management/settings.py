@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shipments.apps.ShipmentsConfig',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
