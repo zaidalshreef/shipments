@@ -9,14 +9,6 @@ body {
   font-family: sans-serif;
 }
 
-section {
-	height: 100vh;
-	background: url(https://cdn.pixabay.com/photo/2018/01/22/13/07/sea-3098951_1280.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-    background-position: center center;
-}
-
 header {
 	display: flex;
 	justify-content: space-between;
