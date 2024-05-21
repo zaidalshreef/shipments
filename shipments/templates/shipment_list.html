@@ -9,8 +9,8 @@ Shipment List
     <h1 class="my-4">Shipment List</h1>
     <div class="row">
         {% for shipment in shipments %}
-        <div class="col-md-6 mb-4">
-            <div class="card">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Shipment ID: {{ shipment.shipment_id }}</h5>
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
