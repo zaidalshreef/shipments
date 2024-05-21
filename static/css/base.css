@@ -9,6 +9,14 @@ body {
   font-family: sans-serif;
 }
 
+section {
+	height: 100vh;
+	background: url(https://cdn.pixabay.com/photo/2018/01/22/13/07/sea-3098951_1280.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-position: center center;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -37,7 +45,7 @@ ul li a {
 	padding: 10px 20px;
 	text-transform: uppercase;
 	text-decoration: none;
-	color:  #baddd6;
+	color: #262625;
 	font-weight: bold;
     transition: .5s;
 }
@@ -51,7 +59,7 @@ ul li a:hover {
 .menu-trigger {
     display:none;
     margin-right: 1.5em;
-	background: #D56287;
+	background: ;
     color: #fff;
     padding: 5px;
 	cursor: pointer;
@@ -103,7 +111,3 @@ ul li a:hover {
 	
     
 }
-  
-  
-
- 
