@@ -1,18 +1,117 @@
+* {
+	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-.container {
-    background-color: #81b6be ;
-  }
+body {
+  font-size: 100%;
+  font-family: sans-serif;
+}
 
-  .navbar-toggler {
-    padding:20px;
-    font-size: 2rem;
-    line-height: 1;
-    color:#fff;
-   
-   
+section {
+	height: 100vh;
+	background: url(https://cdn.pixabay.com/photo/2018/01/22/13/07/sea-3098951_1280.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-position: center center;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+	height: 18%;
+	box-shadow: 0 5px 15px rgba(0,0,0,.2);	
+}
+
+.logo img {
+   margin-left: 2.3em;
+   max-width: 100%;
+   height: auto !important;
+}
+
+ nav ul {
+	display: flex;
+    flex-flow: nowrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	transition: .5s;
+    list-style-type: none;
+}
+
+ul li a {
+	padding: 10px 20px;
+	text-transform: uppercase;
+	text-decoration: none;
+	color:  #baddd6;
+	font-weight: bold;
+    transition: .5s;
+}
+
+ul li a:hover {
+	background: #000;
+	color: #fff;
+    transition: .5s
+}
+
+.menu-trigger {
+    display:none;
+    margin-right: 1.5em;
+	background: #D56287;
+    color: #fff;
+    padding: 5px;
+	cursor: pointer;
+	font-weight: bold;
+    text-decoration: none;
+}
+
+@media screen and (max-width:816px) {
+	
+     .menu-trigger {
+    display:block;
   }
-  .nav-link
-  {
-    font-size: 2rem;
-    color: #baddd6;
-  }
+  
+    header {
+	display: flex;
+	align-items: flex-start;
+	height: 65%;
+	
+	
+    }
+  
+    nav ul {
+    display:block;
+	
+	
+	}
+	
+	ul li {
+    width: 50vh;
+	
+	}
+   
+    ul li a {
+        display: block;
+		/* text-align: center; */
+		color: #ffff;
+		background: rgba(0,0,0,.5);
+        
+	}
+  
+}
+
+@media (max-width: 359px)
+{
+	.logo img {
+       margin-left: 0.1em;
+       
+}
+	
+    
+}
+  
+  
+
+ 
