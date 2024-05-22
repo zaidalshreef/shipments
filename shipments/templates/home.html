@@ -16,8 +16,8 @@ Home
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                     <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
                     <p class="card-text"><strong>Created at:</strong> {{ shipment.created_a }}</p>
-                    <p class="card-text"><strong>Ship from :</strong> {{ shipment.ship_from }}</p>
-                    <p class="card-text"><strong>Ship to:</strong> {{ shipment.ship_to }}</p>
+                    <p class="card-text"><strong>Ship from :</strong> {{ shipment.ship_from.city }}</p>
+                    <p class="card-text"><strong>Ship to:</strong> {{ shipment.ship_to.city }}</p>
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
