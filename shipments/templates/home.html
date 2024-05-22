@@ -9,11 +9,15 @@ Home
     <h1 class="my-4">Home</h1>
     <div class="row">
         {% for shipment in shipments %}
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="w-100 p-3">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Shipment ID: {{ shipment.shipment_id }}</h5>
+                    <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
+                    <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
+                    <p class="card-text"><strong>Created at:</strong> {{ shipment.created_a }}</p>
+                    <p class="card-text"><strong>Ship from :</strong> {{ shipment.ship_from }}</p>
+                    <p class="card-text"><strong>Ship to:</strong> {{ shipment.ship_to }}</p>
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
