@@ -25,9 +25,9 @@ Home
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
-                    <p class="card-text"><strong>Packages weight:</strong> <p><strong>Packages:</strong>{{ shipment.packages.weight }}</p>
-                    <p class="card-text"><strong>Packages quantity:</strong> <p><strong>Packages:</strong>{{ shipment.packages.quantity }}</p>
-                    <p class="card-text"><strong>Packages content:</strong> <p><strong>Packages:</strong>{{ shipment.packages.name }}</p>
+                    <p class="card-text"><strong>Packages weight:</strong> {{ shipment.packages.weight }}</p>
+                    <p class="card-text"><strong>Packages quantity:</strong>{{ shipment.packages.quantity }}</p>
+                    <p class="card-text"><strong>Packages content:</strong> {{ shipment.packages.name }}</p>
 
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
                 </div>
