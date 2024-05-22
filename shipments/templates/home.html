@@ -1,25 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Shipment List
+Home
 {% endblock %}
 
 {% block content %}
-<h1>Home</h1>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Shipment Status</th>
-        <th scope="col">Shipment Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>{{shipment.data.status }}</td>
-        <td>{{shipment.data.date}}</td>
-      </tr>
-      
-    </tbody>
-  </table>
+<div class="container-fluid">
+    <h1 class="my-4">Shipment List</h1>
+    <div class="row">
+        {% for shipment in shipments %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Shipment ID: {{ shipment.shipment_id }}</h5>
+                    <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
+                    <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
