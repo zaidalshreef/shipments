@@ -15,7 +15,8 @@ Home
                     <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                     <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
-                    <p class="card-text"><strong>Created at:</strong> {{ shipment.created_a }}</p>
+                    <p class="card-text"><p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
+                    <p class="card-text"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                     <p class="card-text"><strong>Ship from :</strong> <strong>City: </strong>  {{ shipment.ship_from.city }}
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
@@ -24,6 +25,10 @@ Home
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
+                    <p class="card-text"><strong>Packages weight:</strong> <p><strong>Packages:</strong>{{ shipment.packages.weight }}</p>
+                    <p class="card-text"><strong>Packages quantity:</strong> <p><strong>Packages:</strong>{{ shipment.packages.quantity }}</p>
+                    <p class="card-text"><strong>Packages content:</strong> <p><strong>Packages:</strong>{{ shipment.packages.name }}</p>
+
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
