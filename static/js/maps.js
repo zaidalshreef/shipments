@@ -1,3 +1,8 @@
+let originMap;
+let originMarker;
+let destinationMap;
+let destinationMarker;
+
 function initMaps() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
@@ -8,17 +13,17 @@ function initMaps() {
         lng: parseFloat(document.getElementById('ship_to_lng').value)
     };
 
-    const originMap = new google.maps.Map(document.getElementById('originMap'), {
+     originMap = new google.maps.Map(document.getElementById('originMap'), {
         center: origin,
         zoom: 12
     });
 
-    const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), {
+     destinationMap = new google.maps.Map(document.getElementById('destinationMap'), {
         center: destination,
         zoom: 12
     });
 
-   const originMarker = new google.maps.Marker({
+    originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
         title: 'Ship From Location',
@@ -26,7 +31,7 @@ function initMaps() {
 
     });
 
-    const destinationMarker= new google.maps.Marker({
+     destinationMarker= new google.maps.Marker({
         position: destination,
         map: destinationMap,
         title: 'Ship To Location',
