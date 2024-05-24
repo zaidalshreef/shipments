@@ -7,8 +7,10 @@ from pprint import pprint
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from .models import Shipment, ShipmentStatus, MerchantToken
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
+from .models import Shipment, ShipmentStatus, MerchantToken
 
 
 @csrf_exempt
@@ -36,13 +38,33 @@ def webhook_handler(request):
             return JsonResponse({'error': 'Missing data in shipment_data'}, status=400)
 
         if event_type == 'shipment.creating':
-            return handle_shipment_creation_or_update(shipment_data, status)
+            response = handle_shipment_creation_or_update(shipment_data, status)
+            send_shipment_email(shipment_data, 'created')
+            return response
         elif event_type == 'shipment.cancelled':
-            return handle_status_update(shipment_data.get('shipment_id'), status)
+            response = handle_status_update(shipment_data.get('shipment_id'), status)
+            send_shipment_email(shipment_data, 'cancelled')
+            return response
         else:
             return JsonResponse({'error': 'Unknown event type'}, status=400)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+def send_shipment_email(shipment, event_type):
+    domain = settings.ALLOWED_HOSTS[0]  # Get the first domain from ALLOWED_HOSTS
+    details_url = f"https://{domain}{reverse('shipments:shipment_detail', args=[shipment.shipment_id])}"
+    color = 'green' if event_type == 'created' else 'red'
+
+    context = {
+        'shipment_id': shipment.shipment_id,
+        'event_type': event_type,
+        'details_url': details_url,
+        'color': color,
+    }
+    subject = f"Shipment {event_type.capitalize()}"
+    message = render_to_string('shipment_email.html', context)
+    send_mail(subject, message, 'from@example.com', ['to@example.com'], fail_silently=False)
 
 
 def handle_store_authorize(data):

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .shipment-status {
+            color: {{ color }};
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="shipment-status">Shipment {{ event_type }}</h1>
+    </div>
+    <div class="content">
+        <p class="shipment-status">Shipment ID: {{ shipment_id }}</p>
+        <p>The status of your shipment has been updated to <span class="shipment-status">{{ event_type }}</span>.</p>
+        <p>You can view the shipment details <a href="{{ details_url }}">here</a>.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </div>
+</body>
+</html>
