@@ -32,17 +32,3 @@ function initMaps() {
         title: 'Ship To Location'
     });
 }
-
-// Load the Google Maps script
-function loadGoogleMaps(apiKey) {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMaps`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const apiKey = document.getElementById('google-maps-api-key').value;
-    loadGoogleMaps(apiKey);
-});
