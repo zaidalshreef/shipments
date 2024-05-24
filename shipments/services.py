@@ -326,7 +326,7 @@ def update_salla_api(shipment, status):
         'Content-Type': 'application/json'
     }
     payload = {
-        'shipment_number': str(shipment.shiping_number),  # Convert UUID to string
+        'shipment_number': str(shipment.shipping_number),  # Convert UUID to string
         'tracking_link': shipment.tracking_link,
         'tracking_number': shipment.tracking_number,
         'status': status,
