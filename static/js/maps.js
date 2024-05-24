@@ -1,4 +1,4 @@
-function initMaps() {
+function initMap() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
         lng: parseFloat(document.getElementById('ship_from_lng').value)
@@ -46,16 +46,4 @@ function initMaps() {
         window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
 
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadGoogleMaps();
-});
-
-function loadGoogleMaps() {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${document.getElementById('google-maps-api-key').value}&callback=initMaps`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
 }
