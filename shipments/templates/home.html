@@ -43,12 +43,13 @@ Home
 </div>
 
 <script>
-    for (var i = 0 ; i<=shipment.packages.length;i++)
+    var package = shipment.packages;
+    for (var i = 0 ; i<=package.length;i++)
     {
-        document.getElementById ("test").innerHTML = shipment.packages[i].name
-        document.getElementsByClassName ("card").innerHTML = shipment.packages[i].name
-        console.log(shipment.packages[i].name)
-        console.log(shipment.packages[i])
+        document.getElementById ("test").innerHTML = package[i].name
+        document.getElementsByClassName ("card").innerHTML = package[i].name
+        console.log(package[i].name)
+        console.log(package[i])
     }
     </script>
 </body>
