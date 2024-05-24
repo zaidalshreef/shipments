@@ -33,6 +33,7 @@ function initMaps() {
         position: destination,
         map: destinationMap,
         title: 'Ship To Location',
+         url: 'https://maps.google.com/maps?q=loc:'+destination.lat+','+destination.lng+''
     });
 
     // Add a click listener for each marker, and set up the info window.
