@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Retrieve the Google Maps API key from the environment variables
-GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
+GOOGLE_MAPS_API_KEY = "AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8"
 
 
 def home(request):

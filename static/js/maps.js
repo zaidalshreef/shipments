@@ -1,5 +1,4 @@
 
-import dotenv from 'dotenv';
 
 function initMaps() {
     const origin = {
