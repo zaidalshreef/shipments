@@ -27,16 +27,12 @@ function initMaps() {
         position: origin,
         map: originMap,
         title: 'Ship From Location',
-        gmpClickable: true,
-
     });
 
      destinationMarker= new google.maps.Marker({
         position: destination,
         map: destinationMap,
         title: 'Ship To Location',
-        gmpClickable: true,
-
     });
 
     // Add a click listener for each marker, and set up the info window.
