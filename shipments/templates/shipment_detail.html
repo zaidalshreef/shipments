@@ -106,6 +106,6 @@ Shipment Detail
 <input type="hidden" id="ship_to_lat" value="{{ shipment.ship_to.latitude }}">
 <input type="hidden" id="ship_to_lng" value="{{ shipment.ship_to.longitude }}">
 
-<script src="{% static 'js/maps.js' %}"></script>
+<script src="{% static 'js/maps.js' %}" async defer></script>
 
 {% endblock %}
