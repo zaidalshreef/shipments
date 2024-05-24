@@ -45,8 +45,8 @@ Home
     var package = JSON.parse(shipments.packages);
     for (var i = 0 ; i<=package.length;i++)
     {
-        document.getElementById ("test").innerHTML = package[i].name
-        document.getElementsByClassName ("card").innerHTML = package[i].name
+        document.getElementById ("card").innerHTML = package[3]
+       // document.getElementsByClassName ("card").innerHTML = package[i].name
         console.log(package[i].name)
         console.log(package[i])
     }
