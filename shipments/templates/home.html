@@ -12,12 +12,18 @@ Home
         {% for shipment in shipments %}
         <div class="w-100 p-3">
             <div class="card">
+
+                <div class="card-header">
+                <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
+                <p class="card-text"><strong>Created at:</strong> {{ shipment.created_at }}</p>
+                </div>
+
                 <div class="card-body">
                     
-                    <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
+                    
                     
                     <div class="container">
-                    <p class="card-text"><strong>Created at:</strong> {{ shipment.created_at }}</p>
+                    
                         <div class="row"> 
 
                      <div class="col"> 
