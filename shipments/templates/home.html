@@ -28,9 +28,6 @@ Home
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
                       
                       {% for pckg in shipment.packages %}
-
-                      <p id = 'card'>Test pckg loop </p>
-                    <p class="card-text" id = 'pkg'><strong>Packages :</strong> {{ shipment.packages }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ pckg.name }}</p>
@@ -41,18 +38,6 @@ Home
                 </div>
             </div>
         </div>
-        <script>
-    
-            var package = JSON.parse("shipment.packages");
-            for (var i = 0 ; i<=package.length;i++)
-            {
-                document.getElementById ("card").innerHTML = package[3]
-               // document.getElementsByClassName ("card").innerHTML = package[i].name
-                console.log(package[i].name)
-                console.log(package[i])
-            }
-            </script>
-        
         {% endfor %}
     </div>
 </div>
