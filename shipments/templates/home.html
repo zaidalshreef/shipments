@@ -24,7 +24,7 @@ Home
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                         </div>
                         <div class="col"> 
-                    <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
+                    <p class="card-text"><strong>tracking number:</strong> {{ shipment.tracking_number}}</p>
                 </div>
                 <div class="col"> 
                     <p class="card-text"><p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
@@ -35,15 +35,17 @@ Home
                 <div class="row"> 
                     <div class="col-md-6 mb-4"> 
                     <p class="card-text"><strong>Ship from :</strong> <strong>City: </strong>  {{ shipment.ship_from.city }}
-                      <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
+                      <strong>Address: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
-                      <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
+                      <strong>Phone: </strong>{{ shipment.ship_from.phone }}</p>
+                      <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
                     </div>
                     <div class="col-md-6 mb-4"> 
                     <p class="card-text"><strong>Ship to:</strong> </strong> <strong>City: </strong>  {{ shipment.ship_from.city }}
-                      <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
+                      <strong>Address: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
-                      <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
+                      <strong>Phone: </strong>{{ shipment.ship_from.phone }}</p>
+                      <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
                     </div>
                     </div> <!-- row Block-->
                       
@@ -59,7 +61,7 @@ Home
                     <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ pckg.name }}</p>
                 </div>
                     {% endfor %}
-                    <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
+                    
                     </div> <!-- row Block-->
 
                     </div> <!-- container Block-->
