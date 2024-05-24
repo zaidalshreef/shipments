@@ -35,21 +35,15 @@ function initMaps() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-originMarker.addListener("click", ({ domEvent, latLng }) => {
-  const { target } = domEvent;
-   console.log(target);
-  infoWindow.close();
-  infoWindow.setContent(marker.title);
-  infoWindow.open(marker.map, marker);
+    originMarker.addListener("click", ({ domEvent, latLng }) => {
+       console.log("Origin Marker Clicked");
+
 });
 
 // Add a click listener for each marker, and set up the info window.
-destinationMarker.addListener("click", ({ domEvent, latLng }) => {
-  const { target } = domEvent;
-console.log(target);
-  infoWindow.close();
-  infoWindow.setContent(marker.title);
-  infoWindow.open(marker.map, marker);
+     destinationMarker.addListener("click", ({ domEvent, latLng }) => {
+      console.log("Destination Marker Clicked");
+
 });
 
 }
