@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Shipment Detail
@@ -20,56 +21,24 @@ Shipment Detail
             <p><strong>Tracking Number:</strong> {{ shipment.tracking_number }}</p>
             <p><strong>Tracking Link:</strong> <a href="{{ shipment.tracking_link }}">{{ shipment.tracking_link }}</a></p>
             <p><strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
-            <p><strong>Total:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
-            <p><strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>
+            <p><strong>Total:</strong> {{ shipment.total }}</p>
+            <p><strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery }}</p>
             <p><strong>Label:</strong> <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
-            <p><strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
+            <p><strong>Total Weight:</strong> {{ shipment.total_weight }}</p>
+            <p><strong>Created At Details:</strong> {{ shipment.created_at_details }}</p>
+            <p><strong>Packages:</strong> {{ shipment.packages }}</p>
+            <p><strong>Ship From:</strong> {{ shipment.ship_from }}</p>
+            <p><strong>Ship To:</strong> {{ shipment.ship_to }}</p>
+            <p><strong>Meta:</strong> {{ shipment.meta }}</p>
 
-            <h2 class="mt-4">Packages</h2>
-            <ul class="list-group">
-                {% for package in shipment.packages %}
-                <li class="list-group-item">
-                    <p><strong>Name:</strong> {{ package.name }}</p>
-                    <p><strong>SKU:</strong> {{ package.sku }}</p>
-                    <p><strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>
-                    <p><strong>Quantity:</strong> {{ package.quantity }}</p>
-                    <p><strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>
-                </li>
-                {% endfor %}
-            </ul>
+            <input type="hidden" id="ship_from_lat" value="{{ shipment.ship_from.latitude }}">
+            <input type="hidden" id="ship_from_lng" value="{{ shipment.ship_from.longitude }}">
+            <input type="hidden" id="ship_to_lat" value="{{ shipment.ship_to.latitude }}">
+            <input type="hidden" id="ship_to_lng" value="{{ shipment.ship_to.longitude }}">
 
-            <h2 class="mt-4">Shipping Details</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Ship From</h3>
-                    <p><strong>Name:</strong> {{ shipment.ship_from.name }}</p>
-                    <p><strong>Type:</strong> {{ shipment.ship_from.type }}</p>
-                    <p><strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
-                    <p><strong>City:</strong> {{ shipment.ship_from.city }}</p>
-                    <p><strong>Country:</strong> {{ shipment.ship_from.country }}</p>
-                    <p><strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
-                    <p><strong>Email:</strong> {{ shipment.ship_from.email }}</p>
-                </div>
-                <div class="col-md-6">
-                    <h3>Ship To</h3>
-                    <p><strong>Name:</strong> {{ shipment.ship_to.name }}</p>
-                    <p><strong>Type:</strong> {{ shipment.ship_to.type }}</p>
-                    <p><strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
-                    <p><strong>City:</strong> {{ shipment.ship_to.city }}</p>
-                    <p><strong>Country:</strong> {{ shipment.ship_to.country }}</p>
-                    <p><strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
-                    <p><strong>Email:</strong> {{ shipment.ship_to.email }}</p>
-                </div>
-            </div>
-
-            <h2 class="mt-4">Meta Information</h2>
-            <ul class="list-group">
-                {% for key, value in shipment.meta.items %}
-                <li class="list-group-item">
-                    <strong>{{ key|title }}:</strong> {{ value }}
-                </li>
-                {% endfor %}
-            </ul>
+            <!-- Map Containers -->
+            <div id="originMap" style="height: 500px; width: 100%; margin-bottom: 20px;"></div>
+            <div id="destinationMap" style="height: 500px; width: 100%;"></div>
 
             <h2 class="mt-4">Status History</h2>
             <ul class="list-group">
@@ -87,4 +56,6 @@ Shipment Detail
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/maps.js' %}"></script>
 {% endblock %}
