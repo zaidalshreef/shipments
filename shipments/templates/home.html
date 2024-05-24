@@ -6,14 +6,14 @@ Home
 
 {% block content %}
 <script>
-function packages()_
+function packages()
 {
 
 for (var i = 0 ; i<=shipment.packages.length;i++)
 {
 
    
-     document.getElementById ('pkg').innerHTML = [i].quantity
+     document.getElementById ('pkg').innerHTML = shipment.packages[i].quantity
 }
 
 }
