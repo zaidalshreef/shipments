@@ -27,10 +27,12 @@ Home
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
                       <p id = 'card'> </p>
+                      {% for pckg in shipments.packages %}
                     <p class="card-text" id = 'pkg'><strong>Packages :</strong> {{ shipment.packages }}</p>
-                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ shipment.packages.4 }}</p>
+                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ shipment.packages.weight }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ shipment.packages.quantity }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ shipment.packages.name }}</p>
+                    {% endfor %}
                     <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
 
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
