@@ -38,11 +38,11 @@ function initMaps() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-      originMarker.addListener(originMarker,'click',function() {
+      originMarker.addListener('click',function() {
                 alert('Marker clicked!');
   });
         // Add a click listener for each marker, and set up the info window.
-        destinationMarker.addListener(destinationMarker,'click',function() {
+        destinationMarker.addListener('click',function() {
                 alert('Marker clicked!');
     });
 
