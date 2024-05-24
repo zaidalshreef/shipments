@@ -26,11 +26,11 @@ function initMaps() {
         title: 'Destination'
     });
 
-    originMarker.addListener('click', () => {
+    originMarker.addEventListener('click', () => {
         window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
     });
 
-    destinationMarker.addListener('click', () => {
+    destinationMarker.addEventListener('click', () => {
         window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
 }
