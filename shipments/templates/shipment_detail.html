@@ -105,7 +105,6 @@ Shipment Detail
 <input type="hidden" id="ship_from_lng" value="{{ shipment.ship_from.longitude }}">
 <input type="hidden" id="ship_to_lat" value="{{ shipment.ship_to.latitude }}">
 <input type="hidden" id="ship_to_lng" value="{{ shipment.ship_to.longitude }}">
-<input type="hidden" id="google-maps-api-key" value="{{ google_maps_api_key }}">
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
 <script src="{% static 'js/maps.js' %}"></script>
