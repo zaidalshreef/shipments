@@ -29,9 +29,9 @@ Home
                       <p id = 'card'> </p>
                       {% for pckg in shipments.packages %}
                     <p class="card-text" id = 'pkg'><strong>Packages :</strong> {{ shipment.packages }}</p>
-                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ shipment.packages.weight }}</p>
-                    <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ shipment.packages.quantity }}</p>
-                    <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ shipment.packages.name }}</p>
+                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight }}</p>
+                    <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
+                    <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ pckg.name }}</p>
                     {% endfor %}
                     <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
 
