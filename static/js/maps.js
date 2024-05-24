@@ -35,16 +35,19 @@ function initMaps() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-    originMarker.addListener("click", ({ domEvent, latLng }) => {
-       console.log("Origin Marker Clicked");
+google.maps.event.addListener(originMarker,'click',function() {
+    console.log("Origin Marker Clicked");
+  });
 
-});
 
 // Add a click listener for each marker, and set up the info window.
-     destinationMarker.addListener("click", ({ domEvent, latLng }) => {
-      console.log("Destination Marker Clicked");
-
-});
+    google.maps.event.addListener(originMarker,'click',function() {
+    console.log("Origin Marker Clicked");
+  });
+        // Add a click listener for each marker, and set up the info window.
+        google.maps.event.addListener(destinationMarker,'click',function() {
+        console.log("Destination Marker Clicked");
+    });
 
 }
 
