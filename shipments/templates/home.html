@@ -15,6 +15,7 @@ Home
                 <div class="card-body">
                     
                     <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
+                    <div class="container">
                     <div class = "col">
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                     <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
@@ -41,6 +42,7 @@ Home
                     {% endfor %}
                     <p class="card-text" id = 'pkg'><strong>Type:<p><strong>{{ shipment.type }}</p>
                     </div>
+                </div>
 
                     <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">View Details</a>
                 </div>
