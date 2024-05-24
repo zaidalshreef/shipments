@@ -23,28 +23,27 @@ Home
                     
                     
                     <div class="container">
-                    
-                        <div class="row"> 
 
-                     <div class="col"> 
-                    <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
-                        </div>
-                        <div class="col"> 
-                    <p class="card-text"><strong>tracking number:</strong> {{ shipment.tracking_number}}</p>
-                </div>
-                <div class="col"> 
-                    <p class="card-text"><strong>Merchant:</strong> {{ shipment.merchant }}</p>
-                </div>
-                
-                </div> <!-- row Block-->
-                     
-                
-                    
-                
-                
-                
-                
+                <div class="row"> 
+                    <div class="col"> 
+                  <h5 class="title">Shipment Details</h5>
+                  <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
+                  <p class="card-text"><strong>tracking number:</strong> {{ shipment.tracking_number}}</p>
+                  <p class="card-text"><strong>Merchant:</strong> {{ shipment.merchant }}</p>
+                    </div>
+
+                    <div class="col"> 
                         
+                        <h5 class="title">Package Details </h5>
+                        {% for pckg in shipment.packages %}
+                        <p class="card-text"><strong>Packages weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
+                        <p class="card-text"><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
+                        <p class="card-text"><strong>Packages content:</strong> {{ pckg.name }}</p>
+                          {% endfor %}
+                         
+                          </div>
+                    </div> <!-- row Block-->
+                
                         <div class="row"> 
                     <div class="col"> 
                   <h5 class="title">Ship From</h5>
@@ -66,21 +65,6 @@ Home
                           <p class="card-text"><strong>Type:</strong>{{ shipment.type }}</p>
                          
                           </div>
-                    </div> <!-- row Block-->
-                      
-                    <div class="row">
-                      {% for pckg in shipment.packages %}
-                      <div class="col"> 
-                    <p class="card-text"><strong>Packages weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
-                </div>
-                <div class="col"> 
-                    <p class="card-text"><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
-                </div>
-                    <div class="col"> 
-                    <p class="card-text"><strong>Packages content:</strong> {{ pckg.name }}</p>
-                </div>
-                    {% endfor %}
-                    
                     </div> <!-- row Block-->
 
                     </div> <!-- container Block-->
