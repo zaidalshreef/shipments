@@ -11,7 +11,6 @@ function initMap() {
     const mapOptions = {
         zoom: 7,
         center: origin,
-        mapId: '9f9c60a820b5c98a'
     };
     const originMap = new google.maps.Map(document.getElementById('originMap'), mapOptions);
     const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), mapOptions);
@@ -30,20 +29,5 @@ function initMap() {
         gmpClickable: true,
     });
 
-    const infoWindow = new google.maps.InfoWindow();
-
-    originMarker.addListener('click', ({ domEvent, latLng }) => {
-        infoWindow.close();
-        infoWindow.setContent(originMarker.title);
-        infoWindow.open(originMap, originMarker);
-        window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
-    });
-
-    destinationMarker.addListener('click', ({ domEvent, latLng }) => {
-        infoWindow.close();
-        infoWindow.setContent(destinationMarker.title);
-        infoWindow.open(destinationMap, destinationMarker);
-        window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
-    });
 
 }
