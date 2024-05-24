@@ -138,13 +138,6 @@ Shipment Detail
         title: 'Destination',
     });
 
-    originMarker.addListener('click', () => {
-        window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
-    });
-
-    destinationMarker.addListener('click', () => {
-        window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
-    });
 }
 </script>
 {% endblock %}
