@@ -18,7 +18,7 @@ function initMaps() {
         zoom: 12
     });
 
-   const originMarker = new google.maps.AdvancedMarkerElement({
+   const originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
         title: 'Ship From Location',
@@ -26,7 +26,7 @@ function initMaps() {
 
     });
 
-    const destinationMarker= new google.maps.AdvancedMarkerElement({
+    const destinationMarker= new google.maps.Marker({
         position: destination,
         map: destinationMap,
         title: 'Ship To Location',
