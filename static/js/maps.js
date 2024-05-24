@@ -39,11 +39,11 @@ function initMaps() {
 
     // Add a click listener for each marker, and set up the info window.
        google.maps.event.addListener(originMarker,'click',function() {
-           window.location = originMarker.url;
+           window.location.href = originMarker.url;
   });
         // Add a click listener for each marker, and set up the info window.
         google.maps.event.addListener(destinationMarker,'click',function() {
-           window.location = destinationMarker.url;
+           window.location.href = destinationMarker.url;
     });
 
 }
