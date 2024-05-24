@@ -28,8 +28,7 @@ Home
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
                       
                       {% for pckg in shipment.packages %}
-                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight.units }}
-                        {{ pckg.weight.value }}</p>
+                    <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ pckg.name }}</p>
                     {% endfor %}
