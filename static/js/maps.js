@@ -27,6 +27,7 @@ function initMaps() {
         position: origin,
         map: originMap,
         title: 'Ship From Location',
+        url: 'https://maps.google.com/maps?q=loc:'+origin.lat+','+origin.lng+''
     });
 
      destinationMarker= new google.maps.Marker({
