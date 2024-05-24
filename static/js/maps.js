@@ -1,11 +1,11 @@
 function initMaps() {
     const origin = {
-        lat: parseFloat('{{ ship_from_lat }}'),
-        lng: parseFloat('{{ ship_from_lng }}')
+        lat: parseFloat(document.getElementById('ship_from_lat').value),
+        lng: parseFloat(document.getElementById('ship_from_lng').value)
     };
     const destination = {
-        lat: parseFloat('{{ ship_to_lat }}'),
-        lng: parseFloat('{{ ship_to_lng }}')
+        lat: parseFloat(document.getElementById('ship_to_lat').value),
+        lng: parseFloat(document.getElementById('ship_to_lng').value)
     };
 
     const mapOptions = {
@@ -35,3 +35,14 @@ function initMaps() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    loadGoogleMaps();
+});
+
+function loadGoogleMaps() {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${document.getElementById('google-maps-api-key').value}&callback=initMaps`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}
