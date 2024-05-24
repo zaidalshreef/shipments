@@ -109,35 +109,44 @@ Shipment Detail
 
  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"></script>
 <script>
-    function initMap() {
-        const origin = {
-            lat: parseFloat(document.getElementById('ship_from_lat').value),
-            lng: parseFloat(document.getElementById('ship_from_lng').value)
-        };
-        const destination = {
-            lat: parseFloat(document.getElementById('ship_to_lat').value),
-            lng: parseFloat(document.getElementById('ship_to_lng').value)
-        };
+   function initMaps() {
+    const origin = {
+        lat: parseFloat(document.getElementById('ship_from_lat').value),
+        lng: parseFloat(document.getElementById('ship_from_lng').value)
+    };
+    const destination = {
+        lat: parseFloat(document.getElementById('ship_to_lat').value),
+        lng: parseFloat(document.getElementById('ship_to_lng').value)
+    };
 
-        const originMap = new google.maps.Map(document.getElementById('originMap'), {
-            zoom: 10,
-            center: origin
-        });
+    const mapOptions = {
+        zoom: 7,
+        center: origin
+    };
+    const originMap = new google.maps.Map(document.getElementById('originMap'), mapOptions);
+    const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), mapOptions);
 
-        const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), {
-            zoom: 10,
-            center: destination
-        });
+    const originMarker = new google.maps.Marker({
+        position: origin,
+        map: originMap,
+        title: 'Origin',
+        clickable: true
+    });
 
-        const originMarker = new google.maps.Marker({
-            position: origin,
-            map: originMap
-        });
+    const destinationMarker = new google.maps.Marker({
+        position: destination,
+        map: destinationMap,
+        title: 'Destination',
+        clickable: true
+    });
 
-        const destinationMarker = new google.maps.Marker({
-            position: destination,
-            map: destinationMap
-        });
-    }
+    originMarker.addListener('click', () => {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
+    });
+
+    destinationMarker.addListener('click', () => {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
+    });
+}
 </script>
 {% endblock %}
