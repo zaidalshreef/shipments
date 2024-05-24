@@ -23,31 +23,49 @@ function initMaps() {
         zoom: 12
     });
 
-      originMap.addListener('click', function(e) {
-    console.log(e);
-  });
+
     originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
-        title: 'Ship From Location',
-        url: 'https://maps.google.com/maps?q=loc:'+origin.lat+','+origin.lng+''
+        draggable: false
     });
 
-     destinationMarker= new google.maps.Marker({
+    destinationMarker = new google.maps.Marker({
         position: destination,
         map: destinationMap,
-        title: 'Ship To Location',
-         url: 'https://maps.google.com/maps?q=loc:'+destination.lat+','+destination.lng+''
+        draggable: false
     });
 
-    // Add a click listener for each marker, and set up the info window.
-       google.maps.event.addListener(originMarker,'click',function() {
-           window.location.href = originMarker.url;
-  });
-        // Add a click listener for each marker, and set up the info window.
-        google.maps.event.addListener(destinationMarker,'click',function() {
-           window.location.href = destinationMarker.url;
+    originMarker.addListener('dragend', function(event) {
+        document.getElementById('ship_from_lat').value = event.latLng.lat();
+        document.getElementById('ship_from_lng').value = event.latLng.lng();
     });
+
+    destinationMarker.addListener('dragend', function(event) {
+        document.getElementById('ship_to_lat').value = event.latLng.lat();
+        document.getElementById('ship_to_lng').value = event.latLng.lng();
+    });
+
+    const originInfoWindow = new google.maps.InfoWindow({
+        content: 'Origin'
+    });
+    const destinationInfoWindow = new google.maps.InfoWindow({
+        content: 'Destination'
+    });
+
+    originInfoWindow.open(originMap, originMarker);
+    destinationInfoWindow.open(destinationMap, destinationMarker);
+    originMap.addListener('click', function(event) {
+        originMarker.setPosition(event.latLng);
+        document.getElementById('ship_from_lat').value = event.latLng.lat();
+        document.getElementById('ship_from_lng').value = event.latLng.lng();
+    });
+    destinationMap.addListener('click', function(event) {
+        destinationMarker.setPosition(event.latLng);
+        document.getElementById('ship_to_lat').value = event.latLng.lat();
+        document.getElementById('ship_to_lng').value = event.latLng.lng();
+    });
+
 
 }
 
