@@ -5,15 +5,8 @@ Home
 {% endblock %}
 
 {% block content %}
-<script>
-for (var i = 0 ; i<=shipment.packages.length;i++)
-{
-    document.getElementById ("test").innerHTML = shipment.packages[i].name
-    document.getElementsByClassName ("card").innerHTML = shipment.packages[i].name
-    console.log(shipment.packages[i].name)
-    console.log(shipment.packages[i])
-}
-</script>
+<body>
+    
 <div class="container-fluid">
     <h1 class="my-4">Home</h1>
     <div class="row">
@@ -48,4 +41,15 @@ for (var i = 0 ; i<=shipment.packages.length;i++)
         {% endfor %}
     </div>
 </div>
+
+<script>
+    for (var i = 0 ; i<=shipment.packages.length;i++)
+    {
+        document.getElementById ("test").innerHTML = shipment.packages[i].name
+        document.getElementsByClassName ("card").innerHTML = shipment.packages[i].name
+        console.log(shipment.packages[i].name)
+        console.log(shipment.packages[i])
+    }
+    </script>
+</body>
 {% endblock %}
