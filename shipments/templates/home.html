@@ -6,9 +6,6 @@ Home
 
 {% block content %}
 <script>
-function packages()
-{
-
 for (var i = 0 ; i<=shipment.packages.length;i++)
 {
     document.getElementById ("test").innerHTML = shipment.packages[i].name
@@ -16,9 +13,6 @@ for (var i = 0 ; i<=shipment.packages.length;i++)
     console.log(shipment.packages[i].name)
     console.log(shipment.packages[i])
 }
-
-}
-
 </script>
 <div class="container-fluid">
     <h1 class="my-4">Home</h1>
