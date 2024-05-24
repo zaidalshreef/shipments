@@ -23,6 +23,9 @@ function initMaps() {
         zoom: 12
     });
 
+      originMap.addListener('click', function(e) {
+    console.log(e);
+  });
     originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
