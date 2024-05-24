@@ -38,12 +38,12 @@ function initMaps() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-      originMarker.addListener('click',function() {
-                alert('Marker clicked!');
+       google.maps.event.addListener(originMarker,'click',function() {
+           window.location = originMarker.url;
   });
         // Add a click listener for each marker, and set up the info window.
-        destinationMarker.addListener('click',function() {
-                alert('Marker clicked!');
+        google.maps.event.addListener(destinationMarker,'click',function() {
+           window.location = destinationMarker.url;
     });
 
 }
