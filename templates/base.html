@@ -1,76 +1,56 @@
 {% load static %}
-<!doctype html>
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <title>{% block title %}My Django App{% endblock %}</title>
-    <style>
-        body {
-            padding-top: 56px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-size: 0.9rem; /* Reduce the font size of navbar links */
-        }
-        .navbar-brand img {
-            width: 40px;
-            height: 40px;
-        }
-        .navbar-nav .nav-link {
-            font-size: 0.9rem; /* Reduce the font size of navbar links */
-            }
-        main {
-            background-color: #ffffff;  /* Explicitly set the background color */
-            flex: 1;
-        }
-        footer {
-            background-color: #343a40;
-            color: #fff;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+    
+    
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="{% static 'img/logo.jpg' %}" alt="Logo">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Shipments History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Analytics</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main class="mt-5">
-        {% block content %}{% endblock %}
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid" id = "container" > 
+        <a class="navbar-brand" href="#"> <!-- Add link -->
+        <img src="{% static 'img/logo.jpg' %}"  width="80" height="80">
+      </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+           aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a> <!-- Add link -->
+              </li>
+              <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Shipments History</a> <!-- Add link -->
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Analytics</a> <!-- Add link -->
+          </li>
+           
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+      
+              </header>
+              
+    <main>
+        {% block content %}
+        <!-- The content of each page will be inserted here -->
+        {% endblock %}
     </main>
-    <footer class="text-center mt-5">
-            <p class="mb-0">&copy; 2024 My Django App. All rights reserved.</p>
+
+    <footer>
+        <!-- You can put your footer content here -->
     </footer>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
