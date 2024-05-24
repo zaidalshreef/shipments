@@ -11,12 +11,12 @@ function packages()
 
 for (var i = 0 ; i<=shipment.packages.length;i++)
 {
-    //document.getElementById ('pkg').innerHTML = shipment.packages[i].name
+    document.getElementById ('test').innerHTML = shipment.packages[i].name
    
     console.log(shipment.packages[i].name)
 }
 
-}
+}.
 
 </script>
 <div class="container-fluid">
@@ -39,6 +39,8 @@ for (var i = 0 ; i<=shipment.packages.length;i++)
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
+                      <p id = 'test'> </p>
+                    <p class="card-text" id = 'pkg'><strong>Packages :</strong> {{ shipment.packages }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ shipment.packages.weight.value }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ shipment.packages.quantity }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages content:</strong> {{ shipment.packages.name }}</p>
