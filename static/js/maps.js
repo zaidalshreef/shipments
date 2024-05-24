@@ -35,14 +35,8 @@ function initMaps() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-google.maps.event.addListener(originMarker,'click',function() {
-    console.log("Origin Marker Clicked");
-  });
-
-
-// Add a click listener for each marker, and set up the info window.
-    google.maps.event.addListener(originMarker,'click',function() {
-    console.log("Origin Marker Clicked");
+      google.maps.event.addListener(originMarker,'click',function() {
+          console.log("Origin Marker Clicked");
   });
         // Add a click listener for each marker, and set up the info window.
         google.maps.event.addListener(destinationMarker,'click',function() {
