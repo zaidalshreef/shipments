@@ -28,12 +28,12 @@ function initMaps() {
 
     console.log('Setting up event listeners for markers');
 
-    originMarker.addListener('click', () => {
+    originMarker.addEventListener('click', () => {
         console.log('Origin marker clicked');
         window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
     });
 
-    destinationMarker.addListener('click', () => {
+    destinationMarker.addEventListener('click', () => {
         console.log('Destination marker clicked');
         window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
