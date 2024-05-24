@@ -7,6 +7,7 @@ from pprint import pprint
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.urls import reverse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
@@ -326,7 +327,7 @@ def update_salla_api(shipment, status):
         'Content-Type': 'application/json'
     }
     payload = {
-        'shipment_number': str(shipment.shiping_number),  # Convert UUID to string
+        'shipment_number': str(shipment.shipping_number),  # Convert UUID to string
         'tracking_link': shipment.tracking_link,
         'tracking_number': shipment.tracking_number,
         'status': status,
