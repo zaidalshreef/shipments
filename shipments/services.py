@@ -51,13 +51,13 @@ def webhook_handler(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
-def send_shipment_email(shipment, event_type):
+def send_shipment_email(shipment_data, event_type):
     domain = settings.ALLOWED_HOSTS[0]  # Get the first domain from ALLOWED_HOSTS
-    details_url = f"https://{domain}{reverse('shipments:shipment_detail', args=[shipment.shipment_id])}"
+    details_url = f"https://{domain}{reverse('shipments:shipment_detail', args=[shipment_data['shipment_id']])}"
     color = 'green' if event_type == 'created' else 'red'
 
     context = {
-        'shipment_id': shipment.shipment_id,
+        'shipment_id': shipment_data['shipment_id'],
         'event_type': event_type,
         'details_url': details_url,
         'color': color,
