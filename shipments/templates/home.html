@@ -16,25 +16,28 @@ Home
                     
                     <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
                     <div class="container">
-                    <div class = "col-6 col-md-4">
+                    <div class="row"></div>
+                    <div class = "col">
+                        
                     <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                     <p class="card-text"><strong>Shipment tracking number:</strong> {{ shipment.tracking_number}}</p>
                     <p class="card-text"><p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
                     <p class="card-text"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                 </div>
-                <div class = "col-6 col-md-4">
+            </div>
+                <div class = "col">
                     <p class="card-text"><strong>Ship from :</strong> <strong>City: </strong>  {{ shipment.ship_from.city }}
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
                     </div>
-                    <div class = "col-6 col-md-4">
+                    <div class = "col">
                     <p class="card-text"><strong>Ship to:</strong> </strong> <strong>City: </strong>  {{ shipment.ship_from.city }}
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
                     </div>
-                    <div class = "col-6 col-md-4"> 
+                    <div class = "col"> 
                       {% for pckg in shipment.packages %}
                     <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
