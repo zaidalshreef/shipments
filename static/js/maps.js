@@ -21,13 +21,16 @@ function initMaps() {
     new google.maps.AdvancedMarkerElement({
         position: origin,
         map: originMap,
-        title: 'Ship From Location'
+        title: 'Ship From Location',
+        gmpClickable: true,
+
     });
 
     new google.maps.AdvancedMarkerElement({
         position: destination,
         map: destinationMap,
-        title: 'Ship To Location'
+        title: 'Ship To Location',
+        gmpClickable: true,
 
     });
 }
