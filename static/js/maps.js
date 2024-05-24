@@ -18,7 +18,7 @@ function initMaps() {
         zoom: 12
     });
 
-    new google.maps.AdvancedMarkerElement({
+   const originMarker = new google.maps.AdvancedMarkerElement({
         position: origin,
         map: originMap,
         title: 'Ship From Location',
@@ -26,13 +26,32 @@ function initMaps() {
 
     });
 
-    new google.maps.AdvancedMarkerElement({
+    const destinationMarker= new google.maps.AdvancedMarkerElement({
         position: destination,
         map: destinationMap,
         title: 'Ship To Location',
         gmpClickable: true,
 
     });
+
+    // Add a click listener for each marker, and set up the info window.
+originMarker.addListener("click", ({ domEvent, latLng }) => {
+  const { target } = domEvent;
+
+  infoWindow.close();
+  infoWindow.setContent(marker.title);
+  infoWindow.open(marker.map, marker);
+});
+
+// Add a click listener for each marker, and set up the info window.
+destinationMarker.addListener("click", ({ domEvent, latLng }) => {
+  const { target } = domEvent;
+
+  infoWindow.close();
+  infoWindow.setContent(marker.title);
+  infoWindow.open(marker.map, marker);
+});
+
 }
 
 function loadGoogleMaps() {
