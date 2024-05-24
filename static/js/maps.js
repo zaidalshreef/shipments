@@ -30,15 +30,22 @@ function initMaps() {
         gmpClickable: true,
     });
 
-    originMarker.addListener('click', () => {
-        console.log('origin clicked');
+    const infoWindow = new google.maps.InfoWindow();
+
+    originMarker.addListener('click', ({ domEvent, latLng }) => {
+        infoWindow.close();
+        infoWindow.setContent(originMarker.title);
+        infoWindow.open(originMap, originMarker);
         window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
     });
 
-    destinationMarker.addListener('click', () => {
-        console.log('destination clicked');
+    destinationMarker.addListener('click', ({ domEvent, latLng }) => {
+        infoWindow.close();
+        infoWindow.setContent(destinationMarker.title);
+        infoWindow.open(destinationMap, destinationMarker);
         window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
