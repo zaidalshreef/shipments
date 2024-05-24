@@ -10,7 +10,8 @@ function initMaps() {
 
     const mapOptions = {
         zoom: 7,
-        center: origin
+        center: origin,
+        mapId: '9f9c60a820b5c98a'
     };
     const originMap = new google.maps.Map(document.getElementById('originMap'), mapOptions);
     const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), mapOptions);
@@ -18,21 +19,23 @@ function initMaps() {
     const originMarker = new google.maps.marker.AdvancedMarkerElement({
         position: origin,
         map: originMap,
-        title: 'Origin'
+        title: 'Origin',
+        gmpClickable: true,
     });
 
     const destinationMarker = new google.maps.marker.AdvancedMarkerElement({
         position: destination,
         map: destinationMap,
-        title: 'Destination'
+        title: 'Destination',
+        gmpClickable: true,
     });
 
-    originMarker.addEventListener('click', () => {
+    originMarker.addListener('click', () => {
         console.log('origin clicked');
         window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
     });
 
-    destinationMarker.addEventListener('click', () => {
+    destinationMarker.addListener('click', () => {
         console.log('destination clicked');
         window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
