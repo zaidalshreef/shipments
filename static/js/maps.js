@@ -10,12 +10,12 @@ function initMaps() {
 
     const originMap = new google.maps.Map(document.getElementById('originMap'), {
         center: origin,
-        zoom: 12
+        zoom: 7
     });
 
     const destinationMap = new google.maps.Map(document.getElementById('destinationMap'), {
         center: destination,
-        zoom: 12
+        zoom: 7
     });
 
     const originMarker = new google.maps.Marker({
