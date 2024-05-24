@@ -130,14 +130,12 @@ Shipment Detail
         position: origin,
         map: originMap,
         title: 'Origin',
-        clickable: true
     });
 
     const destinationMarker = new google.maps.Marker({
         position: destination,
         map: destinationMap,
         title: 'Destination',
-        clickable: true
     });
 
     originMarker.addListener('click', () => {
