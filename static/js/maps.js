@@ -18,16 +18,17 @@ function initMaps() {
         zoom: 12
     });
 
-    new google.maps.Marker({
+    new google.maps.AdvancedMarkerElement({
         position: origin,
         map: originMap,
         title: 'Ship From Location'
     });
 
-    new google.maps.Marker({
+    new google.maps.AdvancedMarkerElement({
         position: destination,
         map: destinationMap,
         title: 'Ship To Location'
+
     });
 }
 
