@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load jsonify %}
 {% block title %}
 Home
 {% endblock %}
@@ -42,7 +42,8 @@ Home
     </div>
 </div>
 <script>
-    var package = JSON.parse(shipments.packages);
+    
+    var package = JSON.parse("{{shipments.packages}}");
     for (var i = 0 ; i<=package.length;i++)
     {
         document.getElementById ("card").innerHTML = package[3]
