@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ShipmentForm, ShipmentStatusForm
 from .models import Shipment
 from .services import update_salla_api, handle_status_update, handle_shipment_update
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Retrieve the Google Maps API key from the environment variables
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')
 
 
 def home(request):
@@ -47,7 +54,11 @@ def shipment_list(request):
 
 def shipment_detail(request, shipment_id):
     shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
-    return render(request, 'shipment_detail.html', {'shipment': shipment})
+    context = {
+        'shipment': shipment,
+        'google_maps_api_key': GOOGLE_MAPS_API_KEY
+    }
+    return render(request, 'shipment_detail.html', context)
 
 
 def update_shipment_details(request, shipment_id):
@@ -87,7 +98,7 @@ def update_shipment_details(request, shipment_id):
             return redirect('shipment_detail', shipment_id=shipment_id)
     else:
         form = ShipmentForm(instance=shipment)
-    return render(request, 'shipment_form.html', {'form': form , 'shipment': shipment})
+    return render(request, 'shipment_form.html', {'form': form, 'shipment': shipment})
 
 
 def update_status(request, shipment_id):

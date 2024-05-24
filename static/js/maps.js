@@ -1,3 +1,6 @@
+
+import dotenv from 'dotenv';
+
 function initMaps() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
@@ -32,14 +35,15 @@ function initMaps() {
 }
 
 // Load the Google Maps script
-function loadGoogleMaps() {
+function loadGoogleMaps(apiKey) {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8&callback=initMaps`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMaps`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadGoogleMaps();
+    const apiKey = document.getElementById('google-maps-api-key').value;
+    loadGoogleMaps(apiKey);
 });

@@ -18,6 +18,7 @@ services:
         - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
         - POSTGRES_HOST=${POSTGRES_HOST}
         - POSTGRES_PORT=${POSTGRES_PORT}
+        - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
     logging:
       driver: gelf
       options:
