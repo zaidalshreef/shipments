@@ -26,8 +26,10 @@ Home
                       <strong>Address line: </strong>{{ shipment.ship_from.address_line }}
                       <strong>Postal Code: </strong>{{ shipment.ship_from.postal_code }} 
                       <strong>Phone Number: </strong>{{ shipment.ship_from.phone }}</p>
-                      <p id = 'card'> </p>
+                      
                       {% for pckg in shipments.packages %}
+
+                      <p id = 'card'>Test pckg loop </p>
                     <p class="card-text" id = 'pkg'><strong>Packages :</strong> {{ shipment.packages }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages weight:</strong> {{ pckg.weight }}</p>
                     <p class="card-text" id = 'pkg'><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
