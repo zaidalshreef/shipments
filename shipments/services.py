@@ -7,6 +7,7 @@ from pprint import pprint
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.urls import reverse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
