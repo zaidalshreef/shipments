@@ -132,7 +132,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
-    os.environ.get('CSRF_TRUSTED_ORIGINS',"techsynapse.org")
+    os.environ.get('CSRF_TRUSTED_ORIGINS',"https://techsynapse.org")
 ]
 
 
