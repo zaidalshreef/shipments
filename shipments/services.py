@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Shipment, ShipmentStatus, MerchantToken
-
+from django.utils.html import strip_tags
 
 @csrf_exempt
 def webhook_handler(request):
@@ -52,20 +52,31 @@ def webhook_handler(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
-def send_shipment_email(shipment_data, event_type):
-    domain = settings.ALLOWED_HOSTS[0]  # Get the first domain from ALLOWED_HOSTS
+
+
+def send_shipment_email(shipment_data, status):
+    domain = settings.ALLOWED_HOSTS[0]
     details_url = f"https://{domain}{reverse('shipments:shipment_detail', args=[shipment_data['shipment_id']])}"
-    color = 'green' if event_type == 'created' else 'red'
 
     context = {
         'shipment_id': shipment_data['shipment_id'],
-        'event_type': event_type,
+        'status': status,
         'details_url': details_url,
-        'color': color,
+        'ship_from': shipment_data['ship_from'],
+        'ship_to': shipment_data['ship_to'],
+        'origin_lat': shipment_data['ship_from']['latitude'],
+        'origin_lng': shipment_data['ship_from']['longitude'],
+        'destination_lat': shipment_data['ship_to']['latitude'],
+        'destination_lng': shipment_data['ship_to']['longitude'],
     }
-    subject = f"Shipment {event_type.capitalize()}"
-    message = render_to_string('shipment_email.html', context)
-    send_mail(subject, message, 'from@example.com', ['to@example.com'], fail_silently=False)
+
+    subject = f"Shipment {status.capitalize()} - {shipment_data['shipment_id']}"
+    html_message = render_to_string('shipment_email.html', context)
+    plain_message = strip_tags(html_message)
+    from_email = settings.DEFAULT_FROM_EMAIL
+    to_email = settings.INTERNAL_STAFF_EMAILS  # A list of internal staff emails
+
+    send_mail(subject, plain_message, from_email, to_email, html_message=html_message)
 
 
 def handle_store_authorize(data):

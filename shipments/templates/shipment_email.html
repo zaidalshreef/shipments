@@ -1,43 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Shipment {{ status|capitalize }}</title>
     <style>
-        .shipment-status {
-            color: {{ color }};
-        }
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            line-height: 1.6;
+            color: #333;
         }
-        .header {
-            background-color: #f8f9fa;
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
         }
-        .content {
-            padding: 20px;
+        h1 {
+            color: {% if status == 'created' %}green{% elif status == 'cancelled' %}red{% endif %};
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .footer {
-            background-color: #f8f9fa;
-            padding: 10px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-            margin-top: 20px;
+        p {
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .section p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 class="shipment-status">Shipment {{ event_type }}</h1>
-    </div>
-    <div class="content">
-        <p class="shipment-status">Shipment ID: {{ shipment_id }}</p>
-        <p>The status of your shipment has been updated to <span class="shipment-status">{{ event_type }}</span>.</p>
-        <p>You can view the shipment details <a href="{{ details_url }}">here</a>.</p>
-    </div>
-    <div class="footer">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+    <div class="container">
+        <h1>Shipment {{ status|capitalize }}</h1>
+        <div class="section">
+            <p><strong>Shipment ID:</strong> {{ shipment_id }}</p>
+            <p><a href="{{ details_url }}">View Shipment Details</a></p>
+        </div>
+        <div class="section">
+            <h3>Ship From:</h3>
+            <p><strong>Name:</strong> {{ ship_from.name }}</p>
+            <p><strong>Address:</strong> {{ ship_from.address_line }}</p>
+            <p><strong>Phone:</strong> {{ ship_from.phone }}</p>
+            <p><strong>Email:</strong> {{ ship_from.email }}</p>
+            <p><a href="https://www.google.com/maps/search/?api=1&query={{ origin_lat }},{{ origin_lng }}" target="_blank">View on Google Maps</a></p>
+        </div>
+        <div class="section">
+            <h3>Ship To:</h3>
+            <p><strong>Name:</strong> {{ ship_to.name }}</p>
+            <p><strong>Address:</strong> {{ ship_to.address_line }}</p>
+            <p><strong>Phone:</strong> {{ ship_to.phone }}</p>
+            <p><strong>Email:</strong> {{ ship_to.email }}</p>
+            <p><a href="https://www.google.com/maps/search/?api=1&query={{ destination_lat }},{{ destination_lng }}" target="_blank">View on Google Maps</a></p>
+        </div>
     </div>
 </body>
 </html>
