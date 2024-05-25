@@ -207,7 +207,8 @@ def handle_status_update(shipment_id, status):
         status=status
     )
     new_status.save()
-    update_salla_api(shipment, status)
+    if status != 'cancelled':
+        update_salla_api(shipment, status)
     return JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
 
 
@@ -228,9 +229,10 @@ def handle_shipment_creation_or_update(shipment_data, status):
 
     """
     existing_shipment = Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first()
-    if existing_shipment:
-        if shipment_data.get('type') == 'return':
-            return handle_shipment_update(shipment_data)
+    if existing_shipment and shipment_data.get('type') == 'return':
+        handle_shipment_update(shipment_data)
+        return handle_status_update(shipment_data.get('shipment_id'), 'created')
+    elif existing_shipment:
         return handle_status_update(shipment_data.get('shipment_id'), status)
     else:
         return handle_shipment_creation(shipment_data, status)
@@ -282,9 +284,6 @@ def handle_shipment_update(shipment_data):
         return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
     update_database(shipment_data)
-    shipment = Shipment.objects.get(shipment_id=shipment_id)
-    status = shipment.statuses.last().status
-    update_salla_api(shipment, status)
     return JsonResponse({'message': 'Shipment update event processed'}, status=200)
 
 
@@ -343,7 +342,7 @@ def update_salla_api(shipment, status):
         'tracking_number': shipment.tracking_number,
         'status': status,
         'pdf_label': shipment.label.get('url', '') if shipment.label else '',
-        'cost': shipment.total.get('amount', 0)  # Assuming 'total' is a JSONField
+        'cost': 19  # Update the cost based on the shipment details
     }
     response = requests.put(api_url, headers=headers, json=payload)
     if response.status_code != 200:
