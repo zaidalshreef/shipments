@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vxrnxz99$&v84h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS','techsynapse.org')]
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS',"techsynapse.org"), 'localhost']
 
 # Application definition
 
@@ -132,7 +132,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
-    os.environ.get('CSRF_TRUSTED_ORIGINS','https://techsynapse.org')
+    'https://techsynapse.org'
 ]
 
 
