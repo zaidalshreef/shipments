@@ -45,17 +45,17 @@ async function initMap() {
     });
 
     // Add a click listener for each marker, and set up the info window.
-    originMarker.addListener("click", () => {
-      infoWindow.close();
-      infoWindow.setContent(marker.getTitle());
-      infoWindow.open(marker.getMap(), marker);
-    });
+    originMarker.addListener("click", function() {
+    infoWindow.close();
+    infoWindow.setContent(this.getTitle());
+    infoWindow.open(this.getMap(), this);
+});
     // Add a click listener for each marker, and set up the info window.
-    destinationMarker.addListener("click", () => {
-      infoWindow.close();
-      infoWindow.setContent(marker.getTitle());
-      infoWindow.open(marker.getMap(), marker);
-    });
+    destinationMarker.addListener("click", function() {
+    infoWindow.close();
+    infoWindow.setContent(this.getTitle());
+    infoWindow.open(this.getMap(), this);
+});
 
 }
 
