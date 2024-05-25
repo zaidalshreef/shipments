@@ -21,7 +21,7 @@ services:
 
       # Django settings
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}  # Secret key for Django application, e.g., supersecretkey
-      - DJANGO_DEBUG=${DJANGO_DEBUG}  # Debug mode for Django application (True for development, False for production), e.g., False
+      - DJANGO_DEBUG=True  # Debug mode for Django application (True for development, False for production), e.g., False
 
       # Email settings
       - EMAIL_HOST=${EMAIL_HOST}  # SMTP server host, e.g., smtp.gmail.com
@@ -33,14 +33,12 @@ services:
       - INTERNAL_STAFF_EMAILS=${INTERNAL_STAFF_EMAILS}  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com
 
       # API keys
-      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}  # API key for Google Maps, e.g., your_google_maps_api_key
-      - SALLA_API_KEY=${SALLA_API_KEY}  # API key for Salla, e.g., your_salla_api_key
-      - SALLA_API_SECRET=${SALLA_API_SECRET}  # API secret for Salla, e.g., your_salla_api_secret
+      - GOOGLE_MAPS_API_KEY=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8  # API key for Google Maps, e.g., your_google_maps_api_key
+      - SALLA_API_KEY=8d20a45d-ca26-4910-b6ca-1b49f0298632  # API key for Salla, e.g., your_salla_api_key
+      - SALLA_API_SECRET=37686b0677d48c01cc8eb9b7ad2e2cea  # API secret for Salla, e.g., your_salla_api_secret
 
       # Security settings
-      #- ALLOWED_HOSTS=${ALLOWED_HOSTS}  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
       - ALLOWED_HOSTS=techsynapse.org  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
-      #- CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}  # Comma-separated list of CSRF trusted origins, e.g., https://techsynapse.org
       - CORS_ALLOWED_ORIGINS=https://techsynapse.org,https://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
     logging:
       driver: gelf
