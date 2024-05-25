@@ -28,6 +28,7 @@ services:
         - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
         - EMAIL_USE_TLS=${EMAIL_USE_TLS}
         - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+        - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
     logging:
       driver: gelf
       options:
