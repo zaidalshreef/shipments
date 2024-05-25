@@ -1,4 +1,4 @@
-function initMaps() {
+function initMap() {
     const originMapElement = document.getElementById('originMap');
     const destinationMapElement = document.getElementById('destinationMap');
 
