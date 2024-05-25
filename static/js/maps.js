@@ -1,3 +1,5 @@
+
+
 function initMap() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
@@ -18,8 +20,10 @@ function initMap() {
         zoom: 7
     });
 
+    // Create an info window to share between markers.
+    const infoWindow = new google.maps.InfoWindow();
 
-    const originMarker = new google.maps.Marker({
+    const originMarker = new google.maps.AdvancedMarkerElement({
         position: origin,
         map: originMap,
         title: "Origin",
@@ -27,7 +31,7 @@ function initMap() {
         optimized: false,
     });
 
-    const destinationMarker = new google.maps.Marker({
+    const destinationMarker = new google.maps.AdvancedMarkerElement({
         position: destination,
         map: destinationMap,
         title: "Destination",
@@ -35,15 +39,19 @@ function initMap() {
         optimized: false,
     });
 
-    // Add a click listener for the origin marker
+    // Add a click listener for each marker, and set up the info window.
     originMarker.addListener("click", () => {
-        window.open = `https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`;
-
+        infoWindow.close();
+        infoWindow.setContent(originMarker.title);
+        infoWindow.open(originMarker.getMap(), originMarker);
+        window.open(`https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`, '_blank');
     });
 
-    // Add a click listener for the destination marker
     destinationMarker.addListener("click", () => {
-        window.open = `https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`;
+        infoWindow.close();
+        infoWindow.setContent(destinationMarker.title);
+        infoWindow.open(destinationMarker.getMap(), destinationMarker);
+        window.open(`https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`, '_blank');
     });
 }
 
