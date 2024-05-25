@@ -11,15 +11,10 @@ Shipment Detail
     <div class="card mb-4">
         <div class="card-body">
             <p><strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
-            <p><strong>Event:</strong> {{ shipment.event }}</p>
             <p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
             <p><strong>Created At:</strong> {{ shipment.created_at }}</p>
             <p><strong>Type:</strong> {{ shipment.type }}</p>
             <p><strong>Shipping Number:</strong> {{ shipment.shipping_number }}</p>
-            <p><strong>Courier Name:</strong> {{ shipment.courier_name }}</p>
-            <p><strong>Courier Logo:</strong> <img src="{{ shipment.courier_logo }}" alt="Courier Logo" class="img-fluid"></p>
-            <p><strong>Tracking Number:</strong> {{ shipment.tracking_number }}</p>
-            <p><strong>Tracking Link:</strong> <a href="{{ shipment.tracking_link }}">{{ shipment.tracking_link }}</a></p>
             <p><strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
             <p><strong>Total:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
             <p><strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>
@@ -48,10 +43,7 @@ Shipment Detail
                 <div class="card-body">
                     <h3>Ship From</h3>
                     <p><strong>Name:</strong> {{ shipment.ship_from.name }}</p>
-                    <p><strong>Type:</strong> {{ shipment.ship_from.type }}</p>
                     <p><strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
-                    <p><strong>City:</strong> {{ shipment.ship_from.city }}</p>
-                    <p><strong>Country:</strong> {{ shipment.ship_from.country }}</p>
                     <p><strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
                     <p><strong>Email:</strong> {{ shipment.ship_from.email }}</p>
                     <div id="originMap" data-lat="{{ shipment.ship_from.latitude }}" data-lng="{{ shipment.ship_from.longitude }}" data-name="{{ shipment.ship_from.name }}" data-address="{{ shipment.ship_from.address_line }}" style="height: 300px; width: 100%;"></div>
@@ -63,10 +55,7 @@ Shipment Detail
                 <div class="card-body">
                     <h3>Ship To</h3>
                     <p><strong>Name:</strong> {{ shipment.ship_to.name }}</p>
-                    <p><strong>Type:</strong> {{ shipment.ship_to.type }}</p>
                     <p><strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
-                    <p><strong>City:</strong> {{ shipment.ship_to.city }}</p>
-                    <p><strong>Country:</strong> {{ shipment.ship_to.country }}</p>
                     <p><strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
                     <p><strong>Email:</strong> {{ shipment.ship_to.email }}</p>
                     <div id="destinationMap" data-lat="{{ shipment.ship_to.latitude }}" data-lng="{{ shipment.ship_to.longitude }}" data-name="{{ shipment.ship_to.name }}" data-address="{{ shipment.ship_to.address_line }}" style="height: 300px; width: 100%;"></div>
