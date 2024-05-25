@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vxrnxz99$&v84h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["techsynapse.org", "localhost"]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS',["techsynapse.org", "localhost"])
 
 # Application definition
 
@@ -143,13 +143,14 @@ LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logo
 # Email settings
 # Uncomment the following settings to use the SMTP email backend
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'your_email@gmail.com'
-# EMAIL_HOST_PASSWORD = 'your_email_password'
-INTERNAL_STAFF_EMAILS = ['', '']  # Add the email addresses of the internal staff
-DEFAULT_FROM_EMAIL = ''  # Add the email address of the default sender
+# EMAIL_HOST = os.environ.get('EMAIL_HOST','smtp.gmail.com')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT','587')
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS','Myshipment.sam@gmail.com')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER','Myshipment.sam@gmail.com')
+# EMAIL_HOST_PASSWORD =   os.environ.get('EMAIL_HOST_PASSWORD','Myshipment.sam@gmail.com')
+
+INTERNAL_STAFF_EMAILS = ['Myshipment.sam@gmail.com']  # Add the email addresses of the internal staff
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL','Myshipment.sam@gmail.com')  # Add the email address of the default sender
 #BKCJZV75YPQ929PTZHKTNYJY
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
@@ -158,5 +159,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Add your API credentials to settings
-SALLA_API_KEY = '8d20a45d-ca26-4910-b6ca-1b49f0298632'
-SALLA_API_SECRET = '37686b0677d48c01cc8eb9b7ad2e2cea'
+SALLA_API_KEY = os.environ.get('SALLA_API_KEY', '8d20a45d-ca26-4910-b6ca-1b49f0298632')
+SALLA_API_SECRET = os.environ.get('SALLA_API_SECRET','37686b0677d48c01cc8eb9b7ad2e2cea')
