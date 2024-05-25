@@ -52,7 +52,7 @@ function initMap() {
         infoWindow.close();
         const contentString = `
             <div style="font-family: Arial, sans-serif; font-size: 14px;">
-                <p style="margin: 0;text-align: center;"><a href="https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
+                <p style="margin: 0;"><a href="https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
             </div>`;
         infoWindow.setContent(contentString);
         infoWindow.open(originMarker.getMap(), originMarker);
@@ -63,7 +63,7 @@ function initMap() {
         infoWindow.close();
         const contentString = `
             <div style="font-family: Arial, sans-serif; font-size: 14px;">
-                <p style="margin: 0; text-align: center;"><a href="https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
+                <p style="margin: 0;"><a href="https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
             </div>`;
         infoWindow.setContent(contentString);
         infoWindow.open(destinationMarker.getMap(), destinationMarker);
