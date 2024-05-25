@@ -40,12 +40,14 @@ function initMap() {
 
     // Add a click listener for each marker, and set up the info window.
     originMarker.addListener("click", () => {
+        console.log("Origin marker clicked");
       infoWindow.close();
       infoWindow.setContent(originMarker.getTitle());
       infoWindow.open(originMarker.getMap(), originMarker);
     });
     // Add a click listener for each marker, and set up the info window.
     destinationMarker.addListener("click", () => {
+        console.log("Destination marker clicked");
         infoWindow.close();
         infoWindow.setContent(destinationMarker.getTitle());
         infoWindow.open(destinationMarker.getMap(), destinationMarker);
