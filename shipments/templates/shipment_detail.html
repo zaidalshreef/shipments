@@ -106,6 +106,15 @@ Shipment Detail
 <input type="hidden" id="ship_to_lat" value="{{ shipment.ship_to.latitude }}">
 <input type="hidden" id="ship_to_lng" value="{{ shipment.ship_to.longitude }}">
 
-<script src="{% static 'js/maps.js' %}" async defer></script>
-
+ <!--
+      The `defer` attribute causes the script to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises. See
+      https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8&callback=initMap&v=weekly"
+      defer
+    ></script>
 {% endblock %}

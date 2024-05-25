@@ -3,7 +3,7 @@ let originMarker;
 let destinationMap;
 let destinationMarker;
 
-async function initMaps() {
+async function initMap() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
         lng: parseFloat(document.getElementById('ship_from_lng').value)
@@ -15,38 +15,48 @@ async function initMaps() {
 
      originMap = await new google.maps.Map(document.getElementById('originMap'), {
         center: origin,
-        zoom: 12
+        zoom: 7
     });
 
      destinationMap = await new google.maps.Map(document.getElementById('destinationMap'), {
         center: destination,
-        zoom: 12
+        zoom: 7
     });
 
+    // Create an info window to share between markers.
+    const infoWindow = new google.maps.InfoWindow();
 
     originMarker = await new google.maps.Marker({
         position: origin,
         map: originMap,
+        title: "Origin",
+        label: "O",
+        optimized: false,
         draggable: false
     });
 
     destinationMarker = await new google.maps.Marker({
         position: destination,
         map: destinationMap,
+        title: "Destination",
+        label: "D",
+        optimized: false,
         draggable: false
     });
 
+    // Add a click listener for each marker, and set up the info window.
+    originMarker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
+    // Add a click listener for each marker, and set up the info window.
+    destinationMarker.addListener("click", () => {
+      infoWindow.close();
+      infoWindow.setContent(marker.getTitle());
+      infoWindow.open(marker.getMap(), marker);
+    });
 
 }
 
-function loadGoogleMaps() {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8&callback=initMaps`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-    await loadGoogleMaps();
-});
+window.initMap = initMap;
