@@ -32,11 +32,6 @@ function initMap() {
 
     const infoWindow = new google.maps.InfoWindow();
 
-    console.log(origin, destination);
-    console.log(originMap, destinationMap);
-    console.log(infoWindow);
-
-
     const originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
