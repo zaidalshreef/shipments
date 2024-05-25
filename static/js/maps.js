@@ -18,8 +18,6 @@ function initMap() {
         zoom: 7
     });
 
-    // Create an info window to share between markers.
-    const infoWindow = new google.maps.InfoWindow();
 
     const originMarker = new google.maps.Marker({
         position: origin,
@@ -39,30 +37,13 @@ function initMap() {
 
     // Add a click listener for the origin marker
     originMarker.addListener("click", () => {
-        infoWindow.close();
-        const contentString = `
-            <div>
-                <h3>Ship From Location</h3>
-                <p><strong>Name:</strong> ${document.getElementById('ship_from_name').value}</p>
-                <p><strong>Address:</strong> ${document.getElementById('ship_from_address').value}</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}" target="_blank">View on Google Maps</a>
-            </div>`;
-        infoWindow.setContent(contentString);
-        infoWindow.open(originMarker.getMap(), originMarker);
+        window.open = `https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}`;
+
     });
 
     // Add a click listener for the destination marker
     destinationMarker.addListener("click", () => {
-        infoWindow.close();
-        const contentString = `
-            <div>
-                <h3>Ship To Location</h3>
-                <p><strong>Name:</strong> ${document.getElementById('ship_to_name').value}</p>
-                <p><strong>Address:</strong> ${document.getElementById('ship_to_address').value}</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}" target="_blank">View on Google Maps</a>
-            </div>`;
-        infoWindow.setContent(contentString);
-        infoWindow.open(destinationMarker.getMap(), destinationMarker);
+        window.open = `https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}`;
     });
 }
 
