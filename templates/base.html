@@ -10,34 +10,50 @@
     <script  type="module" src="{% static 'js/maps.js' %}" ></script>
     <title>{% block title %}My Django App{% endblock %}</title>
     <style>
+        
+       header {
+        background-color: #81b6be;
+        font-family: "Roboto", sans-serif;
+            }
+       .header-text
+            {
+                color:#fff;
+
+
+            }
         body {
             padding-top: 56px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             font-size: 0.9rem; /* Reduce the font size of navbar links */
+            font-family: "Roboto", sans-serif;
         }
         .navbar-brand img {
             width: 40px;
             height: 40px;
         }
         .navbar-nav .nav-link {
-            font-size: 0.9rem; /* Reduce the font size of navbar links */
+            font-size: 0.9rem;
+             /* Reduce the font size of navbar links */
             }
+            
         main {
             background-color: #ffffff;  /* Explicitly set the background color */
             flex: 1;
         }
         footer {
-            background-color: #343a40;
+            background-color: #81b6be;
             color: #fff;
             padding: 20px 0;
             position: fixed;
             width: 100%;
             bottom: 0;
+            font-family: "Roboto", sans-serif;
         }
         .card {
             margin-bottom: 20px;
+            font-family: "Roboto", sans-serif;
         }
     </style>
 </head>
@@ -71,7 +87,7 @@
         {% block content %}{% endblock %}
     </main>
     <footer class="text-center mt-auto">
-            <p class="mb-0">&copy; 2024 My Django App. All rights reserved.</p>
+            <p class="mb-0">&copy; 2024 MyShipment. All rights reserved.</p>
     </footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
