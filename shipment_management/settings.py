@@ -158,7 +158,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Add your API credentials to settings
-# Add your API credentials to settings
 SALLA_API_KEY = os.getenv('SALLA_API_KEY', '8d20a45d-ca26-4910-b6ca-1b49f0298632')
 SALLA_API_SECRET = os.getenv('SALLA_API_SECRET', '37686b0677d48c01cc8eb9b7ad2e2cea')
 GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8')
