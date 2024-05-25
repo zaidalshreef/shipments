@@ -137,17 +137,22 @@ CSRF_TRUSTED_ORIGINS = [
 LOGIN_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after login
 LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logout
 
-# settings.py
-
+# Email settings
+# Uncomment the following settings to use the SMTP email backend
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 'your_email@gmail.com'
 # EMAIL_HOST_PASSWORD = 'your_email_password'
+INTERNAL_STAFF_EMAILS = ['', '']  # Add the email addresses of the internal staff
+DEFAULT_FROM_EMAIL = ''  # Add the email address of the default sender
+
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 
 # Add your API credentials to settings
 SALLA_API_KEY = '8d20a45d-ca26-4910-b6ca-1b49f0298632'
