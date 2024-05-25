@@ -7,10 +7,13 @@ Home
 <style>
 .title
 {
-    font-size: 2rem;
+    font-size: 1rem;
 
 }
-
+.row 
+{
+    gap: 2rem;
+}
 
 </style>
 
@@ -24,7 +27,7 @@ Home
             <div class="card">
 
                 <div class="card-header">
-                <h5 class="card-title">Shipment number: {{ shipment.shipping_number }}</h5>
+                <h5 class="card-title"> <strong>Shipment number:</strong>  {{ shipment.shipping_number }}</h5>
                 <p class="card-title"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                 </div>
 
