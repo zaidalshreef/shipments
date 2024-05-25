@@ -150,7 +150,7 @@ LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logo
 # EMAIL_HOST_PASSWORD = 'your_email_password'
 INTERNAL_STAFF_EMAILS = ['', '']  # Add the email addresses of the internal staff
 DEFAULT_FROM_EMAIL = ''  # Add the email address of the default sender
-
+#BKCJZV75YPQ929PTZHKTNYJY
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

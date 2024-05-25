@@ -1,7 +1,7 @@
 
 
 
-function initMaps() {
+function initMap() {
     const originMapElement = document.getElementById('originMap');
     const destinationMapElement = document.getElementById('destinationMap');
 
@@ -72,4 +72,4 @@ function initMaps() {
     });
 }
 
-window.initMaps = initMaps;
+window.initMap = initMap;
