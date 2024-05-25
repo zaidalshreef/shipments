@@ -1,5 +1,5 @@
 
-function initMap(callback) {
+function initMap() {
     const origin = {
         lat: parseFloat(document.getElementById('ship_from_lat').value),
         lng: parseFloat(document.getElementById('ship_from_lng').value)
@@ -39,13 +39,13 @@ function initMap(callback) {
     });
 
     // Add a click listener for each marker, and set up the info window.
-    originMarker.addListener("click", () => {
+    originMarker.addEventListener("click", () => {
       infoWindow.close();
       infoWindow.setContent(originMarker.getTitle());
       infoWindow.open(originMarker.getMap(), originMarker);
     });
     // Add a click listener for each marker, and set up the info window.
-    destinationMarker.addListener("click", () => {
+    destinationMarker.addEventListener("click", () => {
         infoWindow.close();
         infoWindow.setContent(destinationMarker.getTitle());
         infoWindow.open(destinationMarker.getMap(), destinationMarker);
