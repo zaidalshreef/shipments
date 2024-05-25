@@ -23,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vxrnxz99$&v84hxgh3o_pzp+t&_$-q-#rq55%e8w3qar#q*f5%')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-vxrnxz99$&v84hxgh3o_pzp+t&_$-q-#rq55%e8w3qar#q*f5%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS'),'techsynapse.org', 'localhost']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'techsynapse.org').split(',')
 
 # Application definition
 
@@ -77,14 +77,15 @@ WSGI_APPLICATION = 'shipment_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        'NAME': os.getenv('POSTGRES_DB', 'postgres'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
 
@@ -131,9 +132,9 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CSRF_TRUSTED_ORIGINS = [
-    'https://techsynapse.org'
-]
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://techsynapse.org').split(',')
 
 
 # Authentication settings
@@ -141,17 +142,15 @@ LOGIN_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after login
 LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logout
 
 # Email settings
-# Uncomment the following settings to use the SMTP email backend
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = os.environ.get('EMAIL_HOST','smtp.gmail.com')
-# EMAIL_PORT = os.environ.get('EMAIL_PORT','587')
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS','Myshipment.sam@gmail.com')
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER','Myshipment.sam@gmail.com')
-# EMAIL_HOST_PASSWORD =   os.environ.get('EMAIL_HOST_PASSWORD','Myshipment.sam@gmail.com')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'Myshipment.sam@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-password')
 
-INTERNAL_STAFF_EMAILS = ['Myshipment.sam@gmail.com']  # Add the email addresses of the internal staff
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL','Myshipment.sam@gmail.com')  # Add the email address of the default sender
-#BKCJZV75YPQ929PTZHKTNYJY
+INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS', 'Myshipment.sam@gmail.com').split(',')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Myshipment.sam@gmail.com')
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -159,5 +158,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Add your API credentials to settings
-SALLA_API_KEY = os.environ.get('SALLA_API_KEY', '8d20a45d-ca26-4910-b6ca-1b49f0298632')
-SALLA_API_SECRET = os.environ.get('SALLA_API_SECRET','37686b0677d48c01cc8eb9b7ad2e2cea')
+# Add your API credentials to settings
+SALLA_API_KEY = os.getenv('SALLA_API_KEY', '8d20a45d-ca26-4910-b6ca-1b49f0298632')
+SALLA_API_SECRET = os.getenv('SALLA_API_SECRET', '37686b0677d48c01cc8eb9b7ad2e2cea')
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8')

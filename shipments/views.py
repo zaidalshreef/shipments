@@ -2,13 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ShipmentForm, ShipmentStatusForm
 from .models import Shipment
 from .services import update_salla_api, handle_status_update, handle_shipment_update
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-# Retrieve the Google Maps API key from the environment variables
-GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY','AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8' )
+from django.conf import settings
 
 
 def home(request):
@@ -56,7 +50,7 @@ def shipment_detail(request, shipment_id):
     shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
     context = {
         'shipment': shipment,
-        'google_maps_api_key': GOOGLE_MAPS_API_KEY
+        'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY
     }
     return render(request, 'shipment_detail.html', context)
 
