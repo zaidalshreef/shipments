@@ -39,6 +39,7 @@ services:
 
       # Security settings
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
+      - ALLOWED_HOSTS=techsynapse.org  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
       #- CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}  # Comma-separated list of CSRF trusted origins, e.g., https://techsynapse.org
       - CORS_ALLOWED_ORIGINS=https://techsynapse.org,https://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
     logging:
