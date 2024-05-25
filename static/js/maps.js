@@ -18,15 +18,24 @@ function initMap() {
         address: destinationMapElement.dataset.address
     };
 
-    const mapOptions = {
-        zoom: 14,
-        center: origin
-    };
+       const originlatAndlng = {lat: parseFloat(originMapElement.dataset.lat), lng: parseFloat(originMapElement.dataset.lng)};
+       const destinationlatAndlng = {lat: parseFloat(destinationMapElement.dataset.lat), lng: parseFloat(destinationMapElement.dataset.lng)};
 
-    const originMap = new google.maps.Map(originMapElement, mapOptions);
-    const destinationMap = new google.maps.Map(destinationMapElement, mapOptions);
+    const originMap = new google.maps.Map(originMapElement, {
+        zoom: 14,
+        center: originlatAndlng
+    });
+    const destinationMap = new google.maps.Map(destinationMapElement, {
+        zoom: 14,
+        center: destinationlatAndlng
+    });
 
     const infoWindow = new google.maps.InfoWindow();
+
+    console.log(origin, destination);
+    console.log(originMap, destinationMap);
+    console.log(infoWindow);
+
 
     const originMarker = new google.maps.Marker({
         position: origin,
