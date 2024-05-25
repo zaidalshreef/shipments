@@ -7,94 +7,90 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <script  type="module" src="{% static 'js/maps.js' %}" ></script>
+    <script type="module" src="{% static 'js/maps.js' %}"></script>
     <title>{% block title %}My Django App{% endblock %}</title>
     <style>
-        
         .bg-dark {
-        background-color: #749ca4 !important;
-        font-family: "Roboto", sans-serif;
-        font-weight: bold;
-        font-size: 1.3rem;
-            }
+            background-color: #749ca4 !important;
+            font-family: "Roboto", sans-serif;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
 
+        .navbar-dark {
+            --bs-navbar-color: #fff;
+            --bs-navbar-hover-color: #bbd4dc;
+        }
 
-        .navbar-dark
-            {
-              --bs-navbar-color: #fff;
-              --bs-navbar-hover-color: #bbd4dc;
-
-            }
-    
         body {
             padding-top: 56px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            font-size: 1.2rem; /* Reduce the font size of navbar links */
+            font-size: 1.2rem;
             font-family: "Roboto", sans-serif;
         }
+
         .navbar-brand img {
             width: 60px;
             height: 60px;
         }
+
         .navbar-nav .nav-link {
             font-size: 1.3rem;
-             /* Reduce the font size of navbar links */
-            }
-            
-        main {
-            background-color: #ffffff;  /* Explicitly set the background color */
-            flex: 1;
         }
+
+        main {
+            flex: 1;
+            background-color: #ffffff;
+            padding-bottom: 60px;  /* Ensure there's space for the footer */
+        }
+
         footer {
             background-color: #749ca4;
             color: #fff;
             padding: 20px 0;
-            position: fixed;
             width: 100%;
+            position: fixed;
             bottom: 0;
+            left: 0;
             font-family: "Roboto", sans-serif;
         }
+
         .card {
             margin-bottom: 20px;
             font-family: "Roboto", sans-serif;
-            --border-color : #749ca4 !important;
+            --border-color: #749ca4 !important;
         }
-        .card-header
-        {
+
+        .card-header {
             background-color: #81b6be;
-        
         }
-        .card-title
-        {
-            font-size: 1.6rem ;
-            color : #fff;
-            font-weight:bold
 
+        .card-title {
+            font-size: 1.6rem;
+            color: #fff;
+            font-weight: bold;
         }
-        .card-text
-        {
-            font-size: 1.2rem ;
 
+        .card-text {
+            font-size: 1.2rem;
         }
+
         .btn-primary {
             --bs-btn-color: #fff;
             --bs-btn-bg: #749ca4;
-            --bs-btn-hover-bg:#bbd4dc;
+            --bs-btn-hover-bg: #bbd4dc;
             --bs-btn-hover-border-color: #bbd4dc;
             --bs-btn-border-color: #749ca4;
             --bs-btn-active-bg: #bbd4dc;
             --bs-btn-active-border-color: #bbd4dc;
+        }
 
-
-            }
-            .btn {
-                --bs-btn-font-family: font-family: "Roboto", sans-serif;
-                --bs-btn-font-size: 1.5rem;
-            }
-            
-
+        .btn {
+            --bs-btn-font-family: "Roboto", sans-serif;
+            --bs-btn-font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -127,7 +123,7 @@
         {% block content %}{% endblock %}
     </main>
     <footer class="text-center mt-auto">
-            <p class="mb-0">&copy; 2024 MyShipment. All rights reserved.</p>
+        <p class="mb-0">&copy; 2024 MyShipment. All rights reserved.</p>
     </footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
