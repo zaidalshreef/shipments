@@ -101,10 +101,14 @@ Shipment Detail
     </div>
 </div>
 
-<input type="hidden" id="ship_from_lat" value="{{ shipment.ship_from.latitude }}">
-<input type="hidden" id="ship_from_lng" value="{{ shipment.ship_from.longitude }}">
-<input type="hidden" id="ship_to_lat" value="{{ shipment.ship_to.latitude }}">
-<input type="hidden" id="ship_to_lng" value="{{ shipment.ship_to.longitude }}">
+    <input type="hidden" id="ship_from_lat" value="{{ ship_from_lat }}">
+    <input type="hidden" id="ship_from_lng" value="{{ ship_from_lng }}">
+    <input type="hidden" id="ship_to_lat" value="{{ ship_to_lat }}">
+    <input type="hidden" id="ship_to_lng" value="{{ ship_to_lng }}">
+    <input type="hidden" id="ship_from_name" value="{{ ship_from_name }}">
+    <input type="hidden" id="ship_from_address" value="{{ ship_from_address }}">
+    <input type="hidden" id="ship_to_name" value="{{ ship_to_name }}">
+    <input type="hidden" id="ship_to_address" value="{{ ship_to_address }}">
 
  <!--
       The `defer` attribute causes the script to execute after the full HTML
@@ -114,7 +118,7 @@ Shipment Detail
       for more information.
       -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap&v=weekly"
       defer
     ></script>
 {% endblock %}
