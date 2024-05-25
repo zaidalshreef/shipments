@@ -32,6 +32,11 @@ function initMap() {
 
     const infoWindow = new google.maps.InfoWindow();
 
+    console.log(origin, destination);
+    console.log(originMap, destinationMap);
+    console.log(infoWindow);
+
+
     const originMarker = new google.maps.Marker({
         position: origin,
         map: originMap,
@@ -52,6 +57,9 @@ function initMap() {
         infoWindow.close();
         const contentString = `
             <div style="font-family: Arial, sans-serif; font-size: 14px;">
+                <h4 style="color: #1a1e1a; margin-bottom: 8px;">Ship From</h4>
+                <p style="margin: 0;"><strong>Name:</strong> ${origin.name}</p>
+                <p style="margin: 0;"><strong>Address:</strong> ${origin.address}</p>
                 <p style="margin: 0;"><a href="https://www.google.com/maps/search/?api=1&query=${origin.lat},${origin.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
             </div>`;
         infoWindow.setContent(contentString);
@@ -63,6 +71,9 @@ function initMap() {
         infoWindow.close();
         const contentString = `
             <div style="font-family: Arial, sans-serif; font-size: 14px;">
+                <h4 style="color: #181a18; margin-bottom: 8px;">Ship TO</h4>
+                <p style="margin: 0;"><strong>Name:</strong> ${destination.name}</p>
+                <p style="margin: 0;"><strong>Address:</strong> ${destination.address}</p>
                 <p style="margin: 0;"><a href="https://www.google.com/maps/search/?api=1&query=${destination.lat},${destination.lng}" target="_blank" style="color: #2196F3;">View on Google Maps</a></p>
             </div>`;
         infoWindow.setContent(contentString);
