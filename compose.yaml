@@ -27,7 +27,7 @@ services:
       - EMAIL_HOST=smtp.gmail.com  # SMTP server host, e.g., smtp.gmail.com
       - EMAIL_PORT=587  # SMTP server port, e.g., 587
       - EMAIL_HOST_USER=zhoutai1990@gmail.com  # SMTP server user, e.g., your-email@gmail.com
-      - EMAIL_HOST_PASSWORD="cegf sxks ihjk nnnh"  # SMTP server password, e.g., yourpassword
+      - EMAIL_HOST_PASSWORD="789+456+123"  # SMTP server password, e.g., yourpassword
       - EMAIL_USE_TLS=True  # Use TLS for email (True or False), e.g., True
       - DEFAULT_FROM_EMAIL=zhoutai1990@gmail.com  # Default sender email address, e.g., your-email@gmail.com
       - INTERNAL_STAFF_EMAILS=zhoutai1990@gmail.com,zaidalshreef@gmail.com  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com

@@ -34,6 +34,7 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
     else:
         shipment = handle_shipment_creation(shipment_data, status)
         pdf_label_url = request.build_absolute_uri(reverse('shipments:generate_pdf_label', args=[shipment.shipment_id]))
+        print(pdf_label_url)
         shipment.label = {'url': pdf_label_url}
         shipment.save()
         return JsonResponse({'message': 'Shipment creation event processed', 'pdf_label': pdf_label_url})
