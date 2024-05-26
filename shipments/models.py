@@ -120,7 +120,7 @@ class Shipment(models.Model):
     @staticmethod
     def generate_shipping_number():
         # Get current month and year
-        now = datetime.datetime.now()
+        now = datetime.now()
         month_year = now.strftime("%m%Y")
 
         # Get the count of shipments created in the current month and year
