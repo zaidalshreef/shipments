@@ -95,7 +95,7 @@ class Shipment(models.Model):
     created_at = models.DateTimeField(null=True, blank=True)
     shipment_id = models.PositiveIntegerField(primary_key=True)
     type = models.CharField(max_length=100, null=True, blank=True)
-    shipping_number = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    shipping_number = models.CharField(max_length=12, unique=True, blank=True)
     courier_name = models.CharField(max_length=100, null=True, blank=True)
     courier_logo = models.URLField(max_length=200, null=True, blank=True)
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
@@ -111,6 +111,23 @@ class Shipment(models.Model):
     ship_to = models.JSONField(null=True, blank=True)
     meta = models.JSONField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.shipping_number:
+            self.shipping_number = self.generate_shipping_number()
+        super().save(*args, **kwargs)
+
+    @staticmethod
+    def generate_shipping_number():
+        # Get current month and year
+        now = datetime.datetime.now()
+        month_year = now.strftime("%m%Y")
+
+        # Get the count of shipments created in the current month and year
+        count = Shipment.objects.filter(created_at__year=now.year, created_at__month=now.month).count() + 1
+
+        # Generate the shipping number
+        shipping_number = f"{count:06d}{month_year}"
+        return shipping_number
     class Meta:
         indexes = [
             models.Index(fields=['shipping_number']),
