@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
 from django.urls import reverse
-from ..services import update_salla_api, send_shipment_email
+from .salla_service import update_salla_api
+from .email_service import send_shipment_email
 from datetime import datetime
 
 

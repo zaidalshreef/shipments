@@ -2,8 +2,8 @@ import json
 from pprint import pprint
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ..services.salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled
-from ..services.shipment_service import handle_shipment_event
+from .salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled
+from .shipment_service import handle_shipment_event
 
 
 @csrf_exempt
