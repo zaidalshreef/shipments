@@ -128,6 +128,7 @@ class Shipment(models.Model):
         # Generate the shipping number
         shipping_number = f"{count:06d}{month_year}"
         return shipping_number
+
     class Meta:
         indexes = [
             models.Index(fields=['shipping_number']),

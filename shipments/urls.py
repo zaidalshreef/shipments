@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.shipment_list, name='shipment_list'),
     path('home/', views.home, name='home'),
     path('webhook/', webhook_handler, name='shipment_webhook'),
+    path('generate-pdf-label/<int:shipment_id>/', views.generate_pdf_label, name='generate_pdf_label'),
     path('<int:shipment_id>/', views.shipment_detail, name='shipment_detail'),
     path('<int:shipment_id>/update/', views.update_shipment_details, name='shipment_update'),
     path('<int:shipment_id>/status/', views.update_status, name='update_status'),

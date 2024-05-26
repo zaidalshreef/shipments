@@ -13,6 +13,11 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Shipment, ShipmentStatus, MerchantToken
 from django.utils.html import strip_tags
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+
 
 @csrf_exempt
 def webhook_handler(request):
@@ -52,6 +57,61 @@ def webhook_handler(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
+def generate_pdf_label(request, shipment_id):
+    # Fetch shipment details from the database
+    shipment = Shipment.objects.get(id=shipment_id)
+
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="shipment_label_{shipment_id}.pdf"'
+
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response, pagesize=A4)
+    width, height = A4
+
+    # Draw the shipment details on the PDF
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(100, height - 50, "Shipment Label")
+
+    # Sender's Information
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(100, height - 100, "Sender's Information")
+    p.setFont("Helvetica", 10)
+    p.drawString(100, height - 120, f"Name: {shipment.ship_from['name']}")
+    p.drawString(100, height - 140, f"Address: {shipment.ship_from['address_line']}")
+    p.drawString(100, height - 160, f"City: {shipment.ship_from['city']}")
+    p.drawString(100, height - 180, f"Country: {shipment.ship_from['country']}")
+    p.drawString(100, height - 200, f"Phone: {shipment.ship_from['phone']}")
+    p.drawString(100, height - 220, f"Email: {shipment.ship_from['email']}")
+
+    # Recipient's Information
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(100, height - 260, "Recipient's Information")
+    p.setFont("Helvetica", 10)
+    p.drawString(100, height - 280, f"Name: {shipment.ship_to['name']}")
+    p.drawString(100, height - 300, f"Address: {shipment.ship_to['address_line']}")
+    p.drawString(100, height - 320, f"City: {shipment.ship_to['city']}")
+    p.drawString(100, height - 340, f"Country: {shipment.ship_to['country']}")
+    p.drawString(100, height - 360, f"Phone: {shipment.ship_to['phone']}")
+    p.drawString(100, height - 380, f"Email: {shipment.ship_to['email']}")
+
+    # Shipment Details
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(100, height - 420, "Shipment Details")
+    p.setFont("Helvetica", 10)
+    p.drawString(100, height - 440, f"Tracking Number: {shipment.tracking_number}")
+    p.drawString(100, height - 460, f"Tracking Link: {shipment.tracking_link}")
+    p.drawString(100, height - 480, f"Total Weight: {shipment.total_weight['value']} {shipment.total_weight['units']}")
+    p.drawString(100, height - 500, f"Total Cost: {shipment.total['amount']} {shipment.total['currency']}")
+
+    # Shipping Cost
+    p.drawString(100, height - 540, "Shipping Cost: 19 SAR")
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
+    return response
 
 
 def send_shipment_email(shipment_data, status):
@@ -171,15 +231,17 @@ def save_to_database(shipment_data, status):
     status (str): The status of the shipment.
 
     Returns:
-    None: This function does not return any value. It saves the shipment data and updates the status.
+    Shipment: The created shipment object.
 
     Raises:
     ValueError: If the shipment data is missing any required fields.
 
     """
+
     new_shipment = Shipment(**shipment_data)  # Create a new Shipment object from the shipment data
     new_shipment.save()  # Save the Shipment object to the database
     handle_status_update(new_shipment.shipment_id, status)  # Update the shipment status
+    return new_shipment
 
 
 def handle_status_update(shipment_id, status):
@@ -235,7 +297,11 @@ def handle_shipment_creation_or_update(shipment_data, status):
     elif existing_shipment:
         return handle_status_update(shipment_data.get('shipment_id'), status)
     else:
-        return handle_shipment_creation(shipment_data, status)
+        shipment = handle_shipment_creation(shipment_data, status)
+        pdf_label_url = request.build_absolute_uri(reverse('generate_pdf_label', args=[shipment.shipment_id]))
+        shipment['label'] = {'url': pdf_label_url}
+        shipment.save()
+        return JsonResponse({'message': 'Shipment creation event processed', 'pdf_label': pdf_label_url})
 
 
 def handle_shipment_creation(shipment_data, status):
@@ -247,7 +313,7 @@ def handle_shipment_creation(shipment_data, status):
     status (str): The status of the shipment.
 
     Returns:
-    JsonResponse: A JSON response indicating the success of processing the shipment creation event.
+    Shipment: The created shipment object.
 
     Raises:
     ValueError: If the shipment data is missing any required fields.
@@ -257,8 +323,9 @@ def handle_shipment_creation(shipment_data, status):
     required_fields = ['event', 'merchant', 'created_at', 'shipment_id']
     if not all(field in shipment_data for field in required_fields):
         return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
-    save_to_database(shipment_data, status)
-    return JsonResponse({'message': 'Shipment creation event processed'})
+
+    shipment = save_to_database(shipment_data, status)
+    return shipment
 
 
 def handle_shipment_update(shipment_data):
@@ -338,8 +405,6 @@ def update_salla_api(shipment, status):
     }
     payload = {
         'shipment_number': str(shipment.shipping_number),  # Convert UUID to string
-        'tracking_link': shipment.tracking_link,
-        'tracking_number': shipment.tracking_number,
         'status': status,
         'pdf_label': shipment.label.get('url', '') if shipment.label else '',
         'cost': 19  # Update the cost based on the shipment details
