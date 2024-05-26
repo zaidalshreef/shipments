@@ -1,5 +1,8 @@
 from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
+from django.urls import reverse
+from .salla_service import update_salla_api
+from datetime import datetime
 
 
 def handle_shipment_creation_or_update(shipment_data, status, request):
