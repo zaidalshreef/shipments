@@ -6,6 +6,17 @@ Shipment Detail
 {% endblock %}
 <!--mb-4-->
 {% block content %}
+<style>
+
+.title
+{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color:#749ca4
+
+}
+
+</style>
 <div class="container">
    <!--<h1 class="my-4">Shipment Detail</h1>--> 
     <div class="card">
@@ -65,7 +76,7 @@ Shipment Detail
                 <div class="card-body">
                     <div class="row">
                     <div class="col">
-                    <h3>Ship From</h3>
+                    <h3 class="title">Ship From</h3>
                     <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_from.name }}</p>
                     <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
                     <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
@@ -76,7 +87,7 @@ Shipment Detail
         
         <div class="col">
             
-                    <h3>Ship To</h3>
+            <h3 class="title">Ship To</h3>
                     <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_to.name }}</p>
                     <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
                     <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
