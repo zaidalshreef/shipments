@@ -132,6 +132,7 @@ class Shipment(models.Model):
         indexes = [
             models.Index(fields=['shipping_number']),
             models.Index(fields=['type']),
+            models.Index(fields=['shipment_id']),
         ]
 
     @classmethod
