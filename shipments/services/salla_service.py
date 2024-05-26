@@ -2,6 +2,8 @@ import requests
 from datetime import datetime
 from django.conf import settings
 from ..models import MerchantToken
+from django.http import JsonResponse
+import pytz
 
 
 def handle_store_authorize(data):
@@ -9,11 +11,14 @@ def handle_store_authorize(data):
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
     expires_at = datetime.fromtimestamp(data['data'].get('expires'))
-    MerchantToken.objects.create(
+    expires_at = pytz.utc.localize(expires_at)  # Make datetime timezone-aware
+    MerchantToken.objects.update_or_create(
         merchant_id=merchant_id,
-        access_token=access_token,
-        refresh_token=refresh_tokens,
-        expires_at=expires_at
+        defaults={
+            'access_token': access_token,
+            'refresh_token': refresh_tokens,
+            'expires_at': expires_at
+        }
     )
     return JsonResponse({'message': f'App added to store for merchant id {merchant_id}'}, status=201)
 
