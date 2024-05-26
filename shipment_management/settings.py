@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shipments.apps.ShipmentsConfig',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -136,7 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://techsynapse.org').split(',')
 
-
 # Authentication settings
 LOGIN_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after login
 LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logout
@@ -153,7 +152,6 @@ INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS').split(',')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 
 # Add your API credentials to settings

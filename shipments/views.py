@@ -4,6 +4,22 @@ from .models import Shipment
 from .services import update_salla_api, handle_status_update, handle_shipment_update
 from django.conf import settings
 
+from django.http import HttpResponse
+from .services import send_shipment_email
+
+
+def send_test_email_view(request):
+    shipment_data = {
+        'shipment_id': '123456',
+        'ship_from': {'name': 'Sender Name', 'address_line': '123 Street', 'city': 'City', 'country': 'Country',
+                      'phone': '1234567890', 'email': 'sender@example.com'},
+        'ship_to': {'name': 'Recipient Name', 'address_line': '456 Avenue', 'city': 'City', 'country': 'Country',
+                    'phone': '0987654321', 'email': 'recipient@example.com'}
+    }
+    status = 'created'
+    send_shipment_email(shipment_data, status)
+    return HttpResponse('Test email sent successfully!')
+
 
 def home(request):
     shipments = Shipment.objects.all()
