@@ -1,6 +1,7 @@
 import uuid
 from django.utils import timezone
 from django.db import models
+from datetime import datetime
 
 
 class ShipmentStatus(models.Model):
