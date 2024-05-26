@@ -143,14 +143,14 @@ LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logo
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587) or 587)  # Ensure it defaults to 587 if not set
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'Myshipment.sam@gmail.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-password')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS', 'Myshipment.sam@gmail.com').split(',')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Myshipment.sam@gmail.com')
+INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS').split(',')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
