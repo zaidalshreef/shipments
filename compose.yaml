@@ -24,13 +24,13 @@ services:
       - DJANGO_DEBUG=True  # Debug mode for Django application (True for development, False for production), e.g., False
 
       # Email settings
-      - EMAIL_HOST=${EMAIL_HOST}  # SMTP server host, e.g., smtp.gmail.com
-      - EMAIL_PORT=${EMAIL_PORT}  # SMTP server port, e.g., 587
-      - EMAIL_HOST_USER=${EMAIL_HOST_USER}  # SMTP server user, e.g., your-email@gmail.com
+      - EMAIL_HOST=mail.smtp2go.com  # SMTP server host, e.g., smtp.gmail.com
+      - EMAIL_PORT=2525  # SMTP server port, e.g., 587
+      - EMAIL_HOST_USER=zaid@modprex.com # SMTP server user, e.g., your-email@gmail.com
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}  # SMTP server password, e.g., yourpassword
       - EMAIL_USE_TLS=False  # Use TLS for email (True or False), e.g., True
-      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}  # Default sender email address, e.g., your-email@gmail.com
-      - INTERNAL_STAFF_EMAILS=${INTERNAL_STAFF_EMAILS}  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com
+      - DEFAULT_FROM_EMAIL=noreply@bpm-training.net  # Default sender email address, e.g., your-email@gmail.com
+      - INTERNAL_STAFF_EMAILS=zaidalshreef@gmail.com  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com
 
       # API keys
       - GOOGLE_MAPS_API_KEY=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8  # API key for Google Maps, e.g., your_google_maps_api_key
