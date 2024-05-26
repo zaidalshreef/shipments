@@ -16,7 +16,7 @@ def send_shipment_email(shipment_data, status):
     }
     html_message = render_to_string('shipment_email.html', context)
     plain_message = strip_tags(html_message)
-    from_email = settings.DEFAULT_FROM_EMAIL
+    from_email = "noreply@bpm-training.net"
     to_email = ["zaidalshreef@gmail.com"]  # List of internal staff emails
 
     send_mail(subject, plain_message, from_email, to_email, html_message=html_message)
