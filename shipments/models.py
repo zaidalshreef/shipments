@@ -132,7 +132,6 @@ class Shipment(models.Model):
     class Meta:
         indexes = [
             models.Index(fields=['shipping_number']),
-            models.Index(fields=['type']),
             models.Index(fields=['shipment_id']),
         ]
 
