@@ -8,7 +8,6 @@ pipeline {
         POSTGRES_HOST = credentials('POSTGRES_HOST')
         POSTGRES_PORT = credentials('POSTGRES_PORT')
         POSTGRES_DB = credentials('POSTGRES_DB')
-        EMAIL_PORT = credentials('EMAIL_PORT')
         EMAIL_HOST_USER = credentials('EMAIL_HOST_USER')
         EMAIL_HOST_PASSWORD = credentials('EMAIL_HOST_PASSWORD')
         EMAIL_USE_TLS = credentials('EMAIL_USE_TLS')
