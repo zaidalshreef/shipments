@@ -21,7 +21,7 @@ def webhook_handler(request):
             else:
                 shipment_data, status = parse_shipment_data(data)
                 if event == 'shipment.creating':
-                    return handle_shipment_creation_or_update(shipment_data, status, request)
+                    return handle_shipment_creation_or_update(shipment_data, "created", request)
                 elif event == 'shipment.cancelled':
                     return handle_status_update(shipment_data.get('shipment_id'), status)
                 else:
