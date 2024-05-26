@@ -54,7 +54,7 @@ Shipment Detail
         {% endfor %}
     </ul>
 -->
-    <h2 class="mt-4">Shipping Details</h2>
+    <!--<h2 class="mt-4">Shipping Details</h2>-->
     <div class="row mb-4">
         
             <div class="card">
@@ -70,8 +70,8 @@ Shipment Detail
                     <p><strong>Email:</strong> {{ shipment.ship_from.email }}</p>
                     <div id="originMap" data-lat="{{ shipment.ship_from.latitude }}" data-lng="{{ shipment.ship_from.longitude }}" data-name="{{ shipment.ship_from.name }}" data-address="{{ shipment.ship_from.address_line }}" style="height: 300px; width: 100%;"></div>
                 </div>
-            </div>
-        </div>
+            
+        
         <div class="col-md-6 mb-4">
             
                     <h3>Ship To</h3>
@@ -81,9 +81,9 @@ Shipment Detail
                     <p><strong>Email:</strong> {{ shipment.ship_to.email }}</p>
                     <div id="destinationMap" data-lat="{{ shipment.ship_to.latitude }}" data-lng="{{ shipment.ship_to.longitude }}" data-name="{{ shipment.ship_to.name }}" data-address="{{ shipment.ship_to.address_line }}" style="height: 300px; width: 100%;"></div>
                 </div>
-            </div>
-        </div>
-    </div>
+            
+        
+    
 
     <h2 class="mt-4">Meta Information</h2>
     <ul class="list-group mb-4">
@@ -93,7 +93,9 @@ Shipment Detail
         </li>
         {% endfor %}
     </ul>
-
+</div>
+</div>
+</div>
     <div class="card">
         <div class="card-header">
             <h5 class="card-title"> <strong>Status History </h5>
