@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ShipmentForm, ShipmentStatusForm
 from .models import Shipment
-from .services import update_salla_api, handle_status_update, handle_shipment_update, generate_pdf_label
+from .services import update_salla_api, handle_status_update, handle_shipment_update
 from django.conf import settings
 
 
