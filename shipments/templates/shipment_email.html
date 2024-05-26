@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shipment {{ status|capitalize }}</title>
+    <title>Shipment {{ status|capfirst }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,7 +43,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Shipment {{ status|capitalize }}</h1>
+        <h1>Shipment {{ status|capfirst }}</h1>
         <div class="section">
             <p><strong>Shipment ID:</strong> {{ shipment_id }}</p>
             <p><a href="{{ details_url }}">View Shipment Details</a></p>
