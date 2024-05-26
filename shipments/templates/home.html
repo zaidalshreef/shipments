@@ -17,7 +17,13 @@ Home
     margin-bottom: 3rem;
 
 }
-
+.label {
+    display: inline-block;
+    color:#000;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.6rem;
+}
 
 </style>
 
@@ -92,7 +98,7 @@ Home
                     {% if shipment.type == "shipment" %}
                 <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
                     {% csrf_token %}
-                    <label for="status">New Status:</label>
+                    <label for="status">Select next status of shipment:</label>
                     <select id="status" name="status">
                         
                         <option value="pending">Pending</option>
@@ -113,7 +119,7 @@ Home
                             <option value="returned">Returned</option>
                             <option value="cancelled">Cancelled</option>
                         </select>
-                        <input type="submit" value="Update Status">
+                        <input type="submit" value="Update Status"  class="btn btn-primary">>
                 </form>
                 {% endif %}
             </div>
