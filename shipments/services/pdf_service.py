@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
+from ..models import Shipment
 
 
 def generate_pdf_label(request, shipment_id):
