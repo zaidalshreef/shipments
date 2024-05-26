@@ -149,8 +149,8 @@ LOGOUT_REDIRECT_URL = '/shipments/home/'  # Redirect to the home page after logo
 #EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 #EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-#INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS').split(',')
-#DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+INTERNAL_STAFF_EMAILS = os.getenv('INTERNAL_STAFF_EMAILS').split(',')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # Alternatively, for development purposes, you can use the console backend to print emails to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
