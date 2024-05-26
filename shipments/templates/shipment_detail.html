@@ -13,16 +13,16 @@ Shipment Detail
             <h5 class="card-title"> <strong>Shipment Detail</h5>
         </div>
         <div class="card-body">
-            <p><strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
-            <p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
-            <p><strong>Created At:</strong> {{ shipment.created_at }}</p>
-            <p><strong>Type:</strong> {{ shipment.type }}</p>
-            <p><strong>Shipping Number:</strong> {{ shipment.shipping_number }}</p>
-            <p><strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
-            <p><strong>Total:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
-            <p><strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>
-            <p><strong>Label:</strong> <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
-            <p><strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
+            <p class="card-text"> <strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
+            <p class="card-text"> <strong>Merchant:</strong> {{ shipment.merchant }}</p>
+            <p class="card-text"> <strong>Created At:</strong> {{ shipment.created_at }}</p>
+            <p class="card-text"> <strong>Type:</strong> {{ shipment.type }}</p>
+            <p class="card-text"> <strong>Shipping Number:</strong> {{ shipment.shipping_number }}</p>
+            <p class="card-text"> <strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
+            <p class="card-text"> <strong>Total:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
+            <p class="card-text"> <strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>
+            <p class="card-text"> <strong>Label:</strong> <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
+            <p class="card-text"> <strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
         </div>
     </div>
 
@@ -33,11 +33,11 @@ Shipment Detail
         </div>
         <div class="card-body">
         {% for package in shipment.packages %}
-        <p><strong>Name:</strong> {{ package.name }}</p>
-        <p><strong>SKU:</strong> {{ package.sku }}</p>
-        <p><strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>
-        <p><strong>Quantity:</strong> {{ package.quantity }}</p>
-        <p><strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>
+        <p class="card-text"> <strong>Name:</strong> {{ packge.name }}</p>
+        <p class="card-text"> <strong>SKU:</strong> {{ package.sku }}</p>
+        <p class="card-text"> <strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>
+        <p class="card-text"> <strong>Quantity:</strong> {{ package.quantity }}</p>
+        <p class="card-text"> <strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>
         {% endfor %}
     </div>
     </div>
@@ -66,10 +66,10 @@ Shipment Detail
                     <div class="row">
                     <div class="col">
                     <h3>Ship From</h3>
-                    <p><strong>Name:</strong> {{ shipment.ship_from.name }}</p>
-                    <p><strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
-                    <p><strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
-                    <p><strong>Email:</strong> {{ shipment.ship_from.email }}</p>
+                    <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_from.name }}</p>
+                    <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
+                    <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
+                    <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_from.email }}</p>
                     <div id="originMap" data-lat="{{ shipment.ship_from.latitude }}" data-lng="{{ shipment.ship_from.longitude }}" data-name="{{ shipment.ship_from.name }}" data-address="{{ shipment.ship_from.address_line }}" style="height: 300px; width: 100%;"></div>
                 </div>
             
@@ -77,10 +77,10 @@ Shipment Detail
         <div class="col">
             
                     <h3>Ship To</h3>
-                    <p><strong>Name:</strong> {{ shipment.ship_to.name }}</p>
-                    <p><strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
-                    <p><strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
-                    <p><strong>Email:</strong> {{ shipment.ship_to.email }}</p>
+                    <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_to.name }}</p>
+                    <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
+                    <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
+                    <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_to.email }}</p>
                     <div id="destinationMap" data-lat="{{ shipment.ship_to.latitude }}" data-lng="{{ shipment.ship_to.longitude }}" data-name="{{ shipment.ship_to.name }}" data-address="{{ shipment.ship_to.address_line }}" style="height: 300px; width: 100%;"></div>
                 </div>
             
@@ -91,7 +91,7 @@ Shipment Detail
     <ul class="list-group mb-4">
         {% for key, value in shipment.meta.items %}
         <li class="list-group-item">
-            <strong>{{ key|title }}:</strong> {{ value }}
+            <p class="card-text"> <strong>{{ key|title }}:</strong> {{ value }}</p>
         </li>
         {% endfor %}
     </ul>
@@ -115,10 +115,10 @@ Shipment Detail
     <div class="d-flex justify-content-between">
         <a href="{% url 'shipments:shipment_update' shipment.shipment_id %}" class="btn btn-warning">Update Details</a>
         <a href="{% url 'shipments:update_status' shipment.shipment_id %}" class="btn btn-secondary">Update Status</a>
-        <form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post">
+        <!--<form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        </form>-->
     </div>
 </div>
 
