@@ -1,8 +1,26 @@
 from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
 from django.urls import reverse
-from .salla_service import update_salla_api
+from ..services import update_salla_api, send_shipment_email
 from datetime import datetime
+
+
+def handle_shipment_event(request, data):
+    shipment_data, status = parse_shipment_data(data)
+    if not shipment_data:
+        return JsonResponse({'error': 'Missing data in shipment_data'}, status=400)
+
+    if status == 'creating':
+        status = 'created'
+
+    if data.get('event') == 'shipment.creating':
+        response = handle_shipment_creation_or_update(shipment_data, status, request)
+        send_shipment_email(shipment_data, 'created')
+        return response
+    elif data.get('event') == 'shipment.cancelled':
+        response = handle_status_update(shipment_data.get('shipment_id'), status)
+        send_shipment_email(shipment_data, 'cancelled')
+        return response
 
 
 def handle_shipment_creation_or_update(shipment_data, status, request):

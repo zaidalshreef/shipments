@@ -28,6 +28,19 @@ def handle_app_installed(data):
     return JsonResponse({'message': f'App installed for merchant id {merchant_id}'}, status=200)
 
 
+def handle_app_uninstalled(data):
+    merchant_id = data.get('merchant')
+    if not merchant_id:
+        return JsonResponse({'error': 'Merchant ID not provided'}, status=400)
+
+    try:
+        merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
+        merchant_token.delete()
+        return JsonResponse({'message': f'App uninstalled for merchant id {merchant_id}'}, status=200)
+    except MerchantToken.DoesNotExist:
+        return JsonResponse({'error': f'MerchantToken with merchant id {merchant_id} does not exist'}, status=404)
+
+
 def refresh_token(merchant_token):
     refresh_url = 'https://accounts.salla.sa/oauth2/token'
     payload = {
