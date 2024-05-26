@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import pytz
 
 
-def handle_store_authorize(data):
+def handle_store_authorize(request, data):
     merchant_id = data.get('merchant')
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
@@ -23,12 +23,12 @@ def handle_store_authorize(data):
     return JsonResponse({'message': f'App added to store for merchant id {merchant_id}'}, status=201)
 
 
-def handle_app_installed(data):
+def handle_app_installed(request, data):
     merchant_id = data.get('merchant')
     return JsonResponse({'message': f'App installed for merchant id {merchant_id}'}, status=200)
 
 
-def handle_app_uninstalled(data):
+def handle_app_uninstalled(request, data):
     merchant_id = data.get('merchant')
     if not merchant_id:
         return JsonResponse({'error': 'Merchant ID not provided'}, status=400)
