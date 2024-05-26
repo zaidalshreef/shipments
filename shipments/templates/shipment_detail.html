@@ -4,11 +4,14 @@
 {% block title %}
 Shipment Detail
 {% endblock %}
-
+<!--mb-4-->
 {% block content %}
 <div class="container">
-    <h1 class="my-4">Shipment Detail</h1>
-    <div class="card mb-4">
+   <!--<h1 class="my-4">Shipment Detail</h1>--> 
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"> <strong>Shipment Detail</h5>
+        </div>
         <div class="card-body">
             <p><strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
             <p><strong>Merchant:</strong> {{ shipment.merchant }}</p>
@@ -23,7 +26,22 @@ Shipment Detail
         </div>
     </div>
 
-    <h2 class="mt-4">Packages</h2>
+    <!--<h2 class="mt-4">Packages</h2>-->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"> <strong>Packages Detail</h5>
+        </div>
+        <div class="card-body">
+        {% for package in shipment.packages %}
+        <p><strong>Name:</strong> {{ package.name }}</p>
+        <p><strong>SKU:</strong> {{ package.sku }}</p>
+        <p><strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>
+        <p><strong>Quantity:</strong> {{ package.quantity }}</p>
+        <p><strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>
+        {% endfor %}
+    </div>
+    </div>
+    <!--
     <ul class="list-group mb-4">
         {% for package in shipment.packages %}
         <li class="list-group-item">
@@ -35,12 +53,16 @@ Shipment Detail
         </li>
         {% endfor %}
     </ul>
-
+-->
     <h2 class="mt-4">Shipping Details</h2>
     <div class="row mb-4">
-        <div class="col-md-6 mb-4">
+        
             <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title"> <strong>Shipping Detail</h5>
+                </div>
                 <div class="card-body">
+                    <div class="col-md-6 mb-4">
                     <h3>Ship From</h3>
                     <p><strong>Name:</strong> {{ shipment.ship_from.name }}</p>
                     <p><strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
@@ -51,8 +73,7 @@ Shipment Detail
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
+            
                     <h3>Ship To</h3>
                     <p><strong>Name:</strong> {{ shipment.ship_to.name }}</p>
                     <p><strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
@@ -73,12 +94,19 @@ Shipment Detail
         {% endfor %}
     </ul>
 
-    <h2 class="mt-4">Status History</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"> <strong>Status History </h5>
+        </div>
+        <div class="card-body">
+    <!--<h2 class="mt-4">Status History</h2>-->
     <ul class="list-group mb-4">
         {% for status in shipment.statuses.all %}
         <li class="list-group-item">{{ status.date_time }} - {{ status.status }}</li>
         {% endfor %}
     </ul>
+</div>
+</div>
 
     <div class="d-flex justify-content-between">
         <a href="{% url 'shipments:shipment_update' shipment.shipment_id %}" class="btn btn-warning">Update Details</a>
