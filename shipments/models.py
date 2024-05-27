@@ -114,20 +114,23 @@ class Shipment(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.shipping_number:
-            self.shipping_number = self.generate_shipping_number()
+            self.shipping_number = self.generate_unique_shipping_number()
         super().save(*args, **kwargs)
 
     @staticmethod
-    def generate_shipping_number():
-        # Get current month and year
+    def generate_unique_shipping_number():
         now = datetime.now()
         month_year = now.strftime("%m%Y")
 
-        # Get the count of shipments created in the current month and year
-        count = Shipment.objects.filter(created_at__year=now.year, created_at__month=now.month).count() + 1
+        # Find the highest current shipping number for the current month/year
+        last_shipment = Shipment.objects.filter(created_at__year=now.year, created_at__month=now.month).order_by('shipping_number').last()
 
-        # Generate the shipping number
-        shipping_number = f"{count:06d}{month_year}"
+        if last_shipment and last_shipment.shipping_number:
+            last_count = int(last_shipment.shipping_number[:6]) + 1
+        else:
+            last_count = 1
+
+        shipping_number = f"{last_count:06d}{month_year}"
         return shipping_number
 
     class Meta:
