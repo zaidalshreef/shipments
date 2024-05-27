@@ -27,7 +27,7 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
             logger.info(f"Creating new shipment: {shipment_data.get('shipment_id')}")
             shipment = handle_shipment_creation(shipment_data, request)
             handle_status_update(shipment.shipment_id, status)
-            return JsonResponse({'message': 'Shipment created successfully'}, status=201)
+            return JsonResponse({'message': 'Shipment created successfully', 'shipment_id': shipment.shipment_id}, status=201)
     except Exception as e:
         logger.error(f"Error in handle_shipment_creation_or_update: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
@@ -36,14 +36,6 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
 def handle_shipment_creation(shipment_data, request):
     logger.info(f"Creating shipment with data: {shipment_data}")
     try:
-        required_fields = ['event', 'merchant', 'created_at', 'shipment_id']
-        if not all(field in shipment_data for field in required_fields):
-            return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
-
-        # Check if a shipment with the same shipping_number already exists
-        if Shipment.objects.filter(shipping_number=shipment_data['shipping_number']).exists():
-            return JsonResponse({'error': 'Duplicate shipment number'}, status=400)
-
         new_shipment = Shipment(**shipment_data)
         new_shipment.save()
 
