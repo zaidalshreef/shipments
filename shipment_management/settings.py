@@ -200,9 +200,9 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        '__init__': {
+        'weasyprint': {
             'handlers': ['console', 'file'],
-            'level': 'WARNING',  # Set a higher level to filter out info logs
+            'level': 'WARNING',  # Adjust to filter out detailed logs
             'propagate': False,
         },
     },
