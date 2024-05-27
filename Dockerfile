@@ -46,7 +46,6 @@ RUN adduser \
 RUN mkdir -p /app/logs \
     && touch /app/logs/django_debug.log \
     && chown -R appuser:appuser /app/logs \
-    && chmod -R 755 /app/logs
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
