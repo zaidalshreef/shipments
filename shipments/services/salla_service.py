@@ -47,8 +47,6 @@ def handle_app_uninstalled(data):
         return JsonResponse({'error': 'Merchant ID not provided'}, status=400)
 
     try:
-        merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
-        merchant_token.delete()
         logger.info(f"App uninstalled for merchant id {merchant_id}")
         return JsonResponse({'message': f'App uninstalled for merchant id {merchant_id}'}, status=200)
     except MerchantToken.DoesNotExist:
