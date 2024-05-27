@@ -33,7 +33,7 @@ def home(request):
 def analytics(request):
     try:
         shipments = Shipment.objects.all()
-        return render(request, 'Analytics.html', {'shipments': shipments})
+        return render(request, 'analytics.html', {'shipments': shipments})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
