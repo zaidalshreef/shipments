@@ -46,7 +46,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Shipment {{ status|capfirst }}</h1>
+        <h1>{{ type }} {{ status|capfirst }}</h1>
         <div class="section">
             <p><strong>Shipment ID:</strong> {{ shipment_id }}</p>
             <p><a href="{{ details_url }}">View Shipment Details</a></p>
