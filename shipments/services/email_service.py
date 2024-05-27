@@ -3,11 +3,13 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
+from asgiref.sync import sync_to_async
 
 
 def send_shipment_email(shipment_data, status):
     subject = f"Shipment {status.capitalize()} - {shipment_data['shipment_id']}"
     context = {
+        'type': shipment_data['type'],
         'shipment_id': shipment_data['shipment_id'],
         'status': status,
         'details_url': f"https://{settings.ALLOWED_HOSTS[0]}/shipments/{shipment_data['shipment_id']}",

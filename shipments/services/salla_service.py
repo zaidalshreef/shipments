@@ -1,18 +1,21 @@
 import requests
 from datetime import datetime
 from django.conf import settings
-from ..models import MerchantToken
 from django.http import JsonResponse
+from ..models import MerchantToken
 import pytz
+from asgiref.sync import sync_to_async
+import httpx
 
 
-def handle_store_authorize(data):
+async def handle_store_authorize(data):
     merchant_id = data.get('merchant')
     access_token = data['data'].get('access_token')
     refresh_tokens = data['data'].get('refresh_token')
     expires_at = datetime.fromtimestamp(data['data'].get('expires'))
     expires_at = pytz.utc.localize(expires_at)  # Make datetime timezone-aware
-    MerchantToken.objects.update_or_create(
+
+    await sync_to_async(MerchantToken.objects.update_or_create)(
         merchant_id=merchant_id,
         defaults={
             'access_token': access_token,
@@ -24,25 +27,25 @@ def handle_store_authorize(data):
     return JsonResponse({'message': f'App added to store for merchant id {merchant_id}'}, status=201)
 
 
-def handle_app_installed(data):
+async def handle_app_installed(data):
     merchant_id = data.get('merchant')
     return JsonResponse({'message': f'App installed for merchant id {merchant_id}'}, status=200)
 
 
-def handle_app_uninstalled(data):
+async def handle_app_uninstalled(data):
     merchant_id = data.get('merchant')
     if not merchant_id:
         return JsonResponse({'error': 'Merchant ID not provided'}, status=400)
 
     try:
-        merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
-        merchant_token.delete()
+        merchant_token = await sync_to_async(MerchantToken.objects.get)(merchant_id=merchant_id)
+        await sync_to_async(merchant_token.delete)()
         return JsonResponse({'message': f'App uninstalled for merchant id {merchant_id}'}, status=200)
     except MerchantToken.DoesNotExist:
         return JsonResponse({'error': f'MerchantToken with merchant id {merchant_id} does not exist'}, status=404)
 
 
-def refresh_token(merchant_token):
+async def refresh_token(merchant_token):
     refresh_url = 'https://accounts.salla.sa/oauth2/token'
     payload = {
         'grant_type': 'refresh_token',
@@ -56,24 +59,24 @@ def refresh_token(merchant_token):
         merchant_token.access_token = token_data.get('access_token')
         expires_in = token_data.get('expires')
         merchant_token.expires_at = datetime.fromtimestamp(expires_in)
-        merchant_token.save()
+        await sync_to_async(merchant_token.save)()
         return True
     return False
 
 
-def get_access_token(merchant_id):
+async def get_access_token(merchant_id):
     try:
-        merchant_token = MerchantToken.objects.get(merchant_id=merchant_id)
+        merchant_token = await sync_to_async(MerchantToken.objects.get)(merchant_id=merchant_id)
         if merchant_token.is_expired():
-            refresh_token(merchant_token)
+            await refresh_token(merchant_token)
         return merchant_token.access_token
     except MerchantToken.DoesNotExist:
         return None
 
 
-def update_salla_api(shipment, status):
+async def update_salla_api(shipment, status):
     print(f"Updating Salla API for shipment {shipment.shipment_id} status {status}")
-    token = get_access_token(shipment.merchant)
+    token = await get_access_token(shipment.merchant)
     shipment_id = shipment.shipment_id
     api_url = f'https://api.salla.dev/admin/v2/shipments/{shipment_id}'
     headers = {
@@ -86,6 +89,7 @@ def update_salla_api(shipment, status):
         'pdf_label': shipment.label.get('url', '') if shipment.label else '',
         'cost': 19
     }
-    response = requests.put(api_url, headers=headers, json=payload)
+    async with httpx.AsyncClient() as client:
+        response = await client.put(api_url, headers=headers, json=payload)
     if response.status_code != 200:
         print(f"Failed to update Salla API: {response.content}")

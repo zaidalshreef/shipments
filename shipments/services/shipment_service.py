@@ -5,34 +5,37 @@ from .salla_service import update_salla_api
 from .email_service import send_shipment_email
 from datetime import datetime
 import requests
+from asgiref.sync import sync_to_async
 
 
-def handle_shipment_creation_or_update(shipment_data, status, request):
-    existing_shipment = Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first()
+async def handle_shipment_creation_or_update(shipment_data, status, request):
+    send_shipment_email(shipment_data, status)
+    existing_shipment = await sync_to_async(
+        Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first)()
     if existing_shipment and shipment_data.get('type') == 'return':
-        handle_shipment_update(shipment_data)
-        return handle_status_update(shipment_data.get('shipment_id'), 'created')
-    elif existing_shipment:
-        return handle_status_update(shipment_data.get('shipment_id'), status)
+        await handle_shipment_update(shipment_data)
+        return await handle_status_update(shipment_data.get('shipment_id'), 'created')
+    elif existing_shipment and status == 'cancelled':
+        return await handle_status_update(shipment_data.get('shipment_id'), status)
     else:
-        shipment = handle_shipment_creation(shipment_data, status)
-        pdf_label_url = request.build_absolute_uri(reverse('shipments:generate_pdf_label', args=[shipment.shipment_id]))
-        print(pdf_label_url)
+        shipment = await handle_shipment_creation(shipment_data, status)
+        pdf_label_url = await request.build_absolute_uri(
+            reverse('shipments:generate_pdf_label', args=[shipment.shipment_id]))
         shipment.label = {'url': pdf_label_url}
-        shipment.save()
+        await sync_to_async(shipment.save)()
         return JsonResponse({'message': 'Shipment creation event processed', 'pdf_label': pdf_label_url})
 
 
-def handle_shipment_creation(shipment_data, status):
+async def handle_shipment_creation(shipment_data, status):
     required_fields = ['event', 'merchant', 'created_at', 'shipment_id']
     if not all(field in shipment_data for field in required_fields):
         return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
 
-    shipment = save_to_database(shipment_data, status)
+    shipment = await save_to_database(shipment_data, status)
     return shipment
 
 
-def handle_shipment_update(shipment_data):
+async def handle_shipment_update(shipment_data):
     if shipment_data is None:
         return JsonResponse({'error': 'No shipment data provided'}, status=400)
 
@@ -40,32 +43,33 @@ def handle_shipment_update(shipment_data):
     if shipment_id is None:
         return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
-    update_database(shipment_data)
+    await update_database(shipment_data)
     return JsonResponse({'message': 'Shipment update event processed'}, status=200)
 
 
-def save_to_database(shipment_data, status):
+async def save_to_database(shipment_data, status):
     new_shipment = Shipment(**shipment_data)
-    new_shipment.save()
-    handle_status_update(new_shipment.shipment_id, status)
+    await sync_to_async(new_shipment.save)()
+    await handle_status_update(new_shipment.shipment_id, status)
     return new_shipment
 
 
-def update_database(shipment_data):
+async def update_database(shipment_data):
     shipment_id = shipment_data.get('shipment_id')
     try:
-        shipment = Shipment.objects.get(shipment_id=shipment_id)
+        shipment = await sync_to_async(Shipment.objects.get)(shipment_id=shipment_id)
     except Shipment.DoesNotExist:
         return JsonResponse({'error': f"Shipment with shipment_id {shipment_id} does not exist."}, status=400)
 
     for key, value in shipment_data.items():
         setattr(shipment, key, value)
-    shipment.save()
+    await sync_to_async(shipment.save)()
+    return shipment
 
 
-def handle_status_update(shipment_id, status):
+async def handle_status_update(shipment_id, status):
     try:
-        shipment = Shipment.objects.get(shipment_id=shipment_id)
+        shipment = await sync_to_async(Shipment.objects.get)(shipment_id=shipment_id)
     except Shipment.DoesNotExist:
         return JsonResponse({'error': 'Shipment not found'}, status=404)
 
@@ -73,9 +77,9 @@ def handle_status_update(shipment_id, status):
         shipment=shipment,
         status=status
     )
-    new_status.save()
+    await sync_to_async(new_status.save)()
     if status != 'cancelled':
-        update_salla_api(shipment, status)
+        await update_salla_api(shipment, status)
     return JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
 
 

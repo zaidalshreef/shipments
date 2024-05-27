@@ -7,23 +7,23 @@ from .shipment_service import handle_shipment_creation_or_update, handle_status_
 
 
 @csrf_exempt
-def webhook_handler(request):
+async def webhook_handler(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             event = data.get('event')
             if event == 'app.store.authorize':
-                return handle_store_authorize(data)
+                return await handle_store_authorize(data)
             elif event == 'app.installed':
                 return handle_app_installed(data)
             elif event == 'app.uninstalled':
-                return handle_app_uninstalled(data)
+                return await handle_app_uninstalled(data)
             else:
                 shipment_data, status = parse_shipment_data(data)
                 if event == 'shipment.creating':
-                    return handle_shipment_creation_or_update(shipment_data, "created", request)
+                    return await handle_shipment_creation_or_update(shipment_data, "created", request)
                 elif event == 'shipment.cancelled':
-                    return handle_status_update(shipment_data.get('shipment_id'), status)
+                    return await handle_shipment_creation_or_update(shipment_data, "cancelled", request)
                 else:
                     return JsonResponse({'error': 'Unknown event type'}, status=400)
         except json.JSONDecodeError:
