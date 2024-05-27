@@ -44,6 +44,7 @@ Shipment Detail
         </div>
         <div class="card-body">
         {% for package in shipment.packages %}
+        <p class="card-text"><strong>Packages content From Home :</strong> {{ pckg.name }}</p>
         <p class="card-text"> <strong>Name:</strong> {{ packge.name }}</p>
         <p class="card-text"> <strong>SKU:</strong> {{ package.sku }}</p>
         <p class="card-text"> <strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>
