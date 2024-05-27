@@ -28,6 +28,14 @@ def home(request):
         return render(request, 'home.html', {'shipments': shipments})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
+    
+
+def analytics(request):
+    try:
+        shipments = Shipment.objects.all()
+        return render(request, 'Analytics.html', {'shipments': shipments})
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
 
 
 def shipment_list(request):
