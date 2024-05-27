@@ -64,9 +64,11 @@ option {
                         
                         <h5 class="title">Package Details </h5>
                         {% for pckg in shipment.packages %}
-                        <p class="card-text"><strong>Packages weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
-                        <p class="card-text"><strong>Packages quantity:</strong>{{ pckg.quantity }}</p>
-                        <p class="card-text"><strong>Packages content:</strong> {{ pckg.name }}</p>
+                        <p class="card-text"><strong> Content:</strong> {{ pckg.name }}</p>
+                        <p class="card-text"><strong> Quantity:</strong>{{ pckg.quantity }}</p>
+                        <p class="card-text"><strong> Weight:</strong> {{ pckg.weight.value }} {{ pckg.weight.units }}</p>
+                        
+                        
                           {% endfor %}
                          
                           </div>
