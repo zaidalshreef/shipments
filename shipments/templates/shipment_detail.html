@@ -124,12 +124,40 @@ Shipment Detail
 </div>
 
     <div class="d-flex justify-content-between">
-        <a href="{% url 'shipments:shipment_update' shipment.shipment_id %}" class="btn btn-warning">Update Details</a>
-        <a href="{% url 'shipments:update_status' shipment.shipment_id %}" class="btn btn-secondary">Update Status</a>
+       <!--<a href="{% url 'shipments:shipment_update' shipment.shipment_id %}" class="btn btn-warning">Update Details</a> 
+        <a href="{% url 'shipments:update_status' shipment.shipment_id %}" class="btn btn-secondary">Update Status</a>-->
         <!--<form action="{% url 'shipments:shipment_delete' shipment.shipment_id %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>-->
+
+        {% if shipment.type == "shipment" %}
+        <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+            {% csrf_token %}
+            <label for="status">Select next status of shipment:</label>
+            <select id="status" name="status">
+                
+                <option value="pending">Pending</option>
+                <option value="delivering">Delivering</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            <input type="submit" value="Update Status"  class="btn btn-primary">
+
+            {% else %}
+
+            <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+                {% csrf_token %}
+                <label for="status">New Status:</label>
+                <select id="status" name="status">
+                    <option value="in_progress">In Progress</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="returned">Returned</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <input type="submit" value="Update Status"  class="btn btn-primary">
+        </form>
+        {% endif %}
     </div>
 </div>
 
