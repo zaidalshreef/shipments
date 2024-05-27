@@ -22,7 +22,7 @@ async def send_test_email_view(request):
 
 
 async def home(request):
-    shipments = await sync_to_async(Shipment.objects.all)()
+    shipments = await sync_to_async(list)(Shipment.objects.all())
     return render(request, 'home.html', {'shipments': shipments})
 
 
