@@ -200,5 +200,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        '__init__': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',  # Set a higher level to filter out info logs
+            'propagate': False,
+        },
     },
 }
+
