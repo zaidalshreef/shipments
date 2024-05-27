@@ -9,8 +9,10 @@ from datetime import datetime
 # Initialize the logger
 logger = logging.getLogger(__name__)
 
+
 def handle_shipment_creation_or_update(shipment_data, status, request):
-    logger.info(f"Handling shipment creation or update for shipment_id: {shipment_data.get('shipment_id')}, status: {status}")
+    logger.info(
+        f"Handling shipment creation or update for shipment_id: {shipment_data.get('shipment_id')}, status: {status}")
     try:
         existing_shipment = Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first()
         send_shipment_email(shipment_data, status)
@@ -36,8 +38,11 @@ def handle_shipment_creation(shipment_data, request):
     try:
         required_fields = ['event', 'merchant', 'created_at', 'shipment_id']
         if not all(field in shipment_data for field in required_fields):
-            logger.warning("Invalid shipment data provided")
             return JsonResponse({'error': 'Invalid shipment data provided'}, status=400)
+
+        # Check if a shipment with the same shipping_number already exists
+        if Shipment.objects.filter(shipping_number=shipment_data['shipping_number']).exists():
+            return JsonResponse({'error': 'Duplicate shipment number'}, status=400)
 
         new_shipment = Shipment(**shipment_data)
         new_shipment.save()
