@@ -23,6 +23,9 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
         elif existing_shipment and status == 'cancelled':
             logger.info(f"Updating cancelled shipment: {shipment_data.get('shipment_id')}")
             return handle_status_update(shipment_data.get('shipment_id'), status)
+        elif existing_shipment:
+            logger.info(f"Updating existing shipment: {shipment_data.get('shipment_id')}")
+            return handle_status_update(shipment_data.get('shipment_id'), status)
         else:
             logger.info(f"Creating new shipment: {shipment_data.get('shipment_id')}")
             shipment = handle_shipment_creation(shipment_data, request)
