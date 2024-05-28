@@ -38,13 +38,9 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-# Create a directory for logs and set permissions
-RUN mkdir -p /app/logs && \
-    touch /app/logs/django_debug.log && \
-    chown -R appuser:appuser /app/logs && \
-    chmod 755 /app/logs && \
-    chmod 644 /app/logs/django_debug.log && \
-    chown appuser:appuser /app/logs/django_debug.log
+RUN mkdir -p /app/logs /app/staticfiles && touch /app/logs/django_debug.log && \
+    chown -R appuser:appuser /app/logs /app/staticfiles && chmod 755 /app/logs /app/staticfiles && \
+    chmod 644 /app/logs/django_debug.log
 
 # Copy requirements.txt before installing dependencies
 COPY requirements.txt .
