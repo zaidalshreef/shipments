@@ -40,6 +40,7 @@ services:
       # Security settings
       - ALLOWED_HOSTS=techsynapse.org  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
       - CSRF_TRUSTED_ORIGINS=https://techsynapse.org,http://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
+      - PORT=8080  # Port number for the Django application, e.g., 8080
     logging:
       driver: gelf
       options:
