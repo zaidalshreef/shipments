@@ -8,7 +8,7 @@ from twilio.rest import Client
 from ..models import Shipment
 logger = logging.getLogger(__name__)
 
-twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+# twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
 
 def send_shipment_email(shipment, status):

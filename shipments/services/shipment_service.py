@@ -92,8 +92,8 @@ def handle_status_update(shipment_id, status):
         new_status.save()
         if status == 'created' or status == 'cancelled':
             send_shipment_email(shipment, status)
-        if status == 'delivery':
-            send_sms(shipment, status)
+        # if status == 'delivery':
+        #     send_sms(shipment, status)
         if status != 'cancelled':
             update_salla_api(shipment, status)
         logger.info(f"Shipment status updated successfully for shipment_id: {shipment_id}")
