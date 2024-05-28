@@ -55,7 +55,7 @@ RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,targ
 
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic
 
 # Switch to the non-privileged user to run the application.
 USER appuser
