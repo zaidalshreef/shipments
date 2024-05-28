@@ -1,10 +1,4 @@
-# syntax=docker/dockerfile:1
-
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
+# syntax=docker/dockerfile:1.3-labs
 
 ARG PYTHON_VERSION=3.11.6
 FROM python:${PYTHON_VERSION}-slim as base
@@ -30,7 +24,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
 RUN adduser \
     --disabled-password \
@@ -41,20 +34,16 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-
 # Create a directory for logs and set permissions
 RUN mkdir -p /app/logs && \
     touch /app/logs/django_debug.log && \
-    chown -R appuser:appuser /app/logs \
-    && chmod 755 /app/logs \
-    && chmod 644 /app/logs/django_debug.log \
-    && chown appuser:appuser /app/logs/django_debug.log
+    chown -R appuser:appuser /app/logs && \
+    chmod 755 /app/logs && \
+    chmod 644 /app/logs/django_debug.log && \
+    chown appuser:appuser /app/logs/django_debug.log
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
-RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/root/cache/pip,target=/root/.cache/pip \
+RUN --mount=type=cache,id=6a6cf542-1b62-478e-96e7-cfbe9a4a4038/pip-cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
@@ -67,6 +56,5 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8000
 
-
 # Run the application.
-CMD python manage.py runserver 0.0.0.0:8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
