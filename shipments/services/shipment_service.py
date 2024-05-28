@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
 from django.urls import reverse
 from .salla_service import update_salla_api
-from .email_service import send_shipment_email
+from .notification_service import send_shipment_email
 from datetime import datetime
 
 # Initialize the logger
@@ -15,7 +15,6 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
         f"Handling shipment creation or update for shipment_id: {shipment_data.get('shipment_id')}, status: {status}")
     try:
         existing_shipment = Shipment.objects.filter(shipment_id=shipment_data.get('shipment_id')).first()
-        send_shipment_email(shipment_data, status)
         if existing_shipment and shipment_data.get('type') == 'return':
             logger.info(f"Updating return shipment: {shipment_data.get('shipment_id')}")
             handle_shipment_update(shipment_data)
@@ -91,6 +90,10 @@ def handle_status_update(shipment_id, status):
             status=status
         )
         new_status.save()
+        if status == 'created' or status == 'cancelled':
+            send_shipment_email(shipment, status)
+        if status == 'delivery':
+            send_sms(shipment, status)
         if status != 'cancelled':
             update_salla_api(shipment, status)
         logger.info(f"Shipment status updated successfully for shipment_id: {shipment_id}")
