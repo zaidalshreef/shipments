@@ -59,14 +59,15 @@ COPY requirements.txt .
 RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
 
 # Switch to the non-privileged user to run the application.
 USER appuser
 
 # Copy the source code into the container.
 COPY . .
+
+# Collect static files
+RUN python manage.py collectstatic --noinput
 
 # Expose the port that the application listens on.
 EXPOSE $PORT
