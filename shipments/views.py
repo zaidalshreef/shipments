@@ -29,11 +29,10 @@ def home(request):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
     
-
-def analytics(request):
+def analytic(request):
     try:
         shipments = Shipment.objects.all()
-        return render(request, 'analytics.html', {'shipments': shipments})
+        return render(request, 'analytic.html', {'shipments': shipments})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 

@@ -10,7 +10,7 @@ Analytics
 <div class="container-fluid">
 
     <div class="row">
-        {% for shipment in shipments %}
+        
         <div class="col-sm-6">
 
 
@@ -21,14 +21,21 @@ Analytics
                     </div>
 
                     <div class="card-body">
-                        
-                        <p class="card-text"><strong>forloop</strong> </p>
+                        {% with totalship=0 %}
+                        {% for shipment in shipments %}
+                        totalship  = {{ forloop.counter }}
+                       
+                        <p class="card-text">total ship = {{shipment|length}} counter {{shipment.counter}}
+                            count {{shipment.count}}
 
+                        </p> 
+                        {% endfor %}
+                        {% endwith %}
                     </div>
          </div>   
 
             </div> <!-- Col block-->
-            {% endfor %}
+            
 </div> <!-- Row block -->
 </div>
 
