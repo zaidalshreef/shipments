@@ -2,7 +2,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: "Dockerfile.dev"
+      dockerfile: Dockerfiledev
     ports:
       - "8000:8000"
     volumes:
