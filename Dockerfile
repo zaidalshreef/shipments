@@ -43,7 +43,7 @@ RUN mkdir -p /app/logs && \
     chown appuser:appuser /app/logs/django_debug.log
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
-RUN --mount=type=cache,id=6a6cf542-1b62-478e-96e7-cfbe9a4a4038/pip-cache,target=/root/.cache/pip \
+RUN --mount=type=cache,id=6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
