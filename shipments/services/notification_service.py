@@ -39,7 +39,7 @@ def send_sms(shipment, status):
         twilio_client.messages.create(
             body=message,
             from_=settings.TWILIO_PHONE_NUMBER,
-            to=shipment.ship_to['phone']
+            to=+966507368133
         )
         logger.info(f"SMS sent to {shipment.ship_to['phone']}")
     except Exception as e:

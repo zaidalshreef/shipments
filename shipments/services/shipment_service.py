@@ -29,7 +29,8 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
             logger.info(f"Creating new shipment: {shipment_data.get('shipment_id')}")
             shipment = handle_shipment_creation(shipment_data, request)
             handle_status_update(shipment.shipment_id, status)
-            return JsonResponse({'message': 'Shipment created successfully', 'shipment_id': shipment.shipment_id}, status=201)
+            return JsonResponse({'message': 'Shipment created successfully', 'shipment_id': shipment.shipment_id},
+                                status=201)
     except Exception as e:
         logger.error(f"Error in handle_shipment_creation_or_update: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
@@ -92,8 +93,8 @@ def handle_status_update(shipment_id, status):
         new_status.save()
         if status == 'created' or status == 'cancelled':
             send_shipment_email(shipment, status)
-        # if status == 'delivery':
-        #     send_sms(shipment, status)
+        if status == 'delivery':
+            send_sms(shipment, status)
         if status != 'cancelled':
             update_salla_api(shipment, status)
         logger.info(f"Shipment status updated successfully for shipment_id: {shipment_id}")

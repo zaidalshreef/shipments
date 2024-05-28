@@ -10,6 +10,8 @@ pipeline {
         POSTGRES_DB = credentials('POSTGRES_DB')
         EMAIL_HOST_USER = credentials('EMAIL_HOST_USER')
         EMAIL_HOST_PASSWORD = credentials('EMAIL_HOST_PASSWORD')
+        TWILIO_AUTH_TOKEN  = credentials('TWILIO_AUTH_TOKEN')
+        TWILIO_ACCOUNT_SID  = credentials('TWILIO_ACCOUNT_SID')
 
     }
     stages {

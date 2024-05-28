@@ -37,9 +37,10 @@ services:
       - GOOGLE_MAPS_API_KEY=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8  # API key for Google Maps, e.g., your_google_maps_api_key
       - SALLA_API_KEY=8d20a45d-ca26-4910-b6ca-1b49f0298632  # API key for Salla, e.g., your_salla_api_key
       - SALLA_API_SECRET=37686b0677d48c01cc8eb9b7ad2e2cea  # API secret for Salla, e.g., your_salla_api_secret
-      - TWILIO_ACCOUNT_SID=your_twilio_account_sid
-      - TWILIO_AUTH_TOKEN=your_twilio_auth_token
-      - TWILIO_PHONE_NUMBER=your_twilio_phone_number
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}  # Account SID for Twilio, e.g., your_twilio_account_sid
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}  # Auth token for Twilio, e.g., your_twilio_auth_token
+      - TWILIO_PHONE_NUMBER=+14235655445  # Phone number for Twilio, e.g., your_twilio_phone_number
+
 
 
       # Security settings
