@@ -39,7 +39,7 @@ services:
 
       # Security settings
       - ALLOWED_HOSTS=techsynapse.org  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
-      - CORS_ALLOWED_ORIGINS=https://techsynapse.org,https://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
+      - CSRF_TRUSTED_ORIGINS=https://techsynapse.org,http://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
     logging:
       driver: gelf
       options:

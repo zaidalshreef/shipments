@@ -46,24 +46,21 @@ RUN mkdir -p /app/logs && \
     chmod 644 /app/logs/django_debug.log && \
     chown appuser:appuser /app/logs/django_debug.log
 
-# Ensure /app has the right permissions
-RUN chown -R appuser:appuser /app && chmod -R 755 /app
-
 # Copy requirements.txt before installing dependencies
-COPY requirements.txt /app/
+COPY requirements.txt .
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,target=/root/.cache/pip \
-    python -m pip install -r /app/requirements.txt
+    python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
 
 # Copy the source code into the container.
-COPY . /app/
+COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 80
+EXPOSE 8080
 
 # Run the application.
-CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:80"]
+CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8080"]
