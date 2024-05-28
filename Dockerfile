@@ -46,7 +46,7 @@ RUN mkdir -p /app/logs && \
 COPY requirements.txt .
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
-RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,target=/root/.cache/pip /
+RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
