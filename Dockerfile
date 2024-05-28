@@ -54,8 +54,6 @@ RUN --mount=type=cache,id=s/6a6cf542-1b62-478e-96e7-cfbe9a4a4038-/pip-cache,targ
     python -m pip install -r requirements.txt
 
 
-# Collect static files
-RUN python manage.py collectstatic
 
 # Switch to the non-privileged user to run the application.
 USER appuser
@@ -63,8 +61,6 @@ USER appuser
 # Copy the source code into the container.
 COPY . .
 
-# Expose the port that the application listens on.
-EXPOSE 8080
 
 # Run the application.
-CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8080"]
+CMD ["sh", "-c", "python manage.py collectstatic && python manage.py runserver 0.0.0.0"]
