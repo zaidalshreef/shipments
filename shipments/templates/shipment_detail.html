@@ -32,7 +32,7 @@ Shipment Detail
             <p class="card-text"> <strong>Payment Method:</strong> {{ shipment.payment_method }}</p>
             <p class="card-text"> <strong>Total:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
             <p class="card-text"> <strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>
-            <p class="card-text"> <strong>Label:</strong> <a href="{{ shipment.label.url }}">{{ shipment.label.format }}</a></p>
+            <p class="card-text"> <strong>Label:</strong> <a href="{{ shipment.label.url }}">PDF</a></p>
             <p class="card-text"> <strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
         </div>
     </div>
