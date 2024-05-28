@@ -23,6 +23,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Create Fontconfig cache directory and set permissions
+RUN mkdir -p /var/cache/fontconfig && \
+    chmod 777 /var/cache/fontconfig
+
 # Create a non-privileged user that the app will run under.
 ARG UID=10001
 RUN adduser \
