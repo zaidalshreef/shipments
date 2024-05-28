@@ -21,7 +21,7 @@ Analytics
                     </div>
 
                     <div class="card-body">
-                        {% with totalship = 0 %}
+                        {% with totalship=0 %}
                         {% for shipment in shipments %}
                         {{%totalship%}} = {{ forloop.counter }}
                         {% endfor %}
