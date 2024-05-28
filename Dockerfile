@@ -61,6 +61,8 @@ USER appuser
 # Copy the source code into the container.
 COPY . .
 
+# Expose the port that the application listens on.
+EXPOSE $PORT
 
 # Run the application.
 CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:$PORT"]
