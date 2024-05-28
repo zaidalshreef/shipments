@@ -46,6 +46,12 @@ RUN mkdir -p /app/logs && \
     chmod 644 /app/logs/django_debug.log && \
     chown appuser:appuser /app/logs/django_debug.log
 
+
+# Create a directory for static files and set permissions
+RUN mkdir -p /app/staticfiles && \
+    chown -R appuser:appuser /app/staticfiles && \
+    chmod 755 /app/staticfiles \
+
 # Copy requirements.txt before installing dependencies
 COPY requirements.txt .
 
