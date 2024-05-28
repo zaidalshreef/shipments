@@ -22,10 +22,10 @@ Analytics
 
                     <div class="card-body">
                         {% with totalship=0 %}
-                        {% for shipment in shipments %}
+                        {% for shipment in shipments.shipment_id %}
                         totalship  = {{ forloop.counter }}
                         {% endfor %}
-                        <p class="card-text">total ship = {{shipment|length}}</p>
+                        <p class="card-text">total ship = {{shipment|length}} count {{shipment.count}}</p>
                         {% endwith %}
                     </div>
          </div>   
