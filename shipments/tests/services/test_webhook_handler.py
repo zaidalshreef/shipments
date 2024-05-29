@@ -3,7 +3,7 @@ import json
 from django.urls import reverse
 from django.http import JsonResponse
 from unittest.mock import patch, Mock
-from shipments.views import webhook_handler
+from shipments.services.webhook_service import webhook_handler
 
 
 @pytest.mark.django_db

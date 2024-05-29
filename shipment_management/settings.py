@@ -31,6 +31,8 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'techsynapse.org').split(',')
 
+FORMS_URLFIELD_ASSUME_HTTPS = True
+
 # Application definition
 
 INSTALLED_APPS = [

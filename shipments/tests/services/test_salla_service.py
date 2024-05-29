@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils import timezone
 from django.http import JsonResponse
-from ...models import MerchantToken
-from ..services.salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled, \
+from shipments.models import MerchantToken
+from shipments.services.salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled, \
     refresh_token, get_access_token, update_salla_api
 
 
