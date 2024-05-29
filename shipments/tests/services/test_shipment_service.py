@@ -30,8 +30,9 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
+    request = rf.get('/shipments/create')
 
-    response = handle_shipment_creation_or_update(shipment_data, 'created')
+    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
 
     assert response.status_code == 201
     assert Shipment.objects.filter(shipment_id=1).exists()  # Correct shipment_id to 1
