@@ -67,16 +67,39 @@ def test_webhook_handler_invalid_json():
     client = Client()
     response = client.post(reverse('shipments:shipment_webhook'), data="Invalid JSON", content_type="application/json")
     assert response.status_code == 400
-    assert response.json() == {'error': 'Invalid JSON data'}
+    assert json.loads(response.content) == {'error': 'Invalid JSON data'}
 
 
 def test_webhook_handler_unknown_event(mocker):
     client = Client()
-    data = json.dumps({'event': 'unknown_event'})
+    data = json.dumps({
+        'event': 'shipment.unknown',
+        'merchant': 123,
+        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'data': {
+            'id': 1,
+            'status': 'creating',
+            'type': 'standard',
+            'courier_name': 'DHL',
+            'courier_logo': 'http://example.com/logo.png',
+            'tracking_number': '1234567890',
+            'tracking_link': 'http://example.com/track/1234567890',
+            'payment_method': 'COD',
+            'total': {'amount': 100, 'currency': 'USD'},
+            'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
+            'label': {'url': 'http://example.com/label.pdf'},
+            'total_weight': {'weight': 5, 'unit': 'kg'},
+            'created_at_details': 'some details',
+            'packages': [{'id': 1, 'weight': 5}],
+            'ship_from': {'address': '123 Street, City, Country'},
+            'ship_to': {'address': '456 Avenue, City, Country'},
+            'meta': {'info': 'some info'},
+        }
+    })
     mocker.patch('shipments.services.shipment_service.parse_shipment_data', return_value=({}, 'created'))
     response = client.post(reverse('shipments:shipment_webhook'), data=data, content_type="application/json")
     assert response.status_code == 400
-    assert response.json() == {'error': 'Unknown event type'}
+    assert json.loads(response.content) == {'error': 'Unknown event type'}
 
 
 @pytest.mark.django_db
@@ -87,4 +110,4 @@ def test_webhook_handler_method_not_allowed(rf):
     response = webhook_handler(request)
 
     assert response.status_code == 405
-    assert response.json() == {'error': 'Method not allowed'}
+    assert json.loads(response.content) == {'error': 'Method not allowed'}
