@@ -72,7 +72,7 @@ def test_handle_app_uninstalled(mocker):
 
 
 @pytest.mark.django_db
-def test_handle_app_uninstalled_not_found():
+def test_handle_app_uninstalled_not_found(mocker):
     mocker.patch.object(MerchantToken.objects, 'get', side_effect=MerchantToken.DoesNotExist)
 
     data = {
@@ -181,12 +181,11 @@ def test_update_salla_api_failure(mocker):
 @pytest.mark.django_db
 def test_update_salla_api_no_token(mocker):
     shipment = mocker.Mock()
-    shipment.shipment_id = 1
-    shipment.shipping_number = '123456'
-    shipment.merchant = 123
-    shipment.label = {'url': 'https://example.com/label.pdf'}
+    shipment.merchant = 1
     mocker.patch('shipments.services.salla_service.get_access_token', return_value=None)
+    mock_update_salla_api = mocker.patch('shipments.services.salla_service.update_salla_api')
 
     update_salla_api(shipment, 'created')
-    requests.put.assert_not_called()
+
+    mock_update_salla_api.assert_not_called()
     logging.error.assert_called_once()

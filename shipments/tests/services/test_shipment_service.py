@@ -16,7 +16,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
         'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
         'data': {
             'id': 1,
-            'status': 'created',
+            'status': 'creating',
             'type': 'standard',
             'courier_name': 'DHL',
             'courier_logo': 'http://example.com/logo.png',
@@ -45,32 +45,16 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
 
 
 @pytest.mark.django_db
-@patch('shipments.services.shipment_service.handle_status_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, rf):
-    shipment = Shipment.objects.create(
-        shipment_id=123,
-        type='existing',
-        merchant=456,
-        event='test_event',
-        created_at='2023-01-01T00:00:00Z',
-        courier_name='Test Courier',
-        shipping_number='123456789012',
-    )
-    shipment_data = {
-        'shipment_id': 123,
-        'type': 'existing',
-        'merchant': 456,
-        'event': 'test_event',
-        'created_at': '2023-01-01T00:00:00Z',
-        'courier_name': 'Test Courier',
-        'shipping_number': '123456789012',
-    }
-    request = rf.get('/shipments/update')
+def test_handle_shipment_creation_or_update_existing_shipment(mocker):
+    mock_shipment = mocker.Mock()
+    mocker.patch('shipments.services.shipment_service.Shipment.objects.filter', return_value=[mock_shipment])
+    mock_handle_status_update = mocker.patch('shipments.services.shipment_service.handle_status_update',
+                                             return_value=mocker.Mock(status_code=200))
 
-    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
+    response = handle_shipment_creation_or_update({'shipment_id': 1}, 'created', mocker.Mock())
 
     assert response.status_code == 200
-    assert mock_handle_status_update.called_once_with(123, 'created')
+    mock_handle_status_update.assert_called_once()
 
 
 @pytest.mark.django_db

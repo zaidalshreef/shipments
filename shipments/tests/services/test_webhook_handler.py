@@ -4,13 +4,14 @@ from django.urls import reverse
 from django.http import JsonResponse
 from unittest.mock import patch, Mock
 from shipments.services.webhook_service import webhook_handler
+from django.test import Client
 
 
 @pytest.mark.django_db
 @patch('shipments.views.handle_store_authorize')
 @patch('shipments.views.handle_app_installed')
 @patch('shipments.views.handle_app_uninstalled')
-@patch('shipments.views.handle_shipment_creation_or_update')
+@patch('shipments.services.shipment_service.handle_shipment_creation_or_update')
 @patch('shipments.services.shipment_service.parse_shipment_data')
 def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_shipment_creation_or_update,
                                       mock_handle_app_uninstalled, mock_handle_app_installed,
@@ -62,25 +63,18 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     mock_handle_shipment_creation_or_update.assert_called()
 
 
-@pytest.mark.django_db
-def test_webhook_handler_invalid_json(rf):
-    url = reverse('shipment_webhook')
-    request = rf.post(url, "invalid_json", content_type='application/json')
-
-    response = webhook_handler(request)
-
+def test_webhook_handler_invalid_json():
+    client = Client()
+    response = client.post(reverse('shipment_webhook'), data="Invalid JSON", content_type="application/json")
     assert response.status_code == 400
     assert response.json() == {'error': 'Invalid JSON data'}
 
 
-@pytest.mark.django_db
-def test_webhook_handler_unknown_event(rf):
-    url = reverse('shipment_webhook')
-    data = json.dumps({"event": "unknown.event"})
-    request = rf.post(url, data, content_type='application/json')
-
-    response = webhook_handler(request)
-
+def test_webhook_handler_unknown_event(mocker):
+    client = Client()
+    data = json.dumps({'event': 'unknown_event'})
+    mocker.patch('shipments.services.shipment_service.parse_shipment_data', return_value=({}, 'created'))
+    response = client.post(reverse('shipment_webhook'), data=data, content_type="application/json")
     assert response.status_code == 400
     assert response.json() == {'error': 'Unknown event type'}
 
