@@ -1,5 +1,6 @@
 # shipments/urls.py
 from django.urls import path, re_path
+from django.shortcuts import redirect  # Add this import
 from . import views
 from .services.webhook_service import webhook_handler
 from .services.pdf_service import generate_pdf_label
