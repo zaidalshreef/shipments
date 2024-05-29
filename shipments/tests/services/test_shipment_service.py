@@ -31,7 +31,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 201
     assert Shipment.objects.filter(shipment_id=1).exists()
