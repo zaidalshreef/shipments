@@ -6,7 +6,6 @@ from weasyprint import HTML
 from shipments.models import Shipment
 from shipments.services.pdf_service import generate_pdf_label
 import logging
-import JsonResponse
 
 
 @pytest.mark.django_db
