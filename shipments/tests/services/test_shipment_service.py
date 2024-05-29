@@ -31,7 +31,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
         }
     }
     request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
-    response = webhook_handler(request)
+    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
     assert response.status_code == 201
     assert Shipment.objects.filter(shipment_id=1).exists()
     mock_handle_status_update.assert_called_once()
@@ -79,7 +79,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         }
     }
     request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
-    response = webhook_handler(request)
+    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
     assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
     mock_handle_shipment_update.assert_called_once()
