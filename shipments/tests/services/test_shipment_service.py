@@ -103,7 +103,7 @@ def test_handle_shipment_creation_or_update_error(mock_logger, rf):
     }
     request = rf.get('/shipments/create')
 
-    with patch('app.models.Shipment.objects.create') as mock_create:
+    with patch('shipments.models.Shipment.objects.create') as mock_create:
         mock_create.side_effect = Exception('Test Exception')
         response = handle_shipment_creation_or_update(shipment_data, 'created', request)
 

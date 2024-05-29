@@ -28,7 +28,7 @@ def test_handle_store_authorize():
 
 @pytest.mark.django_db
 def test_handle_store_authorize_failure(mocker):
-    mocker.patch('app.services.salla_service.MerchantToken.objects.update_or_create', side_effect=Exception('DB error'))
+    mocker.patch('shipments.services.salla_service.MerchantToken.objects.update_or_create', side_effect=Exception('DB error'))
     data = {
         'merchant': 123,
         'data': {
@@ -139,7 +139,7 @@ def test_get_access_token_expired(mocker):
 
 @pytest.mark.django_db
 def test_get_access_token_failure(mocker):
-    mocker.patch('app.services.salla_service.MerchantToken.objects.get', side_effect=MerchantToken.DoesNotExist)
+    mocker.patch('shipments.services.salla_service.MerchantToken.objects.get', side_effect=MerchantToken.DoesNotExist)
     token = get_access_token(123)
     assert token is None
 
@@ -151,7 +151,7 @@ def test_update_salla_api_success(mocker):
     shipment.shipping_number = '123456'
     shipment.merchant = 123
     shipment.label = {'url': 'https://example.com/label.pdf'}
-    mocker.patch('app.services.salla_service.get_access_token', return_value='test_access_token')
+    mocker.patch('shipments.services.salla_service.get_access_token', return_value='test_access_token')
     mocker.patch('requests.put', return_value=mocker.Mock(status_code=200))
 
     update_salla_api(shipment, 'created')
@@ -165,7 +165,7 @@ def test_update_salla_api_failure(mocker):
     shipment.shipping_number = '123456'
     shipment.merchant = 123
     shipment.label = {'url': 'https://example.com/label.pdf'}
-    mocker.patch('app.services.salla_service.get_access_token', return_value='test_access_token')
+    mocker.patch('shipments.services.salla_service.get_access_token', return_value='test_access_token')
     mocker.patch('requests.put', return_value=mocker.Mock(status_code=400, content='Bad Request'))
 
     update_salla_api(shipment, 'created')
@@ -180,7 +180,7 @@ def test_update_salla_api_no_token(mocker):
     shipment.shipping_number = '123456'
     shipment.merchant = 123
     shipment.label = {'url': 'https://example.com/label.pdf'}
-    mocker.patch('app.services.salla_service.get_access_token', return_value=None)
+    mocker.patch('shipments.services.salla_service.get_access_token', return_value=None)
 
     update_salla_api(shipment, 'created')
     assert not requests.put.called

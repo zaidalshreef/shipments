@@ -17,9 +17,9 @@ def test_generate_pdf_label_success(mocker):
         type='test_type',
         shipping_number='123456',
         courier_name='Test Courier',
-        courier_logo='http://example.com/logo.png',
+        courier_logo='https://example.com/logo.png',
         tracking_number='TN123456',
-        tracking_link='http://example.com/tracking',
+        tracking_link='https://example.com/tracking',
         payment_method='cash',
         total={},
         cash_on_delivery={},
@@ -35,7 +35,7 @@ def test_generate_pdf_label_success(mocker):
     request = HttpRequest()
     request.method = 'GET'
 
-    mocker.patch('app.services.pdf_service.render_to_string', return_value='<html></html>')
+    mocker.patch('shipments.services.pdf_service.render_to_string', return_value='<html></html>')
     mocker.patch('weasyprint.HTML.write_pdf', return_value=b'PDF content')
 
     response = generate_pdf_label(request, shipment.shipment_id)
@@ -65,9 +65,9 @@ def test_generate_pdf_label_internal_server_error(mocker):
         type='test_type',
         shipping_number='123456',
         courier_name='Test Courier',
-        courier_logo='http://example.com/logo.png',
+        courier_logo='https://example.com/logo.png',
         tracking_number='TN123456',
-        tracking_link='http://example.com/tracking',
+        tracking_link='https://example.com/tracking',
         payment_method='cash',
         total={},
         cash_on_delivery={},
@@ -83,12 +83,12 @@ def test_generate_pdf_label_internal_server_error(mocker):
     request = HttpRequest()
     request.method = 'GET'
 
-    mocker.patch('app.services.pdf_service.render_to_string', side_effect=Exception('Render error'))
+    mocker.patch('shipments.services.pdf_service.render_to_string', side_effect=Exception('Render error'))
     response = generate_pdf_label(request, shipment.shipment_id)
     assert response.status_code == 500
     assert response.json() == {'error': 'Internal server error'}
 
-    mocker.patch('app.services.pdf_service.render_to_string', return_value='<html></html>')
+    mocker.patch('shipments.services.pdf_service.render_to_string', return_value='<html></html>')
     mocker.patch('weasyprint.HTML.write_pdf', side_effect=Exception('PDF error'))
 
     response = generate_pdf_label(request, shipment.shipment_id)
