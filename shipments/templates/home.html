@@ -43,6 +43,9 @@ option {
             <div class="card">
 
                 <div class="card-header">
+                    <p class="card-text">{{shipment_total}}
+                        <p class="card-text">{{shipment_delivered}}
+                            <p class="card-text">{{shipment_return}}
                 <h5 class="card-title"> <strong>Shipment number:</strong>  {{ shipment.shipping_number }}</h5>
                 <p class="card-title"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                 </div>
@@ -56,6 +59,7 @@ option {
                 <div class="row"> 
                     <div class="col"> 
                   <h5 class="title">Shipment Details</h5>
+                  {{shipment.statuses.last.status}}
                   <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
                   <p class="card-text"><strong>Tracking number:</strong> {{ shipment.tracking_number}}</p>
                   <p class="card-text"><strong>Merchant:</strong> {{ shipment.merchant }}</p>
