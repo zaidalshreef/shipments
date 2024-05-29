@@ -36,7 +36,7 @@ def home(request):
         
     
         for ship in shipments :
-           if ship.statuses.last.status  == 'delivered':
+           if ship.shipping_number  == 'delivered':
             shipment_delivered+1
            elif ship.status  == 'returned':
             
