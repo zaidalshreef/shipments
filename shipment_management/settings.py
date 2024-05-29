@@ -208,6 +208,11 @@ LOGGING = {
             'level': 'WARNING',  # Adjust to filter out detailed logs
             'propagate': False,
         },
+        'fontTools': {
+            'handlers': ['console', 'file'],
+            'level': 'WARNING',  # Add this to reduce font-related log verbosity
+            'propagate': False,
+        },
     },
 }
 
