@@ -23,5 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('shipments/', include('shipments.urls')),
+    re_path(r'^$', lambda request: redirect('shipments:home', permanent=True)),
+
 ]
 handler404 = 'shipments.views.custom_page_not_found_view'
