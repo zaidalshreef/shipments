@@ -26,7 +26,7 @@ Analytics
                         totalship  = {{ forloop.counter }}
                        
                         <p class="card-text">total ship = {{shipment|length}} counter {{shipment.counter}}
-                            count {{shipment.count}}
+                            count {{shipment.count}} last {{forloop.last}}
 
                         </p> 
                         {% endfor %}
