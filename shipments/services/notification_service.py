@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 def send_shipment_email(shipment, status):
+    logger.info(f"Sending email for shipment {shipment.shipment_id} with status {status}")
     try:
         subject = f"Shipment {status.capitalize()} - {shipment.shipping_number}"
         context = {
@@ -28,12 +29,12 @@ def send_shipment_email(shipment, status):
         to_email = settings.INTERNAL_STAFF_EMAILS  # List of internal staff emails
 
         send_mail(subject, plain_message, from_email, to_email, html_message=html_message)
-        logger.info(f"Email sent successfully for shipment {shipment_data['shipment_id']} with status {status}")
+        logger.info(f"Email sent successfully for shipment {shipment.shipment_id} with status {status}")
     except Exception as e:
-        logger.error(f"Failed to send email for shipment {shipment_data['shipment_id']} with status {status}: {str(e)}")
+        logger.error(f"Failed to send email for shipment {shipment.shipment_id} with status {status}: {str(e)}")
 
 
-def send_sms(shipment, status):
+def send_sms(shipment):
     try:
         message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
         twilio_client.messages.create(
@@ -46,7 +47,7 @@ def send_sms(shipment, status):
         logger.error(f"Error sending SMS: {str(e)}")
 
 
-def send_whatsapp(shipment, status):
+def send_whatsapp(shipment):
     try:
         message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
         twilio_client.messages.create(

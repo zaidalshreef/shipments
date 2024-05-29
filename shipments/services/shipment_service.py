@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
 from django.urls import reverse
 from .salla_service import update_salla_api
-from .notification_service import send_shipment_email
+from .notification_service import send_shipment_email, send_sms, send_whatsapp
 from datetime import datetime
 
 # Initialize the logger
@@ -37,7 +37,8 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
 
 
 def handle_shipment_creation(shipment_data, request):
-    logger.info(f"Creating shipment with data: {shipment_data}")
+    formatted_data = json.dumps(shipment_data, indent=4, ensure_ascii=False)
+    logger.info(f"Creating shipment with data:\n{formatted_data}")
     try:
         new_shipment = Shipment(**shipment_data)
         new_shipment.save()
@@ -56,16 +57,19 @@ def handle_shipment_creation(shipment_data, request):
 
 
 def handle_shipment_update(shipment_data):
+
     logger.info(f"Updating shipment with data: {shipment_data}")
+
+    shipment_id = shipment_data.get('shipment_id')
+
+    if shipment_id is None:
+        logger.warning("Missing shipping id in payload")
+        return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
+
     try:
         if shipment_data is None:
             logger.warning("No shipment data provided")
             return JsonResponse({'error': 'No shipment data provided'}, status=400)
-
-        shipment_id = shipment_data.get('shipment_id')
-        if shipment_id is None:
-            logger.warning("Missing shipping id in payload")
-            return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
 
         shipment = Shipment.objects.get(shipment_id=shipment_id)
         for key, value in shipment_data.items():
@@ -94,7 +98,7 @@ def handle_status_update(shipment_id, status):
         if status == 'created' or status == 'cancelled':
             send_shipment_email(shipment, status)
         if status == 'delivery':
-            send_sms(shipment, status)
+            send_sms(shipment)
         if status != 'cancelled':
             update_salla_api(shipment, status)
         logger.info(f"Shipment status updated successfully for shipment_id: {shipment_id}")
@@ -108,7 +112,8 @@ def handle_status_update(shipment_id, status):
 
 
 def parse_shipment_data(data):
-    logger.info(f"Parsing shipment data: {data}")
+    formatted_data = json.dumps(data, indent=4, ensure_ascii=False)
+    logger.info(f"Parsing shipment data:\n{formatted_data}")
     try:
         created_at_str = data.get('created_at')
         if not created_at_str:
@@ -140,8 +145,8 @@ def parse_shipment_data(data):
             'ship_to': data['data'].get('ship_to'),
             'meta': data['data'].get('meta'),
         }
-
-        logger.info(f"Parsed shipment data successfully: {shipment_data}")
+        formatted_data = json.dumps(shipment_data, indent=4, ensure_ascii=False)
+        logger.info(f"Parsed shipment data successfully:\n{formatted_data}")
         return shipment_data, status
     except Exception as e:
         logger.error(f"Error in parse_shipment_data: {str(e)}")
