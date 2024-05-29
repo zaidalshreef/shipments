@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from ..models import Shipment, ShipmentStatus
 from django.urls import reverse
 from .salla_service import update_salla_api
-from .notification_service import send_shipment_email, send_sms, send_whatsapp
+from .notification_service import send_shipment_email
 from datetime import datetime
 
 # Initialize the logger
