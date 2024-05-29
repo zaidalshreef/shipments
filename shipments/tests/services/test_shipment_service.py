@@ -11,13 +11,28 @@ from shipments.services.shipment_service import handle_shipment_creation_or_upda
 @patch('shipments.services.shipment_service.handle_status_update')
 def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_update, mock_handle_shipment_update, rf):
     shipment_data = {
-        'shipment_id': 123,
-        'type': 'new',
-        'merchant': 456,
-        'event': 'test_event',
-        'created_at': '2023-01-01T00:00:00Z',
-        'courier_name': 'Test Courier',
-        'shipping_number': '123456789012',
+        'event': 'shipment.created',
+        'merchant': 123,
+        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'data': {
+            'id': 1,
+            'status': 'created',
+            'type': 'standard',
+            'courier_name': 'DHL',
+            'courier_logo': 'http://example.com/logo.png',
+            'tracking_number': '1234567890',
+            'tracking_link': 'http://example.com/track/1234567890',
+            'payment_method': 'COD',
+            'total': {'amount': 100, 'currency': 'USD'},
+            'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
+            'label': {'url': 'http://example.com/label.pdf'},
+            'total_weight': {'weight': 5, 'unit': 'kg'},
+            'created_at_details': 'some details',
+            'packages': [{'id': 1, 'weight': 5}],
+            'ship_from': {'address': '123 Street, City, Country'},
+            'ship_to': {'address': '456 Avenue, City, Country'},
+            'meta': {'info': 'some info'},
+        }
     }
     request = rf.get('/shipments/create')
 
