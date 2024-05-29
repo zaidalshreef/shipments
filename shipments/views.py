@@ -36,7 +36,8 @@ def home(request):
         for ship in shipments:
            if ship.shipping_number  == 'delivered':
             shipment_delivered+1
-           elif  ship.shipping_number == 'returned':
+           elif ship.statuses.last.status  == 'returned':
+            
             shipment_return+1
         return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total ,shipment_delivered:'shipment_delivered'
                                                   ,'shipment_return': shipment_return })
