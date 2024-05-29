@@ -6,6 +6,7 @@ from django.urls import reverse
 from .salla_service import update_salla_api
 from .notification_service import send_shipment_email
 from datetime import datetime
+from dateutil.parser import parse as parse_date
 
 # Initialize the logger
 logger = logging.getLogger(__name__)
@@ -193,15 +194,14 @@ def parse_shipment_data(data):
         if not created_at_str:
             raise ValueError("Missing 'created_at' field in the shipment data")
 
-        created_at = datetime.strptime(created_at_str, '%a %b %d %Y %H:%M:%S GMT%z')
-        created_at_str = created_at.isoformat()
+        created_at = parse_date(created_at_str).isoformat()
 
         status = data['data'].get('status')
 
         shipment_data = {
             'event': data.get('event'),
             'merchant': data.get('merchant'),
-            'created_at': created_at_str,
+            'created_at': created_at,
             'shipment_id': data['data'].get('id'),
             'type': data['data'].get('type'),
             'courier_name': data['data'].get('courier_name'),
