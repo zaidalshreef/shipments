@@ -38,8 +38,8 @@ def handle_shipment_creation_or_update(shipment_data, status, request):
 
 
 def handle_shipment_creation(shipment_data, request):
-    formatted_data = json.dumps(shipment_data, indent=4, ensure_ascii=False)
-    logger.info(f"Creating shipment with data:\n{formatted_data}")
+    shipment_id = shipment_data.get('shipment_id')
+    logger.info(f"Creating shipment with ID:{shipment_id}")
     try:
         new_shipment = Shipment(**shipment_data)
         new_shipment.save()
@@ -59,13 +59,13 @@ def handle_shipment_creation(shipment_data, request):
 
 def handle_shipment_update(shipment_data):
 
-    logger.info(f"Updating shipment with data: {shipment_data}")
-
     shipment_id = shipment_data.get('shipment_id')
 
     if shipment_id is None:
         logger.warning("Missing shipping id in payload")
         return JsonResponse({'error': 'Missing shipping id in payload'}, status=400)
+
+    logger.info(f"Updating shipment with ID: {shipment_id}")
 
     try:
         if shipment_data is None:
