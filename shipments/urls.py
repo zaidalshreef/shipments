@@ -22,4 +22,4 @@ urlpatterns = [
 ]
 
 # Catch-all pattern to redirect any unmatched URLs to the home page
-urlpatterns += [re_path(r'^.*$', lambda request: redirect('shipments:home'))]
+#urlpatterns += [re_path(r'^.*$', lambda request: redirect('shipments:home'))]
