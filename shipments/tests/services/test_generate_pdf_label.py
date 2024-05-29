@@ -6,6 +6,7 @@ from weasyprint import HTML
 from shipments.models import Shipment
 from shipments.services.pdf_service import generate_pdf_label
 import logging
+import JsonResponse
 
 
 @pytest.mark.django_db
@@ -53,7 +54,7 @@ def test_generate_pdf_label_shipment_not_found(mocker):
 
     response = generate_pdf_label(request, 999)
     assert response.status_code == 404
-    assert response == {'error': 'Shipment not found'}
+    assert response.json() == {'error': 'Shipment not found'}
 
 
 @pytest.mark.django_db
@@ -94,4 +95,4 @@ def test_generate_pdf_label_internal_server_error(mocker):
 
     response = generate_pdf_label(request, shipment.shipment_id)
     assert response.status_code == 500
-    assert response == {'error': 'Internal server error'}
+    assert response.json() == {'error': 'Internal server error'}
