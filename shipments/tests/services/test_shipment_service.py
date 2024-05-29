@@ -30,27 +30,59 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post('shipments/webhook')
-
-    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
-
+    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    response = webhook_handler(request)
     assert response.status_code == 201
-    assert Shipment.objects.filter(shipment_id=1).exists()  # Correct shipment_id to 1
-    mock_handle_status_update.assert_called_once_with(1, 'created')
+    assert Shipment.objects.filter(shipment_id=1).exists()
+    mock_handle_status_update.assert_called_once()
     mock_handle_shipment_update.assert_not_called()
 
-
 @pytest.mark.django_db
-def test_handle_shipment_creation_or_update_existing_shipment(mocker):
-    mock_shipment = mocker.Mock()
-    mocker.patch('shipments.services.shipment_service.Shipment.objects.filter', return_value=[mock_shipment])
-    mock_handle_status_update = mocker.patch('shipments.services.shipment_service.handle_status_update',
-                                             return_value=mocker.Mock(status_code=200))
-
-    response = handle_shipment_creation_or_update({'shipment_id': 1}, 'created', mocker.Mock())
-
+@patch('shipments.services.shipment_service.handle_shipment_update')
+@patch('shipments.services.shipment_service.handle_status_update')
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update, rf):
+    existing_shipment = Shipment.objects.create(
+        event='shipment.creating',
+        merchant=123,
+        created_at='2021-10-13T07:53:00Z',
+        shipment_id=1,
+        type='shipment',
+        courier_name='DHL',
+        payment_method='COD',
+        total={'amount': 100, 'currency': 'USD'},
+        cash_on_delivery={'amount': 10, 'currency': 'USD'},
+        label={'url': 'http://example.com/label.pdf', 'format': 'pdf'},
+        total_weight={'weight': 5, 'unit': 'kg'},
+        packages=[{'id': 1, 'weight': 5}],
+        ship_from={'address': '123 Street, City, Country'},
+        ship_to={'address': '456 Avenue, City, Country'},
+        meta={'info': 'some info'}
+    )
+    shipment_data = {
+        'event': 'shipment.creating',
+        'merchant': 123,
+        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'data': {
+            'id': 1,
+            'status': 'creating',
+            'type': 'shipment',
+            'courier_name': 'DHL',
+            'payment_method': 'COD',
+            'total': {'amount': 100, 'currency': 'USD'},
+            'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
+            'label': {'url': 'http://example.com/label.pdf', 'format': 'pdf'},
+            'total_weight': {'weight': 5, 'unit': 'kg'},
+            'packages': [{'id': 1, 'weight': 5}],
+            'ship_from': {'address': '123 Street, City, Country'},
+            'ship_to': {'address': '456 Avenue, City, Country'},
+            'meta': {'info': 'some info'},
+        }
+    }
+    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    response = webhook_handler(request)
     assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
+    mock_handle_shipment_update.assert_called_once()
 
 
 @pytest.mark.django_db
