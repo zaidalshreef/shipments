@@ -215,4 +215,5 @@ LOGGING = {
         },
     },
 }
-
+# Add this line to silence third-party library logs
+logging.getLogger('fontTools').setLevel(logging.WARNING)
