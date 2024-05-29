@@ -9,7 +9,6 @@ from .shipment_service import handle_shipment_creation_or_update, handle_status_
 # Initialize the logger
 logger = logging.getLogger(__name__)
 
-
 @csrf_exempt
 def webhook_handler(request):
     """
