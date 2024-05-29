@@ -65,7 +65,7 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
 
 def test_webhook_handler_invalid_json():
     client = Client()
-    response = client.post(reverse('shipment_webhook'), data="Invalid JSON", content_type="application/json")
+    response = client.post(reverse('shipments:shipment_webhook'), data="Invalid JSON", content_type="application/json")
     assert response.status_code == 400
     assert response.json() == {'error': 'Invalid JSON data'}
 
@@ -74,14 +74,14 @@ def test_webhook_handler_unknown_event(mocker):
     client = Client()
     data = json.dumps({'event': 'unknown_event'})
     mocker.patch('shipments.services.shipment_service.parse_shipment_data', return_value=({}, 'created'))
-    response = client.post(reverse('shipment_webhook'), data=data, content_type="application/json")
+    response = client.post(reverse('shipments:shipment_webhook'), data=data, content_type="application/json")
     assert response.status_code == 400
     assert response.json() == {'error': 'Unknown event type'}
 
 
 @pytest.mark.django_db
 def test_webhook_handler_method_not_allowed(rf):
-    url = reverse('shipment_webhook')
+    url = reverse('shipments:shipment_webhook')
     request = rf.get(url)
 
     response = webhook_handler(request)
