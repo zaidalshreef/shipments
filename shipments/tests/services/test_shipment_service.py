@@ -30,7 +30,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 201
     assert Shipment.objects.filter(shipment_id=1).exists()
@@ -78,7 +78,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
@@ -107,8 +107,7 @@ def test_handle_shipment_creation_or_update_return_shipment(mock_handle_shipment
         'courier_name': 'Test Courier',
         'shipping_number': '123456789012',
     }
-    request = rf.get('/shipments/update')
-
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = handle_shipment_creation_or_update(shipment_data, 'created', request)
 
     assert response.status_code == 200
@@ -128,7 +127,7 @@ def test_handle_shipment_creation_or_update_error(mock_logger, rf):
         'courier_name': 'Test Courier',
         'shipping_number': '123456789012',
     }
-    request = rf.get('/shipments/create')
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
 
     with patch('shipments.models.Shipment.objects.create') as mock_create:
         mock_create.side_effect = Exception('Test Exception')
