@@ -21,16 +21,11 @@ Analytics
                     </div>
 
                     <div class="card-body">
-                        {% with totalship=0 %}
-                        {% for shipment in shipments %}
-                        totalship  = {{ forloop.counter }}
-                       
-                        <p class="card-text">total ship = {{shipment|length}} counter {{shipment.shipment_id.counter}}
-                            count {{shipment.shipment_id.count}} last {{forloop.last}}  
+                      
+                        <p class="card-text">{{shipment_total}}
 
                         </p> 
-                        {% endfor %}
-                        {% endwith %}
+                       
                     </div>
          </div>   
 

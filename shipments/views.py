@@ -37,7 +37,8 @@ def home(request):
 def analytic(request):
     try:
         shipments = Shipment.objects.all()
-        return render(request, 'analytic.html', {'shipments': shipments})
+        shipment_total = Shipment.shipment_id.count()
+        return render(request, 'analytic.html', {'shipments': shipments ,'shipment_total':shipment_total  })
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
