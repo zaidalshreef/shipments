@@ -16,7 +16,7 @@ from django.test import Client
 def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_shipment_creation_or_update,
                                       mock_handle_app_uninstalled, mock_handle_app_installed,
                                       mock_handle_store_authorize, rf):
-    url = reverse('webhook_handler')
+    url = reverse('shipments:shipment_webhook')
     data_store_authorize = json.dumps({"event": "app.store.authorize", "merchant": 123,
                                        "data": {"access_token": "abc123", "refresh_token": "def456",
                                                 "expires": 1609459200}})
@@ -75,7 +75,7 @@ def test_webhook_handler_unknown_event(mocker):
     data = json.dumps({
         'event': 'shipment.unknown',
         'merchant': 123,
-        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 UTC+3',
         'data': {
             'id': 1,
             'status': 'creating',
