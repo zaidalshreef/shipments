@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import path, include, re_path
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('shipments/', include('shipments.urls')),
 ]
+handler404 = 'shipments.views.custom_page_not_found_view'

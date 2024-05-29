@@ -6,6 +6,10 @@ from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 
 
+def custom_page_not_found_view(request, exception):
+    return redirect('shipments:home')
+
+
 def send_test_email_view(request):
     try:
         shipment_data = {
