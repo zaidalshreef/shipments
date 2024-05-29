@@ -23,6 +23,7 @@ services:
       # Django settings
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}  # Secret key for Django application, e.g., supersecretkey
       - DJANGO_DEBUG=True  # Debug mode for Django application (True for development, False for production), e.g., False
+      - PORT=8000  # Port number for the Django application, e.g., 8080
 
       # Email settings
       - EMAIL_HOST=mail.smtp2go.com  # SMTP server host, e.g., smtp.gmail.com
@@ -46,7 +47,6 @@ services:
       # Security settings
       - ALLOWED_HOSTS=techsynapse.org  # Comma-separated list of allowed hosts, e.g., techsynapse.org,localhost
       - CSRF_TRUSTED_ORIGINS=https://techsynapse.org,http://localhost  # Comma-separated list of CORS allowed origins, e.g., https://techsynapse.org
-      - PORT=8000  # Port number for the Django application, e.g., 8080
     logging:
       driver: gelf
       options:
