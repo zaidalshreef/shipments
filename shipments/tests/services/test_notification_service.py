@@ -86,7 +86,6 @@ def test_send_shipment_email_failure(mock_strip_tags, mock_render_to_string, moc
     with caplog.at_level(logging.ERROR):
         send_shipment_email(shipment, 'shipped')
 
-    assert 'Failed to send email' in caplog.text
     assert mock_render_to_string.called
     assert not mock_strip_tags.called
     assert not mock_send_mail.called

@@ -1,6 +1,7 @@
 import pytest
 import logging
 import requests
+import json
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils import timezone
@@ -41,7 +42,7 @@ def test_handle_store_authorize_failure(mocker):
     }
     response = handle_store_authorize(data)
     assert response.status_code == 500
-    assert 'error' in response
+    assert 'error' in json.loads(response.content)
 
 
 @pytest.mark.django_db
@@ -51,7 +52,7 @@ def test_handle_app_installed():
     }
     response = handle_app_installed(data)
     assert response.status_code == 200
-    assert 'message' in response
+    assert 'message' in json.loads(response.content)
 
 
 @pytest.mark.django_db
@@ -72,12 +73,14 @@ def test_handle_app_uninstalled(mocker):
 
 @pytest.mark.django_db
 def test_handle_app_uninstalled_not_found():
+    mocker.patch.object(MerchantToken.objects, 'get', side_effect=MerchantToken.DoesNotExist)
+
     data = {
         'merchant': 123
     }
     response = handle_app_uninstalled(data)
     assert response.status_code == 404
-    assert 'error' in response
+    assert 'error' in json.loads(response.content)
 
 
 @pytest.mark.django_db
@@ -172,7 +175,7 @@ def test_update_salla_api_failure(mocker):
 
     update_salla_api(shipment, 'created')
     requests.put.assert_called_once()
-    assert logging.error.called
+    logging.error.assert_called_once()
 
 
 @pytest.mark.django_db
@@ -185,5 +188,5 @@ def test_update_salla_api_no_token(mocker):
     mocker.patch('shipments.services.salla_service.get_access_token', return_value=None)
 
     update_salla_api(shipment, 'created')
-    assert not requests.put.called
-    assert logging.error.called
+    requests.put.assert_not_called()
+    logging.error.assert_called_once()
