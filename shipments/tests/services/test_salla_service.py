@@ -177,4 +177,4 @@ def test_update_salla_api_no_token(mocker):
     update_salla_api(shipment, 'created')
     mock_update_salla_api.assert_not_called()
     logger_error_mock.assert_called_once()
-    logger_error_mock.assert_called_with('No access token found for merchant 1')
+    logger_error_mock.assert_called_with('Unable to retrieve access token')
