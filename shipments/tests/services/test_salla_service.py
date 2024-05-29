@@ -168,6 +168,7 @@ def test_update_salla_api_failure(mocker):
 
 @pytest.mark.django_db
 def test_update_salla_api_no_token(mocker):
+    logger_error_mock = mocker.patch('shipments.services.salla_service.logger.error')
     shipment = mocker.Mock()
     shipment.merchant = 1
     mocker.patch('shipments.services.salla_service.get_access_token', return_value=None)
@@ -175,4 +176,5 @@ def test_update_salla_api_no_token(mocker):
 
     update_salla_api(shipment, 'created')
     mock_update_salla_api.assert_not_called()
-    assert logging.getLogger().error.called_once_with('No access token found for merchant 1')
+    logger_error_mock.assert_called_once()
+    logger_error_mock.assert_called_with('No access token found for merchant 1')
