@@ -48,7 +48,7 @@ def send_sms(shipment, status):
 
 def send_whatsapp(shipment, status):
     try:
-        message = f"Your shipment {shipment.shipping_number} from {shipment.ship_from['name']} is now in the way."
+        message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
         twilio_client.messages.create(
             body=message,
             from_='whatsapp:' + settings.TWILIO_PHONE_NUMBER,
