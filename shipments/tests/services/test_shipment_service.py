@@ -30,7 +30,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.get('/shipments/create')
+    request = rf.post('shipments/webhook')
 
     response = handle_shipment_creation_or_update(shipment_data, 'created', request)
 
