@@ -33,7 +33,7 @@ def home(request):
         shipment_delivered = 0 
         shipment_return = 0
         
-         '''
+        '''
         for ship in shipments :
            if ship.shipping_number  == 'delivered':
             shipment_delivered+1
