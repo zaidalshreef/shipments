@@ -19,3 +19,6 @@ urlpatterns = [
     path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
 
 ]
+
+# Catch-all pattern to redirect any unmatched URLs to the home page
+urlpatterns += [re_path(r'^.*$', lambda request: redirect('shipments:home'))]

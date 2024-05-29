@@ -22,6 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('shipments/', include('shipments.urls')),
-    # Catch-all pattern
-    re_path(r'^.*$', lambda request: redirect('shipments:home')),
 ]
