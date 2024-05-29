@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from unittest.mock import patch, Mock
 from shipments.models import Shipment, ShipmentStatus
 from shipments.services.shipment_service import handle_shipment_creation_or_update
+from shipments.services.webhook_service import webhook_handler
 
 
 @pytest.mark.django_db
@@ -30,17 +31,19 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
-    response = handle_shipment_creation_or_update(shipment_data, 'created', request)
+    request = rf.post(reverse('shipment_webhook'), content_type='application/json', data=shipment_data)
+    response = webhook_handler(request)
     assert response.status_code == 201
     assert Shipment.objects.filter(shipment_id=1).exists()
     mock_handle_status_update.assert_called_once()
     mock_handle_shipment_update.assert_not_called()
 
+
 @pytest.mark.django_db
 @patch('shipments.services.shipment_service.handle_shipment_update')
 @patch('shipments.services.shipment_service.handle_status_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update, rf):
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update,
+                                                              rf):
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
