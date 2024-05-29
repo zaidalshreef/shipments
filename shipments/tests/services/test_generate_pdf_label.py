@@ -53,7 +53,7 @@ def test_generate_pdf_label_shipment_not_found(mocker):
 
     response = generate_pdf_label(request, 999)
     assert response.status_code == 404
-    assert response.json() == {'error': 'Shipment not found'}
+    assert json.loads(response.content) == {'error': 'Shipment not found'}
 
 
 @pytest.mark.django_db
@@ -87,11 +87,11 @@ def test_generate_pdf_label_internal_server_error(mocker):
     mocker.patch('shipments.services.pdf_service.render_to_string', side_effect=Exception('Render error'))
     response = generate_pdf_label(request, shipment.shipment_id)
     assert response.status_code == 500
-    assert response == {'error': 'Internal server error'}
+    assert json.loads(response.content) == {'error': 'Internal server error'}
 
     mocker.patch('shipments.services.pdf_service.render_to_string', return_value='<html></html>')
     mocker.patch('weasyprint.HTML.write_pdf', side_effect=Exception('PDF error'))
 
     response = generate_pdf_label(request, shipment.shipment_id)
     assert response.status_code == 500
-    assert response.json() == {'error': 'Internal server error'}
+    assert json.loads(response.content) == {'error': 'Internal server error'}
