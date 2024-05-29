@@ -11,7 +11,7 @@ from shipments.services.webhook_service import webhook_handler
 @patch('shipments.views.handle_app_installed')
 @patch('shipments.views.handle_app_uninstalled')
 @patch('shipments.views.handle_shipment_creation_or_update')
-@patch('shipments.views.parse_shipment_data')
+@patch('shipments.services.shipment_service.parse_shipment_data')
 def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_shipment_creation_or_update,
                                       mock_handle_app_uninstalled, mock_handle_app_installed,
                                       mock_handle_store_authorize, rf):
@@ -64,7 +64,7 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
 
 @pytest.mark.django_db
 def test_webhook_handler_invalid_json(rf):
-    url = reverse('webhook_handler')
+    url = reverse('shipment_webhook')
     request = rf.post(url, "invalid_json", content_type='application/json')
 
     response = webhook_handler(request)
@@ -75,7 +75,7 @@ def test_webhook_handler_invalid_json(rf):
 
 @pytest.mark.django_db
 def test_webhook_handler_unknown_event(rf):
-    url = reverse('webhook_handler')
+    url = reverse('shipment_webhook')
     data = json.dumps({"event": "unknown.event"})
     request = rf.post(url, data, content_type='application/json')
 
@@ -87,7 +87,7 @@ def test_webhook_handler_unknown_event(rf):
 
 @pytest.mark.django_db
 def test_webhook_handler_method_not_allowed(rf):
-    url = reverse('webhook_handler')
+    url = reverse('shipment_webhook')
     request = rf.get(url)
 
     response = webhook_handler(request)

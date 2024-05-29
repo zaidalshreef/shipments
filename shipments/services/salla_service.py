@@ -103,9 +103,10 @@ def handle_app_uninstalled(data):
         return JsonResponse({'error': 'Merchant ID not provided'}, status=400)
 
     try:
+        merchant = MerchantToken.objects.filter(merchant_id=merchant_id)
         logger.info(f"App uninstalled for merchant id {merchant_id}")
         return JsonResponse({'message': f'App uninstalled for merchant id {merchant_id}'}, status=200)
-    except MerchantToken.DoesNotExist:
+    except merchant.DoesNotExist:
         return JsonResponse({'error': f'MerchantToken with merchant id {merchant_id} does not exist'}, status=404)
     except Exception as e:
         logger.error(f"Error handling app uninstallation: {str(e)}")

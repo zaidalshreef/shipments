@@ -6,6 +6,7 @@ from django.conf import settings
 from shipments.models import Shipment
 from shipments.services.notification_service import send_shipment_email
 from unittest.mock import patch, Mock
+import logging
 
 
 @pytest.mark.django_db
