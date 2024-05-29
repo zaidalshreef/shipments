@@ -8,10 +8,28 @@ from twilio.rest import Client
 from ..models import Shipment
 logger = logging.getLogger(__name__)
 
-twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+# twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
 
 def send_shipment_email(shipment, status):
+    """
+    Sends an email to internal staff about a shipment with a specified status.
+
+    Args:
+    shipment (Shipment): The shipment object containing details about the shipment.
+    status (str): The status of the shipment, such as "shipped", "delivered", etc.
+
+    Returns:
+    None
+
+    Raises:
+    Exception: If an error occurs while sending the email.
+
+    Example:
+    >>> from .models import Shipment
+    >>> shipment = Shipment.objects.get(shipment_id=123)
+    >>> send_shipment_email(shipment, "shipped")
+    """
     logger.info(f"Sending email for shipment {shipment.shipment_id} with status {status}")
     try:
         subject = f"Shipment {status.capitalize()} - {shipment.shipping_number}"
@@ -34,27 +52,27 @@ def send_shipment_email(shipment, status):
         logger.error(f"Failed to send email for shipment {shipment.shipment_id} with status {status}: {str(e)}")
 
 
-def send_sms(shipment):
-    try:
-        message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
-        twilio_client.messages.create(
-            body=message,
-            from_=settings.TWILIO_PHONE_NUMBER,
-            to=str(+966507368133)
-        )
-        logger.info(f"SMS sent to {shipment.ship_to['phone']}")
-    except Exception as e:
-        logger.error(f"Error sending SMS: {str(e)}")
-
-
-def send_whatsapp(shipment):
-    try:
-        message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
-        twilio_client.messages.create(
-            body=message,
-            from_='whatsapp:' + settings.TWILIO_PHONE_NUMBER,
-            to='whatsapp:' + shipment.ship_to['phone']
-        )
-        logger.info(f"WhatsApp message sent to {shipment.ship_to['phone']}")
-    except Exception as e:
-        logger.error(f"Error sending WhatsApp message: {str(e)}")
+# def send_sms(shipment):
+#     try:
+#         message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
+#         twilio_client.messages.create(
+#             body=message,
+#             from_=settings.TWILIO_PHONE_NUMBER,
+#             to=str(+966507368133)
+#         )
+#         logger.info(f"SMS sent to {shipment.ship_to['phone']}")
+#     except Exception as e:
+#         logger.error(f"Error sending SMS: {str(e)}")
+#
+#
+# def send_whatsapp(shipment):
+#     try:
+#         message = f"شحنة {shipment.shipping_number} من {shipment.ship_from['name']} في الطريق الآن."
+#         twilio_client.messages.create(
+#             body=message,
+#             from_='whatsapp:' + settings.TWILIO_PHONE_NUMBER,
+#             to='whatsapp:' + shipment.ship_to['phone']
+#         )
+#         logger.info(f"WhatsApp message sent to {shipment.ship_to['phone']}")
+#     except Exception as e:
+#         logger.error(f"Error sending WhatsApp message: {str(e)}")
