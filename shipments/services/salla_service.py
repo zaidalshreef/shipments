@@ -109,12 +109,18 @@ def update_salla_api(shipment, status):
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json'
         }
-        payload = {
-            'shipment_number': str(shipment.shipping_number),
-            'status': status,
-            'pdf_label': shipment.label.get('url', '') if shipment.label else '',
-            'cost': 19
-        }
+        if status == 'created':
+            payload = {
+                'shipment_number': str(shipment.shipping_number),
+                'status': status,
+                'pdf_label': shipment.label.get('url', '') if shipment.label else '',
+                'cost': 19
+            }
+        else:
+            payload = {
+                'shipment_number': str(shipment.shipping_number),
+                'status': status
+            }
         response = requests.put(api_url, headers=headers, json=payload)
         if response.status_code != 200:
             logger.error(f"Failed to update Salla API: {response.content}")
