@@ -49,10 +49,12 @@ option {
 
                         <p class="card-text">{{shipment_delivered|add:"1"}}
                               {% endif %}
+                              {% endwith %}
                               {% with shipment_return=0 %}
                             {% if shipment.statuses.last.status == 'returned' %}
                             <p class="card-text">{{shipment_return|add:"1"}}
                               {% endif %}
+                              {% endwith %}
                 <h5 class="card-title"> <strong>Shipment number:</strong>  {{ shipment.shipping_number }}</h5>
                 <p class="card-title"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                 </div>
