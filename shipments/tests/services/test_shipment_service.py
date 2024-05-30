@@ -64,7 +64,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
     shipment_data = {
         'event': 'shipment.cancelled',
         'merchant': 123,
-        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
+        'created_at': '2023-01-01T00:00:00Z',  # Corrected format
         'data': {
             'id': 1,
             'type': 'shipment',

@@ -23,10 +23,10 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     data_app_installed = json.dumps({"event": "app.installed", "merchant": 123})
     data_app_uninstalled = json.dumps({"event": "app.uninstalled", "merchant": 123})
     data_shipment_creating = json.dumps(
-        {"event": "shipment.creating", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000",
+        {"event": "shipment.creating", "created_at": "2023-01-01T00:00:00Z",  # Corrected format
          "data": {"id": 1, "status": "created"}})
     data_shipment_cancelled = json.dumps(
-        {"event": "shipment.cancelled", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000",
+        {"event": "shipment.cancelled", "created_at": "2023-01-01T00:00:00Z",  # Corrected format
          "data": {"id": 1, "status": "cancelled"}})
 
     request_store_authorize = rf.post(url, data_store_authorize, content_type='application/json')
@@ -61,7 +61,6 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     response = webhook_handler(request_shipment_cancelled)
     assert response.status_code == 201
     mock_handle_shipment_creation_or_update.assert_called()
-
 
 @pytest.mark.django_db
 def test_webhook_handler_invalid_json():
