@@ -59,7 +59,7 @@ def test_handle_app_installed():
 
 
 @pytest.mark.django_db
-def test_handle_app_uninstalled(mocker):
+def test_handle_app_uninstalled():
     MerchantToken.objects.create(
         merchant_id=123,
         access_token='test_access_token',
@@ -80,7 +80,7 @@ def test_refresh_token_success(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=make_aware(datetime.now() - timedelta(hours=1))  # Use make_aware for timezone-aware datetime
+        expires_at=datetime.now() - timedelta(hours=1)
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
@@ -124,7 +124,7 @@ def test_get_access_token_expired(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=make_aware(datetime.now() - timedelta(hours=1))  # Use make_aware for timezone-aware datetime
+        expires_at=datetime.now() - timedelta(hours=1)
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
