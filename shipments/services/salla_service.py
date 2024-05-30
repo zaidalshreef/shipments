@@ -152,7 +152,7 @@ def refresh_token(merchant_token):
             token_data = response.json()
             merchant_token.access_token = token_data.get('access_token')
             expires_in = token_data.get('expires')
-            merchant_token.expires_at = datetime.fromtimestamp(expires_in)
+            merchant_token.expires_at = datetime.fromtimestamp(expires_in, timezone.utc)  # Convert to timezone-aware datetime
             merchant_token.save()
             logger.info(f"Token refreshed for merchant id {merchant_token.merchant_id}")
             return True
