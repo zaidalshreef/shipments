@@ -48,17 +48,22 @@ def webhook_handler(request):
             data = json.loads(request.body)
             event = data.get('event')
             logger.info(f"Received webhook event: {event}")
-            if event == 'app.store.authorize':
+            if event == 'app.store.authorize'
+                logger.info("Calling handle_store_authorize")
                 return handle_store_authorize(data)
             elif event == 'app.installed':
+                logger.info("Calling handle_app_installed")
                 return handle_app_installed(data)
             elif event == 'app.uninstalled':
+                logger.info("Calling handle_app_uninstalled")
                 return handle_app_uninstalled(data)
             else:
                 shipment_data, status = parse_shipment_data(data)
                 if event == 'shipment.creating':
+                    logger.info("Calling handle_shipment_creation_or_update for creating")
                     return handle_shipment_creation_or_update(shipment_data, "created", request)
                 elif event == 'shipment.cancelled':
+                    logger.info("Calling handle_shipment_creation_or_update for cancelled")
                     return handle_shipment_creation_or_update(shipment_data, "cancelled", request)
                 else:
                     logger.warning(f"Unknown event type: {event}")

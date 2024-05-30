@@ -8,11 +8,11 @@ from django.test import Client, RequestFactory
 
 
 @pytest.mark.django_db
-@patch('shipments.services.salla_service.handle_store_authorize')
-@patch('shipments.services.salla_service.handle_app_installed')
-@patch('shipments.services.salla_service.handle_app_uninstalled')
-@patch('shipments.services.shipment_service.handle_shipment_creation_or_update')
-@patch('shipments.services.shipment_service.parse_shipment_data')
+@patch('shipments.services.webhook_service.handle_store_authorize')
+@patch('shipments.services.webhook_service.handle_app_installed')
+@patch('shipments.services.webhook_service.handle_app_uninstalled')
+@patch('shipments.services.webhook_service.handle_shipment_creation_or_update')
+@patch('shipments.services.webhook_service.parse_shipment_data')
 def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_shipment_creation_or_update,
                                       mock_handle_app_uninstalled, mock_handle_app_installed,
                                       mock_handle_store_authorize, rf):
