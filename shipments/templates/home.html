@@ -46,7 +46,7 @@ option {
                     <div class="row"> 
 
                         <div class = "col">
-                           <h5 class="card-title">{{shipment_total}}</h5>
+                           <h5 class="card-title">Shipment_total</h5>
                            <p class="card-text">{{shipment_total}}
    
    
@@ -54,6 +54,7 @@ option {
    
                         </div>
                         <div class = "col">
+                            <h5 class="card-title">Shipment_delivered_total</h5>
                            {% with shipment_delivered=0 %}
                            {% if shipment.statuses.last.status == 'delivered' %}
    
@@ -64,6 +65,7 @@ option {
                            
                         </div>
                         <div class = "col">
+                            <h5 class="card-title">Shipment_return_total</h5>
                            {% with shipment_return=0 %}
                            {% if shipment.statuses.last.status == 'returned' %}
                            <p class="card-text">{{shipment_return|add:"1"}}
