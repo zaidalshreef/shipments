@@ -42,12 +42,12 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
 @pytest.mark.django_db
 @patch('shipments.services.shipment_service.handle_shipment_update')
 @patch('shipments.services.shipment_service.handle_status_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update,
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update,
                                                               rf):
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
-        created_at='Wed, 13 Oct 2021 07:53:00 GMT',
+        created_at='2023-01-01T00:00:00Z',
         shipment_id=1,
         type='shipment',
         courier_name='DHL',
