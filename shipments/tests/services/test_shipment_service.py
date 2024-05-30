@@ -1,5 +1,4 @@
 import pytest
-import json
 from django.urls import reverse
 from django.http import JsonResponse
 from unittest.mock import patch, Mock, MagicMock
@@ -41,9 +40,10 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
 
 
 @pytest.mark.django_db
-@patch('shipments.services.shipment_service.handle_status_update')
 @patch('shipments.services.shipment_service.handle_shipment_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, rf):
+@patch('shipments.services.shipment_service.handle_status_update')
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update,
+                                                              rf):
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
@@ -61,7 +61,6 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         ship_to={'address': '456 Avenue, City, Country'},
         meta={'info': 'some info'}
     )
-
     shipment_data = {
         'event': 'shipment.cancelled',
         'merchant': 123,
@@ -81,12 +80,13 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
-    response = JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
-    mock_handle_status_update.return_value = response
-    url = reverse('shipments:shipment_webhook')  # Ensure this matches your URL configuration
-    request = rf.post(url, content_type='application/json', data=json.dumps(shipment_data))
+    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
-    assert response.status_code == mock_handle_status_update.return_value
+    # Log the response details for debugging
+    print(f"Response status code: {response.status_code}")
+    print(f"Response content: {response.content}")
+
+    assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
 
 
@@ -123,7 +123,7 @@ def test_handle_shipment_creation_or_update_return_shipment(mock_handle_shipment
             'meta': {'info': 'some info'},
         }
     }
-    mock_handle_status_update.return_value = JsonResponse({'message': 'Shipment status updated successfully'}, status=200)
+    mock_handle_status_update.return_value = MagicMock(status_code=200)
     request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 200
