@@ -42,12 +42,11 @@ def home(request):
             shipment_return+1
             
             
-        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total ,shipment_delivered:'shipment_delivered'
-                                                  ,'shipment_return': shipment_return })
+        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-
+'''
 def analytic(request):
     try:
         shipments = Shipment.objects.all()
@@ -58,7 +57,7 @@ def analytic(request):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-
+'''
 def shipment_list(request):
     try:
         shipments = Shipment.objects.all()
