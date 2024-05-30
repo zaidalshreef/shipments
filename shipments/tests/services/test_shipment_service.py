@@ -80,7 +80,9 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
-
+    # Mock handle_status_update to return a real JsonResponse
+    mock_handle_status_update.return_value = JsonResponse({'message': 'Shipment status updated successfully'},
+                                                          status=200)
     url = reverse('shipments:shipment_webhook')  # Ensure this matches your URL configuration
     request = rf.post(url, content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
