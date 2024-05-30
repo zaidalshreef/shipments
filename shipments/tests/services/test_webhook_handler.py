@@ -40,13 +40,14 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     # Test store authorize event
     response = webhook_handler(request_store_authorize)
     print(f"Store Authorize Response: {response.content}")  # Added for debugging
-    mock_handle_store_authorize.return_value = JsonResponse({'message': f'App added to store for merchant id {data_store_authorize['merchant']}'}, status=201)
+    mock_handle_store_authorize.return_value = JsonResponse({'message': f'App added to store for merchant id {data_store_authorize.merchant}'}, status=201)
     assert response.status_code == 201
     mock_handle_store_authorize.assert_called_once()
 
     # Test app installed event
     response = webhook_handler(request_app_installed)
     print(f"App Installed Response: {response.content}")  # Added for debugging
+    mock_handle_app_installed.return_value = JsonResponse({'message': f'App installed for merchant id {data_app_installed.merchant}'}, status=200)
     assert response.status_code == 200
     mock_handle_app_installed.assert_called_once()
 
