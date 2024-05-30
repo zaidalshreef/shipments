@@ -82,13 +82,11 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         }
     }
 
-    mock_response = MagicMock()
-    mock_response.status_code = 200
-    mock_handle_status_update.return_value = mock_response
     url = reverse('shipments:shipment_webhook')  # Ensure this matches your URL configuration
     request = rf.post(url, content_type='application/json', data=json.dumps(shipment_data))
     response = webhook_handler(request)
     assert response.status_code == 200
+    mock_handle_status_update.return_value.status_code = 200
     mock_handle_status_update.assert_called_once()
 
 
