@@ -62,6 +62,7 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     assert response.status_code == 201
     mock_handle_shipment_creation_or_update.assert_called()
 
+
 @pytest.mark.django_db
 def test_webhook_handler_invalid_json():
     client = Client()
