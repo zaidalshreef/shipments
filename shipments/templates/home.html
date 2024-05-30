@@ -39,64 +39,50 @@ option {
     <h1 class="my-4">Home</h1>
     <div class="row">
 
+       <div class = "col">
         <div class="card">
-            <div class="container">
+            <div class="card-header">
+                <h5 class="card-title">Shipment_total</h5>
+             </div>
+                <p class="card-text">{{shipment_total}}
 
-                <div class="row"> 
-
-                    <div class = "col">
-                        <div class="card-header">
-                       <h5 class="card-title">Shipment_total</h5>
-                    </div>
-                       <p class="card-text">{{shipment_total}}
-
-                    </div>
-                    
-                    <div class = "col">
-                        <div class="card-header">
-                        <h5 class="card-title">Shipment_delivered_total</h5>
-                    </div>
-                       {% with shipment_delivered=0 %}
-                       {% for shipment in shipments %}
-                       {% if shipment.statuses.last.status == 'delivered' %}
-                       
-                       <p class="card-text">{{shipment_delivered|add:"1"}}
-                       
-                             {% endif %}
-                             {% endfor %}
-                             {% endwith %}
-
-                       
-                    </div>
-                    <div class = "col">
-                        <div class="card-header">
-                        <h5 class="card-title">Shipment_return_total</h5>
-                    </div>
-                       {% with shipment_return=0 %}
-                       {% for shipment in shipments %}
-
-                       {% if shipment.statuses.last.status == 'returned' %}
-                       <p class="card-text">{{shipment_return|add:"1"}}
-                        
-                         {% endif %}
-                         {% endfor %}
-                         {% endwith %}
-                         
-
-                       
-                    </div>
-
-
-
-
-                   </div>
-
-
-            </div>
-
+             </div>
 
         </div>
 
+    <div class = "col">
+        <div class="card">     
+        <div class="card-header">
+            <h5 class="card-title">Shipment_delivered_total</h5>
+        </div>
+           {% with shipment_delivered=0 %}
+           {% for shipment in shipments %}
+           {% if shipment.statuses.last.status == 'delivered' %}
+           
+           <p class="card-text">{{shipment_delivered|add:"1"}}
+           
+                 {% endif %}
+                 {% endfor %}
+                 {% endwith %}
+                </div>
+            </div>
+            <div class = "col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Shipment_return_total</h5>
+            </div>
+               {% with shipment_return=0 %}
+               {% for shipment in shipments %}
+
+               {% if shipment.statuses.last.status == 'returned' %}
+               <p class="card-text">{{shipment_return|add:"1"}}
+                
+                 {% endif %}
+                 {% endfor %}
+                 {% endwith %}
+
+        </div>
+    </div>
         {% for shipment in shipments %}
         <div class="col-sm-6">
             
