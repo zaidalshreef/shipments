@@ -102,14 +102,26 @@ def test_handle_shipment_creation_or_update_return_shipment(mock_handle_shipment
         shipping_number='123456789012',
     )
     shipment_data = {
-        'shipment_id': 123,
-        'type': 'return',
+        'event': 'shipment.creating',
         'merchant': 456,
-        'event': 'test_event',
         'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
-        'courier_name': 'Test Courier',
-        'shipping_number': '123456789012',
+        'data': {
+            'id': 123,
+            'status': 'return',
+            'type': 'return',
+            'courier_name': 'Test Courier',
+            'payment_method': 'COD',
+            'total': {'amount': 100, 'currency': 'USD'},
+            'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
+            'label': {'url': 'https://example.com/label.pdf', 'format': 'pdf'},
+            'total_weight': {'weight': 5, 'unit': 'kg'},
+            'packages': [{'id': 1, 'weight': 5}],
+            'ship_from': {'address': '123 Street, City, Country'},
+            'ship_to': {'address': '456 Avenue, City, Country'},
+            'meta': {'info': 'some info'},
+        }
     }
+
     request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 200
