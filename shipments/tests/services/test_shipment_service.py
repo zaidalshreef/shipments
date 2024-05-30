@@ -40,10 +40,9 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
 
 
 @pytest.mark.django_db
-@patch('shipments.services.shipment_service.handle_shipment_update')
 @patch('shipments.services.shipment_service.handle_status_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update,
-                                                              rf):
+@patch('shipments.services.shipment_service.handle_shipment_update')
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update, rf):
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
@@ -61,15 +60,15 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         ship_to={'address': '456 Avenue, City, Country'},
         meta={'info': 'some info'}
     )
+
     shipment_data = {
-        'event': 'shipment.creating',
-        'merchant': 456,
-        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
+        'event': 'shipment.cancelled',
+        'merchant': 123,
+        'created_at': '2023-01-01T00:00:00Z',  # Corrected format
         'data': {
-            'id': 123,
-            'status': 'return',
-            'type': 'return',
-            'courier_name': 'Test Courier',
+            'id': 1,
+            'type': 'shipment',
+            'courier_name': 'DHL',
             'payment_method': 'COD',
             'total': {'amount': 100, 'currency': 'USD'},
             'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
@@ -81,8 +80,10 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
+
     mock_handle_status_update.return_value = MagicMock(status_code=200)
-    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
+    url = reverse('shipment_webhook')  # Ensure this matches your URL configuration
+    request = rf.post(url, content_type='application/json', data=json.dumps(shipment_data))
     response = webhook_handler(request)
     assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
