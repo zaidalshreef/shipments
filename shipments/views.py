@@ -30,11 +30,12 @@ def home(request):
     try:
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
+        shipments_status = ShipmentStatus.objects.all()
         shipment_delivered = 0 
         shipment_return = 0
         
         
-        for ship in shipments :
+        for ship in shipments_status :
            if ship.statuses.last.status  == 'delivered':
             shipment_delivered+1
            elif ship.statuses.last.status  == 'returned':
