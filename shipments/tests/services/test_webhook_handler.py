@@ -2,9 +2,9 @@ import pytest
 import json
 from django.urls import reverse
 from django.http import JsonResponse
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock
 from shipments.services.webhook_service import webhook_handler
-from django.test import Client
+from django.test import Client, RequestFactory
 
 
 @pytest.mark.django_db
@@ -23,10 +23,10 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     data_app_installed = json.dumps({"event": "app.installed", "merchant": 123})
     data_app_uninstalled = json.dumps({"event": "app.uninstalled", "merchant": 123})
     data_shipment_creating = json.dumps(
-        {"event": "shipment.creating", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000 (UTC)",
+        {"event": "shipment.creating", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000",
          "data": {"id": 1, "status": "created"}})
     data_shipment_cancelled = json.dumps(
-        {"event": "shipment.cancelled", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000 (UTC)",
+        {"event": "shipment.cancelled", "created_at": "Sat Jan 01 2022 12:00:00 GMT+0000",
          "data": {"id": 1, "status": "cancelled"}})
 
     request_store_authorize = rf.post(url, data_store_authorize, content_type='application/json')
@@ -63,6 +63,7 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
     mock_handle_shipment_creation_or_update.assert_called()
 
 
+@pytest.mark.django_db
 def test_webhook_handler_invalid_json():
     client = Client()
     response = client.post(reverse('shipments:shipment_webhook'), data="Invalid JSON", content_type="application/json")
@@ -70,6 +71,7 @@ def test_webhook_handler_invalid_json():
     assert json.loads(response.content) == {'error': 'Invalid JSON data'}
 
 
+@pytest.mark.django_db
 def test_webhook_handler_unknown_event(mocker):
     client = Client()
     data = json.dumps({
@@ -81,13 +83,13 @@ def test_webhook_handler_unknown_event(mocker):
             'status': 'creating',
             'type': 'standard',
             'courier_name': 'DHL',
-            'courier_logo': 'http://example.com/logo.png',
+            'courier_logo': 'https://example.com/logo.png',
             'tracking_number': '1234567890',
-            'tracking_link': 'http://example.com/track/1234567890',
+            'tracking_link': 'https://example.com/track/1234567890',
             'payment_method': 'COD',
             'total': {'amount': 100, 'currency': 'USD'},
             'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
-            'label': {'url': 'http://example.com/label.pdf'},
+            'label': {'url': 'https://example.com/label.pdf'},
             'total_weight': {'weight': 5, 'unit': 'kg'},
             'created_at_details': 'some details',
             'packages': [{'id': 1, 'weight': 5}],

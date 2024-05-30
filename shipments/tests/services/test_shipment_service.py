@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from django.http import JsonResponse
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock
 from shipments.models import Shipment, ShipmentStatus
 from shipments.services.shipment_service import handle_shipment_creation_or_update
 from shipments.services.webhook_service import webhook_handler
