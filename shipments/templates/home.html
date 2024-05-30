@@ -45,30 +45,41 @@ option {
                 <div class="row"> 
 
                     <div class = "col">
+                        <div class="card-header">
                        <h5 class="card-title">Shipment_total</h5>
+                    </div>
                        <p class="card-text">{{shipment_total}}
 
                     </div>
-                    {% for shipment in shipments %}
+                    
                     <div class = "col">
+                        <div class="card-header">
                         <h5 class="card-title">Shipment_delivered_total</h5>
+                    </div>
                        {% with shipment_delivered=0 %}
+                       {% for shipment in shipments %}
                        {% if shipment.statuses.last.status == 'delivered' %}
-
+                       
                        <p class="card-text">{{shipment_delivered|add:"1"}}
+                        {% endfor %}
                              {% endif %}
                              {% endwith %}
 
                        
                     </div>
                     <div class = "col">
+                        <div class="card-header">
                         <h5 class="card-title">Shipment_return_total</h5>
+                    </div>
                        {% with shipment_return=0 %}
+                       {% for shipment in shipments %}
+
                        {% if shipment.statuses.last.status == 'returned' %}
                        <p class="card-text">{{shipment_return|add:"1"}}
+                        {% endfor %}
                          {% endif %}
                          {% endwith %}
-                         {% endfor %}
+                         
 
                        
                     </div>
