@@ -48,7 +48,7 @@ def webhook_handler(request):
             data = json.loads(request.body)
             event = data.get('event')
             logger.info(f"Received webhook event: {event}")
-            if event == 'app.store.authorize'
+            if event == 'app.store.authorize':
                 logger.info("Calling handle_store_authorize")
                 return handle_store_authorize(data)
             elif event == 'app.installed':
