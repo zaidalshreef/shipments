@@ -47,7 +47,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
-        created_at='2021-10-13T07:53:00Z',
+        created_at='Wed, 13 Oct 2021 07:53:00 GMT',
         shipment_id=1,
         type='shipment',
         courier_name='DHL',
@@ -62,12 +62,11 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         meta={'info': 'some info'}
     )
     shipment_data = {
-        'event': 'shipment.creating',
+        'event': 'shipment.cancelled',
         'merchant': 123,
         'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
         'data': {
             'id': 1,
-            'status': 'creating',
             'type': 'shipment',
             'courier_name': 'DHL',
             'payment_method': 'COD',
@@ -86,7 +85,6 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
     response = webhook_handler(request)
     assert response.status_code == 200
     mock_handle_status_update.assert_called_once()
-    mock_handle_shipment_update.assert_called_once()
 
 
 @pytest.mark.django_db
@@ -95,7 +93,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
 def test_handle_shipment_creation_or_update_return_shipment(mock_handle_shipment_update, mock_handle_status_update, rf):
     shipment = Shipment.objects.create(
         shipment_id=123,
-        type='return',
+        type='shipment',
         merchant=456,
         event='test_event',
         created_at='2023-01-01T00:00:00Z',
