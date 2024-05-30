@@ -43,7 +43,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
 @pytest.mark.django_db
 @patch('shipments.services.shipment_service.handle_status_update')
 @patch('shipments.services.shipment_service.handle_shipment_update')
-def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, mock_handle_shipment_update, rf):
+def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status_update, rf):
     existing_shipment = Shipment.objects.create(
         event='shipment.creating',
         merchant=123,
@@ -86,7 +86,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
     url = reverse('shipments:shipment_webhook')  # Ensure this matches your URL configuration
     request = rf.post(url, content_type='application/json', data=json.dumps(shipment_data))
     response = webhook_handler(request)
-    assert response.status_code == response.status_code
+    assert response.status_code == mock_handle_status_update.return_value
     mock_handle_status_update.assert_called_once()
 
 
