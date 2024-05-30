@@ -41,6 +41,51 @@ option {
         {% for shipment in shipments %}
         <div class="col-sm-6">
             <div class="card">
+                <div class="container">
+
+                    <div class="row"> 
+
+                        <div class = "col">
+                           <h5 class="card-title">{{shipment_total}}</h5>
+                           <p class="card-text">{{shipment_total}}
+   
+   
+   
+   
+                        </div>
+                        <div class = "col">
+                           {% with shipment_delivered=0 %}
+                           {% if shipment.statuses.last.status == 'delivered' %}
+   
+                           <p class="card-text">{{shipment_delivered|add:"1"}}
+                                 {% endif %}
+                                 {% endwith %}
+   
+                           
+                        </div>
+                        <div class = "col">
+                           {% with shipment_return=0 %}
+                           {% if shipment.statuses.last.status == 'returned' %}
+                           <p class="card-text">{{shipment_return|add:"1"}}
+                             {% endif %}
+                             {% endwith %}
+   
+                           
+                        </div>
+   
+   
+   
+   
+                       </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="card">
 
                 <div class="card-header">
                     
@@ -50,40 +95,7 @@ option {
 
                 <div class="card-body">
                  
-                    <div class="row"> 
-
-                     <div class = "col">
-                        <h5 class="card-title">{{shipment_total}}</h5>
-                        <p class="card-text">{{shipment_total}}
-
-
-
-
-                     </div>
-                     <div class = "col">2
-                        {% with shipment_delivered=0 %}
-                        {% if shipment.statuses.last.status == 'delivered' %}
-
-                        <p class="card-text">{{shipment_delivered|add:"1"}}
-                              {% endif %}
-                              {% endwith %}
-
-                        
-                     </div>
-                     <div class = "col">
-                        {% with shipment_return=0 %}
-                        {% if shipment.statuses.last.status == 'returned' %}
-                        <p class="card-text">{{shipment_return|add:"1"}}
-                          {% endif %}
-                          {% endwith %}
-
-                        
-                     </div>
-
-
-
-
-                    </div>
+                 
                  
                     
                     <div class="container">
