@@ -14,7 +14,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
     shipment_data = {
         'event': 'shipment.creating',
         'merchant': 123,
-        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
         'data': {
             'id': 1,
             'status': 'creating',
@@ -23,7 +23,7 @@ def test_handle_shipment_creation_or_update_new_shipment(mock_handle_status_upda
             'payment_method': 'COD',
             'total': {'amount': 100, 'currency': 'USD'},
             'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
-            'label': {'url': 'http://example.com/label.pdf', 'format': 'pdf'},
+            'label': {'url': 'https://example.com/label.pdf', 'format': 'pdf'},
             'total_weight': {'weight': 5, 'unit': 'kg'},
             'packages': [{'id': 1, 'weight': 5}],
             'ship_from': {'address': '123 Street, City, Country'},
@@ -54,7 +54,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
         payment_method='COD',
         total={'amount': 100, 'currency': 'USD'},
         cash_on_delivery={'amount': 10, 'currency': 'USD'},
-        label={'url': 'http://example.com/label.pdf', 'format': 'pdf'},
+        label={'url': 'https://example.com/label.pdf', 'format': 'pdf'},
         total_weight={'weight': 5, 'unit': 'kg'},
         packages=[{'id': 1, 'weight': 5}],
         ship_from={'address': '123 Street, City, Country'},
@@ -64,7 +64,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
     shipment_data = {
         'event': 'shipment.creating',
         'merchant': 123,
-        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 (UTC)',
+        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
         'data': {
             'id': 1,
             'status': 'creating',
@@ -73,7 +73,7 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'payment_method': 'COD',
             'total': {'amount': 100, 'currency': 'USD'},
             'cash_on_delivery': {'amount': 10, 'currency': 'USD'},
-            'label': {'url': 'http://example.com/label.pdf', 'format': 'pdf'},
+            'label': {'url': 'https://example.com/label.pdf', 'format': 'pdf'},
             'total_weight': {'weight': 5, 'unit': 'kg'},
             'packages': [{'id': 1, 'weight': 5}],
             'ship_from': {'address': '123 Street, City, Country'},
