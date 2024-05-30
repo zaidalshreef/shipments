@@ -39,26 +39,31 @@ def test_webhook_handler_valid_events(mock_parse_shipment_data, mock_handle_ship
 
     # Test store authorize event
     response = webhook_handler(request_store_authorize)
+    print(f"Store Authorize Response: {response.content}")  # Added for debugging
     assert response.status_code == 201
     mock_handle_store_authorize.assert_called_once()
 
     # Test app installed event
     response = webhook_handler(request_app_installed)
+    print(f"App Installed Response: {response.content}")  # Added for debugging
     assert response.status_code == 200
     mock_handle_app_installed.assert_called_once()
 
     # Test app uninstalled event
     response = webhook_handler(request_app_uninstalled)
+    print(f"App Uninstalled Response: {response.content}")  # Added for debugging
     assert response.status_code == 200
     mock_handle_app_uninstalled.assert_called_once()
 
     # Test shipment creating event
     response = webhook_handler(request_shipment_creating)
+    print(f"Shipment Creating Response: {response.content}")  # Added for debugging
     assert response.status_code == 201
     mock_handle_shipment_creation_or_update.assert_called_once()
 
     # Test shipment cancelled event
     response = webhook_handler(request_shipment_cancelled)
+    print(f"Shipment Cancelled Response: {response.content}")  # Added for debugging
     assert response.status_code == 201
     mock_handle_shipment_creation_or_update.assert_called()
 
