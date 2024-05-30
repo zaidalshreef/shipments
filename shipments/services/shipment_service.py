@@ -1,12 +1,13 @@
-import logging
 import json
-from django.http import JsonResponse
-from ..models import Shipment, ShipmentStatus
-from django.urls import reverse
-from .salla_service import update_salla_api
-from .notification_service import send_shipment_email
-from datetime import datetime
+import logging
+
 from dateutil.parser import parse as parse_date
+from django.http import JsonResponse
+from django.urls import reverse
+
+from .notification_service import send_shipment_email
+from .salla_service import update_salla_api
+from ..models import Shipment, ShipmentStatus
 
 # Initialize the logger
 logger = logging.getLogger(__name__)

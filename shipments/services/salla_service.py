@@ -1,12 +1,12 @@
-import requests
-from datetime import datetime
-from django.conf import settings
-from ..models import MerchantToken
-from django.http import JsonResponse
-from django.utils import timezone
-import pytz
 import logging
+from datetime import datetime
 
+import pytz
+import requests
+from django.conf import settings
+from django.http import JsonResponse
+
+from ..models import MerchantToken
 
 logger = logging.getLogger(__name__)
 
@@ -154,7 +154,7 @@ def refresh_token(merchant_token):
             token_data = response.json()
             merchant_token.access_token = token_data.get('access_token')
             expires_in = token_data.get('expires')
-            merchant_token.expires_at = datetime.fromtimestamp(expires_in, pytz.UTC)  # Convert to timezone-aware datetime using pytz.UTC
+            merchant_token.expires_at = datetime.fromtimestamp(expires_in, pytz.UTC)
             merchant_token.save()
             logger.info(f"Token refreshed for merchant id {merchant_token.merchant_id}")
             return True

@@ -1,10 +1,11 @@
 import json
 import logging
-from pprint import pprint
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+
 from .salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled
-from .shipment_service import handle_shipment_creation_or_update, handle_status_update, parse_shipment_data
+from .shipment_service import handle_shipment_creation_or_update, parse_shipment_data
 
 # Initialize the logger
 logger = logging.getLogger(__name__)

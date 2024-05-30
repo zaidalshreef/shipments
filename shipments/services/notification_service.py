@@ -1,12 +1,14 @@
 import logging
+
+from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.conf import settings
-from django.urls import reverse
-from twilio.rest import Client
-from ..models import Shipment
+
+# from twilio.rest import Client
+
 logger = logging.getLogger(__name__)
+
 
 # twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
@@ -50,7 +52,6 @@ def send_shipment_email(shipment, status):
         logger.info(f"Email sent successfully for shipment {shipment.shipment_id} with status {status}")
     except Exception as e:
         logger.error(f"Failed to send email for shipment {shipment.shipment_id} with status {status}: {str(e)}")
-
 
 # def send_sms(shipment):
 #     try:
