@@ -59,8 +59,9 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
+
 # Expose the port that the application listens on.
 EXPOSE $PORT
 
 # Run the application.
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:$PORT"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true && python manage.py runserver 0.0.0.0:$PORT"]
