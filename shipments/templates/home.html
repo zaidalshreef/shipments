@@ -45,12 +45,12 @@ option {
                 <div class="card-header">
                     <p class="card-text">{{shipment_total}}
                         {% with shipment_delivered=0 %}
-                        {{% if shipment.statuses.last.status == 'delivered' % }}
+                        {% if shipment.statuses.last.status == 'delivered' %}
 
                         <p class="card-text">{{shipment_delivered+1}}
                               {% endif %}
                               {% with shipment_return=0 %}
-                            {% if shipment.statuses.last.status == 'returned' % }
+                            {% if shipment.statuses.last.status == 'returned' %}
                             <p class="card-text">{{shipment_return+1}}
                               {% endif %}
                 <h5 class="card-title"> <strong>Shipment number:</strong>  {{ shipment.shipping_number }}</h5>
