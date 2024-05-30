@@ -44,8 +44,14 @@ option {
 
                 <div class="card-header">
                     <p class="card-text">{{shipment_total}}
-                        <p class="card-text">{{shipment_delivered}}
-                            <p class="card-text">{{shipment_return}}
+                        {{% with shipment_delivered = 0 %}}
+                        {{% if shipment.statuses.last.status == 'delivered' % }}
+
+                        <p class="card-text">{{shipment_delivered+1}}
+                              {{%endif%}}
+                            {{% if shipment.statuses.last.status == 'returned' % }}
+                            <p class="card-text">{{shipment_return+1}}
+                              {{%endif%}}
                 <h5 class="card-title"> <strong>Shipment number:</strong>  {{ shipment.shipping_number }}</h5>
                 <p class="card-title"><strong>Created at:</strong> {{ shipment.created_at }}</p>
                 </div>
