@@ -38,53 +38,55 @@ option {
 <div class="container-fluid">
     <h1 class="my-4">Home</h1>
     <div class="row">
-        {% for shipment in shipments %}
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="container">
 
-                    <div class="row"> 
+        <div class="card">
+            <div class="container">
 
-                        <div class = "col">
-                           <h5 class="card-title">Shipment_total</h5>
-                           <p class="card-text">{{shipment_total}}
-   
-   
-   
-   
-                        </div>
-                        <div class = "col">
-                            <h5 class="card-title">Shipment_delivered_total</h5>
-                           {% with shipment_delivered=0 %}
-                           {% if shipment.statuses.last.status == 'delivered' %}
-   
-                           <p class="card-text">{{shipment_delivered|add:"1"}}
-                                 {% endif %}
-                                 {% endwith %}
-   
-                           
-                        </div>
-                        <div class = "col">
-                            <h5 class="card-title">Shipment_return_total</h5>
-                           {% with shipment_return=0 %}
-                           {% if shipment.statuses.last.status == 'returned' %}
-                           <p class="card-text">{{shipment_return|add:"1"}}
+                <div class="row"> 
+
+                    <div class = "col">
+                       <h5 class="card-title">Shipment_total</h5>
+                       <p class="card-text">{{shipment_total}}
+
+                    </div>
+                    {% for shipment in shipments %}
+                    <div class = "col">
+                        <h5 class="card-title">Shipment_delivered_total</h5>
+                       {% with shipment_delivered=0 %}
+                       {% if shipment.statuses.last.status == 'delivered' %}
+
+                       <p class="card-text">{{shipment_delivered|add:"1"}}
                              {% endif %}
                              {% endwith %}
-   
-                           
-                        </div>
-   
-   
-   
-   
-                       </div>
+
+                       
+                    </div>
+                    <div class = "col">
+                        <h5 class="card-title">Shipment_return_total</h5>
+                       {% with shipment_return=0 %}
+                       {% if shipment.statuses.last.status == 'returned' %}
+                       <p class="card-text">{{shipment_return|add:"1"}}
+                         {% endif %}
+                         {% endwith %}
+                         {{% endfor %}}
+
+                       
+                    </div>
 
 
-                </div>
+
+
+                   </div>
 
 
             </div>
+
+
+        </div>
+
+        {% for shipment in shipments %}
+        <div class="col-sm-6">
+            
 
 
             <div class="card">
