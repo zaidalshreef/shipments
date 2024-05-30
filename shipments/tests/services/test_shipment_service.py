@@ -1,4 +1,5 @@
 import pytest
+import json
 from django.urls import reverse
 from django.http import JsonResponse
 from unittest.mock import patch, Mock, MagicMock
@@ -80,7 +81,8 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
-    request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
+    url = reverse('shipment_webhook')  # Ensure this matches your URL configuration
+    request = rf.post(url, content_type='application/json', data=json.dumps(shipment_data))
     response = webhook_handler(request)
     # Log the response details for debugging
     print(f"Response status code: {response.status_code}")
