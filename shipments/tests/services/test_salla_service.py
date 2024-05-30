@@ -6,6 +6,7 @@ import pytz
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils import timezone
+from django.utils.timezone import make_aware
 from django.http import JsonResponse
 from shipments.models import MerchantToken
 from shipments.services.salla_service import handle_store_authorize, handle_app_installed, handle_app_uninstalled, \
@@ -79,11 +80,11 @@ def test_refresh_token_success(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=datetime.now(pytz.utc) - timedelta(hours=1)
+        expires_at=timezone.now() - timedelta(hours=1)
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
-                                                                         'expires': (datetime.now(pytz.utc) + timedelta(
+                                                                         'expires': (timezone.now() + timedelta(
                                                                              hours=1)).timestamp()
                                                                          }))
     assert refresh_token(merchant_token) is True
@@ -123,11 +124,11 @@ def test_get_access_token_expired(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=datetime.now(pytz.utc) - timedelta(hours=1)
+        expires_at=timezone.now() - timedelta(hours=1)
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
-                                                                         'expires': (datetime.now(pytz.utc) + timedelta(
+                                                                         'expires': (timezone.now() + timedelta(
                                                                              hours=1)).timestamp()
                                                                          }))
     token = get_access_token(123)
