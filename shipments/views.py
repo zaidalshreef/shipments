@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ShipmentForm, ShipmentStatusForm
-from .models import Shipment
+from .models import Shipment, ShipmentStatus
 from .services import update_salla_api, handle_status_update, handle_shipment_update, send_shipment_email
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
