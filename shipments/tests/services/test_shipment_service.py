@@ -80,7 +80,6 @@ def test_handle_shipment_creation_or_update_existing_shipment(mock_handle_status
             'meta': {'info': 'some info'},
         }
     }
-    mock_handle_status_update.return_value = MagicMock(status_code=200)
     request = rf.post(reverse('shipments:shipment_webhook'), content_type='application/json', data=shipment_data)
     response = webhook_handler(request)
     assert response.status_code == 200
