@@ -106,7 +106,7 @@ def test_handle_shipment_creation_or_update_return_shipment(mock_handle_shipment
         'type': 'return',
         'merchant': 456,
         'event': 'test_event',
-        'created_at': '2023-01-01T00:00:00Z',
+        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
         'courier_name': 'Test Courier',
         'shipping_number': '123456789012',
     }

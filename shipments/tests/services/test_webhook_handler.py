@@ -75,7 +75,7 @@ def test_webhook_handler_unknown_event(mocker):
     data = json.dumps({
         'event': 'shipment.unknown',
         'merchant': 123,
-        'created_at': 'Wed Oct 13 2021 07:53:00 GMT+0000 UTC+3',
+        'created_at': 'Wed, 13 Oct 2021 07:53:00 GMT',
         'data': {
             'id': 1,
             'status': 'creating',
