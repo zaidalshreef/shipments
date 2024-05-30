@@ -80,12 +80,12 @@ def test_refresh_token_success(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=timezone.now() - timedelta(hours=1)
+        expires_at=make_aware(datetime.now() - timedelta(hours=1))  # Use make_aware for timezone-aware datetime
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
                                                                          'expires': (timezone.now() + timedelta(
-                                                                             hours=1))
+                                                                             hours=1)).timestamp()
                                                                          }))
     assert refresh_token(merchant_token) is True
     merchant_token.refresh_from_db()
@@ -124,12 +124,12 @@ def test_get_access_token_expired(mocker):
         merchant_id=123,
         access_token='old_access_token',
         refresh_token='test_refresh_token',
-        expires_at=timezone.now() - timedelta(hours=1)
+        expires_at=make_aware(datetime.now() - timedelta(hours=1))  # Use make_aware for timezone-aware datetime
     )
     mocker.patch('requests.post', return_value=mocker.Mock(status_code=200,
                                                            json=lambda: {'access_token': 'new_access_token',
                                                                          'expires': (timezone.now() + timedelta(
-                                                                             hours=1))
+                                                                             hours=1)).timestamp()
                                                                          }))
     token = get_access_token(123)
     assert token == 'new_access_token'
