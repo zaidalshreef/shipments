@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+<!doctype html>
+
 {% block title %}
 Home
 {% endblock %}
@@ -24,12 +26,17 @@ label {
     font-family: "Roboto", sans-serif;
     font-size: 1.2rem;
 }
-select { width: 10rem ;
+select { width: 20rem ;
     font-size: 1.2rem;
 }
 option {
     font-size: 1.2rem;
 }
+.card-text-analytic {
+            font-size: 3rem;
+            font-weight: 500;
+            text-align: center;
+        }
 
 </style>
 
@@ -38,63 +45,77 @@ option {
 <div class="container-fluid">
     <h1 class="my-4">Home</h1>
     <div class="row">
-
+    <div class = "col">
         <div class="card">
-            <div class="container">
+            <div class="card-header">
+                <h5 class="card-title">Shipment_total</h5>
+             </div>
+                <p class="card-text-analytic">{{shipment_total}}
 
-                <div class="row"> 
-
-                    <div class = "col">
-                        <div class="card-header">
-                       <h5 class="card-title">Shipment_total</h5>
-                    </div>
-                       <p class="card-text">{{shipment_total}}
-
-                    </div>
-                    
-                    <div class = "col">
-                        <div class="card-header">
-                        <h5 class="card-title">Shipment_delivered_total</h5>
-                    </div>
-                       {% with shipment_delivered=0 %}
-                       {% for shipment in shipments %}
-                       {% if shipment.statuses.last.status == 'delivered' %}
-                       
-                       <p class="card-text">{{shipment_delivered|add:"1"}}
-                        {% endfor %}
-                             {% endif %}
-                             {% endwith %}
-
-                       
-                    </div>
-                    <div class = "col">
-                        <div class="card-header">
-                        <h5 class="card-title">Shipment_return_total</h5>
-                    </div>
-                       {% with shipment_return=0 %}
-                       {% for shipment in shipments %}
-
-                       {% if shipment.statuses.last.status == 'returned' %}
-                       <p class="card-text">{{shipment_return|add:"1"}}
-                        {% endfor %}
-                         {% endif %}
-                         {% endwith %}
-                         
-
-                       
-                    </div>
-
-
-
-
-                   </div>
-
-
-            </div>
-
+             </div>
 
         </div>
 
+    <div class = "col">
+        <div class="card">     
+        <div class="card-header">
+            <h5 class="card-title">Shipment delivered total</h5>
+        </div>
+           {% with shipment_delivered=0 %}
+           {% for shipment in shipments %}
+           {% if shipment.statuses.last.status == 'delivered' %}
+           
+           <p class="card-text-analytic">{{shipment_delivered|add:"1"}}
+
+           
+           
+                 {% endif %}
+                 {% endfor %}
+                
+                 {% endwith %}
+                </div>
+            </div>
+            <div class = "col">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Shipment return total</h5>
+            </div>
+               {% with shipment_return=0 %}
+               {% for shipment in shipments %}
+
+               {% if shipment.statuses.last.status == 'returned' %}
+               <p class="card-text-analytic">{{shipment_return|add:"1"}}
+               
+                 {% endif %}
+                 {% endfor %}
+                
+                 {% endwith %}
+
+        </div>
+    </div>
+
+    <div class = "col">
+        <div class="card">     
+        <div class="card-header">
+            <h5 class="card-title">Shipment canceled total</h5>
+        </div>
+           {% with shipment_canceled=0 %}
+           {% for shipment in shipments %}
+           {% if shipment.statuses.last.status == 'cancelled' %}
+           
+           <p class="card-text-analytic">{{shipment_canceled|add:"1"}}
+                 {% endif %}
+                 {% endfor %}
+               
+                 {% endwith %}
+                </div>
+            </div>
+        </div>
+
+
+    <div class="row">
+
+       
         {% for shipment in shipments %}
         <div class="col-sm-6">
             
@@ -164,36 +185,45 @@ option {
                     <div class="col"> 
                      <a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">Shipment Detail</a>
                 </div>
-                <div class="col"> 
+                
 
-                    {% if shipment.type == "shipment" %}
+            <div class="col">
+
+            <a href="https://wa.me/{{shipment.ship_from.phone}} " class="btn btn-primary">Contact with customer</a>
+            </div>
+            <div class="col"> 
+
+                {% if shipment.type == "shipment" %}
+            <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+                {% csrf_token %}
+                <label for="status">Select next status of shipment:</label>
+                <select id="status" name="status">
+                    <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
+                    <option value="pending">Pending</option>
+                    <option value="delivering">Delivering</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <input type="submit" value="Update Status"  class="btn btn-primary">
+
+                {% else %}
+
                 <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
                     {% csrf_token %}
-                    <label for="status">Select next status of shipment:</label>
+                    <label for="status">New Status:</label>
                     <select id="status" name="status">
-                        
-                        <option value="pending">Pending</option>
-                        <option value="delivering">Delivering</option>
+                        <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
+                        <option value="in_progress">In Progress</option>
                         <option value="delivered">Delivered</option>
+                        <option value="returned">Returned</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
                     <input type="submit" value="Update Status"  class="btn btn-primary">
+            </form>
+            {% endif %}
 
-                    {% else %}
+        </div>
 
-                    <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
-                        {% csrf_token %}
-                        <label for="status">New Status:</label>
-                        <select id="status" name="status">
-                            <option value="in_progress">In Progress</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="returned">Returned</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
-                        <input type="submit" value="Update Status"  class="btn btn-primary">
-                </form>
-                {% endif %}
-            </div>
                 </div> <!-- row Block-->
                     </div> <!-- container Block-->
                     
@@ -207,4 +237,5 @@ option {
 </div>
 
 </body>
+</html>
 {% endblock %}
