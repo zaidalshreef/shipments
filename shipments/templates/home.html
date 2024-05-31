@@ -61,7 +61,7 @@ option {
            <p class="card-text">{{shipment_delivered|add:"1"}}
 
             {% else %}
-            <p class="card-text">{{shipment_delivered}}
+            <p class="card-text">{{shipment_delivered|add:"0"}}
            
                  {% endif %}
                  {% endfor %}
@@ -79,7 +79,7 @@ option {
                {% if shipment.statuses.last.status == 'returned' %}
                <p class="card-text">{{shipment_return|add:"1"}}
                 {% else %}
-            <p class="card-text">{{shipment_return}}
+            <p class="card-text">{{shipment_return|add:"0"}}
                  {% endif %}
                  {% endfor %}
                  {% endwith %}
