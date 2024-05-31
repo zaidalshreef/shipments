@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
+<head>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+
+</head>
 {% block title %}
 Home
 {% endblock %}
 
 {% block content %}
-<style>
+<!--<style>
 .title
 {
     font-size: 1.6rem;
@@ -32,11 +40,11 @@ option {
 }
 .card-text-analytic {
             font-size: 3rem;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
         }
 
-</style>
+</style>-->
 
 <body>
     
