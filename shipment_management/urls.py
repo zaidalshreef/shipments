@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import path, include, re_path
 from django.conf.urls import handler404
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +28,5 @@ urlpatterns = [
     re_path(r'^$', lambda request: redirect('shipments:home', permanent=True)),
 
 ]
+urlpatterns += static(settings.STATIC_URL, doucument_root = settings.STATIC_ROOT)
 handler404 = 'shipments.views.custom_page_not_found_view'
