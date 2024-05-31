@@ -1,0 +1,82 @@
+.bg-dark {
+    background-color: #749ca4 !important;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.navbar-dark {
+    --bs-navbar-color: #fff;
+    --bs-navbar-hover-color: #bbd4dc;
+}
+
+.body {
+    padding-top: 56px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.navbar-brand img {
+    width: 60px;
+    height: 60px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.3rem;
+}
+
+.btn {
+    flex: 1;
+    background-color: #ffffff;
+    padding-bottom: 60px;  /* Ensure there's space for the footer */
+}
+
+.footer {
+    background-color: #749ca4;
+    color: #fff;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.card {
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    --border-color: #749ca4 !important;
+}
+
+.card-header {
+    background-color: #81b6be;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #749ca4;
+    --bs-btn-hover-bg: #bbd4dc;
+    --bs-btn-hover-border-color: #bbd4dc;
+    --bs-btn-border-color: #749ca4;
+    --bs-btn-active-bg: #bbd4dc;
+    --bs-btn-active-border-color: #bbd4dc;
+}
+
+.btn {
+    --bs-btn-font-family: "Roboto", sans-serif;
+    --bs-btn-font-size: 1.5rem;
+}
