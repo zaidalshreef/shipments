@@ -28,5 +28,5 @@ urlpatterns = [
     re_path(r'^$', lambda request: redirect('shipments:home', permanent=True)),
 
 ]
-urlpatterns += static(settings.STATIC_URL, doucument_root = settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 handler404 = 'shipments.views.custom_page_not_found_view'
