@@ -37,18 +37,7 @@ def home(request):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-'''
-def analytic(request):
-    try:
-        shipments = Shipment.objects.all()
-        shipment_total = shipments.count()
-   
-           
-        return render(request, 'analytic.html', {'shipments': shipments })
-    except Exception as e:
-        return HttpResponse(f'Error: {str(e)}', status=500)
 
-'''
 def shipment_list(request):
     try:
         shipments = Shipment.objects.all()
@@ -103,12 +92,4 @@ def update_status(request, shipment_id):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-def shipment_delete(request, shipment_id):
-    try:
-        shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
-        if request.method == 'POST':
-            shipment.delete()
-            return redirect('shipment_list')
-        return render(request, 'shipment_confirm_delete.html', {'shipment': shipment})
-    except Exception as e:
-        return HttpResponse(f'Error: {str(e)}', status=500)
+
