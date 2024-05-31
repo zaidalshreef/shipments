@@ -64,7 +64,7 @@ option {
            
                  {% endif %}
                  {% endfor %}
-                 {% if shipment_delivered!=1 }
+                 {% if shipment_delivered == 0 %}
                  <p class="card-text">{{shipment_delivered}}
                     {% endif %}
                  {% endwith %}
@@ -83,7 +83,7 @@ option {
                
                  {% endif %}
                  {% endfor %}
-                 {% if shipment_return!=1 }
+                 {% if shipment_return == 0 %}
                  <p class="card-text">{{shipment_return}}
                     {% endif %}
                  {% endwith %}
@@ -103,7 +103,7 @@ option {
            <p class="card-text">{{shipment_canceled|add:"1"}}
                  {% endif %}
                  {% endfor %}
-                 {% if shipment_canceled!=1 }
+                 {% if shipment_canceled == 0 %}
                  <p class="card-text">{{shipment_canceled}}
                     {% endif %}
                  {% endwith %}
