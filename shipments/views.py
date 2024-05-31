@@ -75,8 +75,7 @@ def update_shipment_details(request, shipment_id):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-
-def update_status(request, shipment_id):
+'''def update_status(request, shipment_id):
     try:
         shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
         if request.method == 'POST':
@@ -91,5 +90,5 @@ def update_status(request, shipment_id):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-
+'''
 
