@@ -64,6 +64,9 @@ option {
            
                  {% endif %}
                  {% endfor %}
+                 {% if shipment_delivered!=1 }
+                 <p class="card-text">{{shipment_delivered}}
+                    {% endif %}
                  {% endwith %}
                 </div>
             </div>
@@ -80,7 +83,9 @@ option {
                
                  {% endif %}
                  {% endfor %}
-                 
+                 {% if shipment_return!=1 }
+                 <p class="card-text">{{shipment_return}}
+                    {% endif %}
                  {% endwith %}
 
         </div>
@@ -96,10 +101,11 @@ option {
            {% if shipment.statuses.last.status == 'cancelled' %}
            
            <p class="card-text">{{shipment_canceled|add:"1"}}
-            {% else %}
-            <p class="card-text">{{shipment_canceled}}
                  {% endif %}
                  {% endfor %}
+                 {% if shipment_canceled!=1 }
+                 <p class="card-text">{{shipment_canceled}}
+                    {% endif %}
                  {% endwith %}
                 </div>
             </div>
