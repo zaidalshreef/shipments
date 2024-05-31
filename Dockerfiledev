@@ -37,10 +37,8 @@ RUN adduser \
     appuser
 
 # Create a directory for logs and set permissions
-RUN mkdir -p /app/logs && \
-    touch /app/logs/django_debug.log && \
-    chown -R appuser:appuser /app/logs && \
-    chmod 755 /app/logs && \
+RUN mkdir -p /app/logs /app/staticfiles && touch /app/logs/django_debug.log && \
+    chown -R appuser:appuser /app/logs /app/staticfiles && chmod 755 /app/logs /app/staticfiles && \
     chmod 644 /app/logs/django_debug.log
 
 # Copy requirements.txt before installing dependencies
@@ -56,6 +54,8 @@ USER appuser
 
 # Copy the source code into the container.
 COPY . .
+
+RUN python manage.py collectstatic --noinput
 
 # Expose the port that the application listens on.
 EXPOSE ${PORT:-8000}
