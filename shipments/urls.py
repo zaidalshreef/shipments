@@ -8,7 +8,7 @@ from .services.pdf_service import generate_pdf_label
 app_name = 'shipments'
 
 urlpatterns = [
-    path('', views.shipment_list, name='shipment_list'),
+    #path('', views.shipment_list, name='shipment_list'),
     path('home/', views.home, name='home'),
     path('webhook/', webhook_handler, name='shipment_webhook'),
     path('send-test-email/', views.send_test_email_view, name='send_test_email'),
