@@ -206,7 +206,7 @@ option {
                 </select>
                 <input type="submit" value="Update Status"  class="btn btn-primary">
 
-                {% else %}
+                {% else %}                                                                                                                                                                                                        
 
                 <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
                     {% csrf_token %}

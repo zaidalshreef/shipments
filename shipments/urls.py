@@ -15,7 +15,7 @@ urlpatterns = [
     path('generate-pdf-label/<int:shipment_id>/', generate_pdf_label, name='generate_pdf_label'),
     path('<int:shipment_id>/', views.shipment_detail, name='shipment_detail'),
     path('<int:shipment_id>/update/', views.update_shipment_details, name='shipment_update'),
-    path('<int:shipment_id>/status/', views.update_status, name='update_status'),
+    '''path('<int:shipment_id>/status/', views.update_status, name='update_status'),'''
     path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
 
 ]
