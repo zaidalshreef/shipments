@@ -30,10 +30,8 @@ def home(request, shipment_id):
     try:
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
-        form = ShipmentStatusForm()
-
-
         if request.method == 'POST':
+            shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
             form = ShipmentStatusForm(request.POST)
             if form.is_valid():
                 status = form.cleaned_data['status']
@@ -42,7 +40,7 @@ def home(request, shipment_id):
             
             else: 
                 form = ShipmentStatusForm()
-        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total, form:'form'})
+        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total, form:'form' ,shipment:'shipment'})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
