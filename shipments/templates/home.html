@@ -60,6 +60,7 @@ option {
         <div class="card">     
         <div class="card-header">
             <h5 class="card-title">Shipment delivered total</h5>
+            <p class="card-text-analytic" > delivered from view {{shipment_delivered}}</p>
         </div>
            {% with shipment_delivered=0 %}
            {% for shipment in shipments %}
