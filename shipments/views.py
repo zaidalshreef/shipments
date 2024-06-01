@@ -34,7 +34,7 @@ def home(request):
 
         for ship in shipments:
          if ship.statuses.last().status== 'delivered':
-          shipment_delivered+1
+          shipment_delivered+=1
 
 
    
