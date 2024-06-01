@@ -100,6 +100,8 @@ option {
               </tr>
             </thead>
 
+            <tbody>
+
             <tr>
                 {% for shipment in shipments %}
                 <td>{{ shipment.statuses.last.status }}</td>
@@ -107,7 +109,9 @@ option {
                 <td><a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">Shipment Detail</a>
                 </td>
               </tr>
-
+              {% endfor %}
+            </tbody>
+        </table>
 
 
     <div class="row">
