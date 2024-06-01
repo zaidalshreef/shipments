@@ -90,10 +90,47 @@ option {
         </div>
 
 
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Shipment #</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created At </th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+
+            <tr>
+                {% for shipment in shipments %}
+                <td>{{ shipment.statuses.last.status }}</td>
+                <td>{{ shipment.created_at }}</td>
+                <td><a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">Shipment Detail</a>
+                </td>
+              </tr>
+
+
+
     <div class="row">
 
        
         {% for shipment in shipments %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-sm-6">
             
 
