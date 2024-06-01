@@ -16,7 +16,7 @@ urlpatterns = [
     path('<int:shipment_id>/shipment_detail/', views.shipment_detail, name='shipment_detail'),
     path('<int:shipment_id>/update/', views.update_shipment_details, name='shipment_update'),
     path('<int:shipment_id>/status/', views.update_status, name='update_status'),
-    #path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
+    path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
 
 ]
 

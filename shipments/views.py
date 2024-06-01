@@ -92,7 +92,7 @@ def update_status(request, shipment_id):
         
 
 
-'''def shipment_delete(request, shipment_id):
+def shipment_delete(request, shipment_id):
     try:
         shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
         if request.method == 'POST':
@@ -101,4 +101,3 @@ def update_status(request, shipment_id):
         return render(request, 'shipment_confirm_delete.html', {'shipment': shipment})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
-'''
