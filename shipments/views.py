@@ -60,21 +60,7 @@ def shipment_detail(request, shipment_id):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-'''def update_shipment_details(request, shipment_id):
-    try:
-        shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
-        if request.method == 'POST':
-            form = ShipmentForm(request.POST, instance=shipment)
-            if form.is_valid():
-                shipment = form.save()
-                handle_shipment_update(shipment)
-                return redirect('shipment_detail', shipment_id=shipment_id)
-        else:
-            form = ShipmentForm(instance=shipment)
-        return render(request, 'shipment_form.html', {'form': form, 'shipment': shipment})
-    except Exception as e:
-        return HttpResponse(f'Error: {str(e)}', status=500)
-        '''
+
 
 
 def update_status(request, shipment_id):
