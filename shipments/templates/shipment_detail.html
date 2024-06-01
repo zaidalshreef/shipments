@@ -136,7 +136,7 @@ Shipment Detail
                     <option value="returned">Returned</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-                <input type="submit" value="Update Status"  class="btn btn-primary">
+                <input type="submit" value="Update Status" onclick="return confirm('The status will be updated')"  class="btn btn-primary">
         </form>
         {% endif %}
     </div>
