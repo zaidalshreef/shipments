@@ -86,7 +86,7 @@ def update_status(request, shipment_id):
                 return redirect('shipments:shipment_detail', shipment_id=shipment_id)
         else:
             form = ShipmentStatusForm()
-        return render(request, 'home.html', {'form': form, 'shipment': shipment})
+        return render(request, 'update_status_form.html', {'form': form, 'shipment': shipment})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
         
