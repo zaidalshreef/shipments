@@ -60,20 +60,9 @@ option {
         <div class="card">     
         <div class="card-header">
             <h5 class="card-title">Shipment delivered total</h5>
-            <p class="card-text-analytic" > delivered from view {{shipment_delivered}}</p>
         </div>
-           {% with shipment_delivered=0 %}
-           {% for shipment in shipments %}
-           {% if shipment.statuses.last.status == 'delivered' %}
-           
-           <p class="card-text-analytic">{{shipment_delivered|add:"1"}}
+        <p class="card-text-analytic" > delivered from view {{shipment_delivered}}</p>
 
-           
-           
-                 {% endif %}
-                 {% endfor %}
-                
-                 {% endwith %}
                 </div>
             </div>
             <div class = "col">
@@ -81,17 +70,10 @@ option {
             <div class="card-header">
                 <h5 class="card-title">Shipment return total</h5>
             </div>
-               {% with shipment_return=0 %}
-               {% for shipment in shipments %}
-
-               {% if shipment.statuses.last.status == 'returned' %}
-               <p class="card-text-analytic">{{shipment_return|add:"1"}}
                
-                 {% endif %}
-                 {% endfor %}
-                
-                 {% endwith %}
-
+               <p class="card-text-analytic">{{shipment_returnd}}
+               
+               
         </div>
     </div>
 
@@ -100,15 +82,9 @@ option {
         <div class="card-header">
             <h5 class="card-title">Shipment canceled total</h5>
         </div>
-           {% with shipment_canceled=0 %}
-           {% for shipment in shipments %}
-           {% if shipment.statuses.last.status == 'cancelled' %}
            
-           <p class="card-text-analytic">{{shipment_canceled|add:"1"}}
-                 {% endif %}
-                 {% endfor %}
+           <p class="card-text-analytic">{{shipment_canceled}}
                
-                 {% endwith %}
                 </div>
             </div>
         </div>

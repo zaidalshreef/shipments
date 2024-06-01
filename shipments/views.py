@@ -31,11 +31,16 @@ def home(request):
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
         shipment_delivered = 0
+        shipment_returnd = 0 
+        shipment_canceled = 0
 
         for ship in shipments:
          if ship.statuses.last().status== 'delivered':
-          shipment_delivered+=1
-
+           shipment_delivered+=1
+         elif ship.statuses.last().status== 'returned':
+           shipment_returnd+=1
+         elif ship.statuses.last().status== 'cancelled':
+            shipment_canceled+=1
 
    
             
