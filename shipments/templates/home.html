@@ -194,7 +194,7 @@ option {
             <div class="col"> 
 
                 {% if shipment.type == "shipment" %}
-            <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+            <form method="post" action="{%  'shipments:update_status' shipment.shipment_id %}">
                 {% csrf_token %}
                 <label for="status">Select next status of shipment:</label>
                 <select id="status" name="status">
@@ -208,7 +208,7 @@ option {
 
                 {% else %}                                                                                                                                                                                                        
 
-                <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+                <form method="post" action="{%  'shipments:update_status' shipment.shipment_id %}">
                     {% csrf_token %}
                     <label for="status">New Status:</label>
                     <select id="status" name="status">
