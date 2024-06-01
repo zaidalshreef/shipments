@@ -193,8 +193,8 @@ option {
             </div>
             <div class="col"> 
 
-                {% if shipment.type == "shipment" %}
-            <form method="post" action="{%  'shipments:update_status' shipment.shipment_id %}">
+                {% if shipment.type == ""shipment" %}
+            <form method="post" action="{%  shipments.update_status(shipment.shipment_id) %}">
                 {% csrf_token %}
                 <label for="status">Select next status of shipment:</label>
                 <select id="status" name="status">
