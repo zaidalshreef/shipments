@@ -26,7 +26,7 @@ def send_test_email_view(request):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-def home(request, shipment_id):
+def home(request):
     try:
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
