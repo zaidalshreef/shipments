@@ -37,14 +37,6 @@ def home(request):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-def shipment_list(request):
-    try:
-        shipments = Shipment.objects.all()
-        return render(request, 'shipment_list.html', {'shipments': shipments})
-    except Shipment.DoesNotExist:
-        return render(request, 'shipment_list.html', {'shipments': None})
-    except Exception as e:
-        return HttpResponse(f'Error: {str(e)}', status=500)
 
 
 def shipment_detail(request, shipment_id):
