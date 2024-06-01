@@ -30,17 +30,9 @@ def home(request, shipment_id):
     try:
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
-        if request.method == 'POST':
-            shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
-            form = ShipmentStatusForm(request.POST)
-            if form.is_valid():
-                status = form.cleaned_data['status']
-                handle_status_update(shipment_id, status)
-                return redirect('shipments:shipment_detail',shipment_id=shipment_id)
+   
             
-            else: 
-                form = ShipmentStatusForm()
-        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total, form:'form' ,shipment:'shipment'})
+        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total,})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
@@ -83,7 +75,7 @@ def update_shipment_details(request, shipment_id):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-'''def update_status(request, shipment_id):
+def update_status(request, shipment_id):
     try:
         shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
         if request.method == 'POST':
@@ -94,10 +86,10 @@ def update_shipment_details(request, shipment_id):
                 return redirect('shipments:shipment_detail', shipment_id=shipment_id)
         else:
             form = ShipmentStatusForm()
-        return render(request, 'update_status_form.html', {'form': form, 'shipment': shipment})
+        return render(request, 'home.html', {'form': form, 'shipment': shipment})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
-        '''
+        
 
 
 def shipment_delete(request, shipment_id):
