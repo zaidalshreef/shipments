@@ -37,7 +37,7 @@ def home(request):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-'''def shipment_list(request):
+def shipment_list(request):
     try:
         shipments = Shipment.objects.all()
         return render(request, 'shipment_list.html', {'shipments': shipments})
@@ -45,7 +45,6 @@ def home(request):
         return render(request, 'shipment_list.html', {'shipments': None})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
-        '''
 
 
 def shipment_detail(request, shipment_id):
@@ -60,7 +59,20 @@ def shipment_detail(request, shipment_id):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-
+def update_shipment_details(request, shipment_id):
+    try:
+        shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
+        if request.method == 'POST':
+            form = ShipmentForm(request.POST, instance=shipment)
+            if form.is_valid():
+                shipment = form.save()
+                handle_shipment_update(shipment)
+                return redirect('shipment_detail', shipment_id=shipment_id)
+        else:
+            form = ShipmentForm(instance=shipment)
+        return render(request, 'shipment_form.html', {'form': form, 'shipment': shipment})
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
 
 
 def update_status(request, shipment_id):
@@ -79,3 +91,14 @@ def update_status(request, shipment_id):
         return HttpResponse(f'Error: {str(e)}', status=500)
         
 
+
+'''def shipment_delete(request, shipment_id):
+    try:
+        shipment = get_object_or_404(Shipment, shipment_id=shipment_id)
+        if request.method == 'POST':
+            shipment.delete()
+            return redirect('shipment_list')
+        return render(request, 'shipment_confirm_delete.html', {'shipment': shipment})
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
+'''
