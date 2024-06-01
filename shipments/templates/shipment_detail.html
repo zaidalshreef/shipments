@@ -123,7 +123,7 @@ Shipment Detail
                 <option value="delivered">Delivered</option>
                 <option value="cancelled">Cancelled</option>
             </select>
-            <input type="submit" value="Update Status"  class="btn btn-primary">
+            <input type="submit" value="Update Status" onclick="clicked(event)" class="btn btn-primary">
 
             {% else %}
 
@@ -136,9 +136,18 @@ Shipment Detail
                     <option value="returned">Returned</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-                <input type="submit" value="Update Status" onclick="return confirm('The status will be updated')"  class="btn btn-primary">
+                <input type="submit" value="Update Status" onclick="clicked(event)"  class="btn btn-primary">
         </form>
+        
         {% endif %}
+        <script>
+            function clicked(e)
+            {
+                if(!confirm('Are you sure to update status?')) {
+                    e.preventDefault();
+                }
+            }
+            </script>
     </div>
 </div>
 
