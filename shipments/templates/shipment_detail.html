@@ -24,6 +24,7 @@ Shipment Detail
             <h5 class="card-title"> <strong>Shipment Detail</h5>
         </div>
         <div class="card-body">
+            <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
             <p class="card-text"> <strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>
             <p class="card-text"> <strong>Merchant:</strong> {{ shipment.merchant }}</p>
             <p class="card-text"> <strong>Created At:</strong> {{ shipment.created_at }}</p>
