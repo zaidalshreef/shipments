@@ -26,7 +26,7 @@ def send_test_email_view(request):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-def home(request ,shipment_id):
+def home(request, shipment_id):
     try:
         shipments = Shipment.objects.all()
         shipment_total = shipments.count()
@@ -38,7 +38,7 @@ def home(request ,shipment_id):
             if form.is_valid():
                 status = form.cleaned_data['status']
                 handle_status_update(shipment_id, status)
-                return redirect('shipments:shipment_detail', shipment_id=shipment_id)
+                return redirect('shipments:shipment_detail',shipment_id=shipment_id)
             
             else: 
                 form = ShipmentStatusForm()
