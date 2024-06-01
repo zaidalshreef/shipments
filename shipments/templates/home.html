@@ -96,6 +96,7 @@ option {
                 <th scope="col">Shipment #</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created At </th>
+                <th scope="col">Contact with customer </th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -107,6 +108,8 @@ option {
                 <td>{{ shipment.shipping_number }}</td>
                 <td>{{ shipment.statuses.last.status }}</td>
                 <td>{{ shipment.created_at }}</td>
+                <td><a href="https://wa.me/{{shipment.ship_from.phone}} " class="btn btn-primary">Contact with customer</a>
+                </td>
                 <td><a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">Shipment Detail</a>
                 </td>
               </tr>
