@@ -106,7 +106,12 @@ option {
             <tr>
                 {% for shipment in shipments %}
                 <td>{{ shipment.shipping_number }}</td>
-                <td>{{ shipment.statuses.last.status }}</td>
+                <td>{{ shipment.statuses.last.status }}
+
+
+
+                    
+                </td>
                 <td>{{ shipment.created_at }}</td>
                 <td><a class="bi bi-telephone-fill" href="https://wa.me/{{shipment.ship_from.phone}} " >
                     
