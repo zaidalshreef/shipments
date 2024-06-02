@@ -32,7 +32,7 @@ services:
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}  # SMTP server password, e.g., yourpassword
       - EMAIL_USE_TLS="False"  # Use TLS for email (True or False), e.g., True
       - DEFAULT_FROM_EMAIL=noreply@bpm-training.net  # Default sender email address, e.g., your-email@gmail.com
-      - INTERNAL_STAFF_EMAILS=zaidalshreef@gmail.com,zhoutai1990@gmail.com,Myshipment.sam@gmail.com  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com
+      - INTERNAL_STAFF_EMAILS=zhoutai1990@gmail.com  # Comma-separated list of internal staff emails, e.g., staff1@example.com,staff2@example.com
 
       # API keys
       - GOOGLE_MAPS_API_KEY=AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8  # API key for Google Maps, e.g., your_google_maps_api_key

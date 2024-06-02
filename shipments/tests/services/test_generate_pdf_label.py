@@ -8,6 +8,7 @@ from shipments.services.pdf_service import generate_pdf_label
 import logging
 import json
 
+
 @pytest.mark.django_db
 def test_generate_pdf_label_success(mocker):
     shipment = Shipment.objects.create(
