@@ -108,7 +108,7 @@ option {
                 <td>{{ shipment.shipping_number }}</td>
                 <td>{{ shipment.statuses.last.status }}</td>
                 <td>{{ shipment.created_at }}</td>
-                <td><a href="https://wa.me/{{shipment.ship_from.phone}} " class="btn btn-primary">Contact with customer</a>
+                <td><a class="bi bi-telephone-fill" href="https://wa.me/{{shipment.ship_from.phone}} " >Contact with customer</a>
                 </td>
                 <td><a href="{% url 'shipments:shipment_detail' shipment.shipment_id %}" class="btn btn-primary">Shipment Detail</a>
                 </td>
