@@ -118,7 +118,7 @@ option {
                         <circle cx="8" cy="8" r="8"/>
                       </svg> {{ shipment.statuses.last.status }}
 
-                      {% elif shipment.statuses.last.status == "Pending" %}
+                      {% elif shipment.statuses.last.status == "pending" %}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#EAB308" class="bi bi-circle-fill" viewBox="0 0 16 16">
                         <circle cx="8" cy="8" r="8"/>
                       </svg> {{ shipment.statuses.last.status }}
@@ -135,7 +135,7 @@ option {
                       </svg> {{ shipment.statuses.last.status }}
 
                       {% elif shipment.statuses.last.status == "cancelled" %}
-                      
+
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FF4444" class="bi bi-circle-fill" viewBox="0 0 16 16">
                         <circle cx="8" cy="8" r="8"/>
                       </svg> {{ shipment.statuses.last.status }}
