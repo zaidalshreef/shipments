@@ -57,41 +57,25 @@ option {
     
                  </div>
 
-        </div>
-
-    <div class = "col">
-        <div class="card">     
-        <div class="card-header">
-            <h5 class="card-title">Shipment delivered total</h5>
-        </div>
-        <p class="card-text-analytic" > {{shipment_delivered}}</p>
-
+                 <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Shipment return total</h5>
+                    </div>
+                       
+                       <p class="card-text-analytic">{{shipment_returnd}}
+                        <p>Shipments</p>
+                       
                 </div>
-            </div>
-            <div class = "col">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Shipment return total</h5>
-            </div>
-               
-               <p class="card-text-analytic">{{shipment_returnd}}
-               
-               
-        </div>
-    </div>
+                <div class="card">     
+                    <div class="card-header">
+                        <h5 class="card-title">Shipment canceled total</h5>
+                    </div>
+                       
+                       <p class="card-text-analytic">{{shipment_canceled}}
+                           
+                            </div>
 
-    <div class = "col">
-        <div class="card">     
-        <div class="card-header">
-            <h5 class="card-title">Shipment canceled total</h5>
         </div>
-           
-           <p class="card-text-analytic">{{shipment_canceled}}
-               
-                </div>
-            </div>
-        </div>
-
 
         <table class="table">
             <thead>
@@ -172,6 +156,8 @@ option {
               {% endfor %}
             </tbody>
         </table>
+    </div>
+
 </div>
 
 </body>
