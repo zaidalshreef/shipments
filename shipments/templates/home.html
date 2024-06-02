@@ -108,7 +108,35 @@ option {
                 <td>{{ shipment.shipping_number }}</td>
                 <td> 
                     {% if shipment.statuses.last.status == "delivered" %}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#22C55E" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#22C55E" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg> {{ shipment.statuses.last.status }}
+
+
+                      {% elif shipment.statuses.last.status == "delivering" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#EAB308" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg> {{ shipment.statuses.last.status }}
+
+                      {% elif shipment.statuses.last.status == "Pending" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#EAB308" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg> {{ shipment.statuses.last.status }}
+
+                      {% elif shipment.statuses.last.status == "in_progress" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#EAB308" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg> {{ shipment.statuses.last.status }}
+
+
+                      {% elif shipment.statuses.last.status == "Returned" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#22C55E" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                      </svg> {{ shipment.statuses.last.status }}
+
+                      {% elif shipment.statuses.last.status == "cancelled" %}
+                      
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FF4444" class="bi bi-circle-fill" viewBox="0 0 16 16">
                         <circle cx="8" cy="8" r="8"/>
                       </svg> {{ shipment.statuses.last.status }}
 
