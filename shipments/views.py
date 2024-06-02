@@ -33,6 +33,7 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
+        shipment_pending = 0
 
         for ship in shipments:
          if ship.statuses.last().status== 'delivered':
@@ -41,10 +42,12 @@ def home(request):
            shipment_returnd+=1
          elif ship.statuses.last().status== 'cancelled':
             shipment_canceled+=1
+         elif ship.statuses.last().status== 'pending':
+            shipment_pending+=1
 
    
             
-        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered})
+        return render(request, 'home.html', {'shipments': shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, shipment_canceled:'shipment_canceled', shipment_pending: 'shipment_pending'})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
