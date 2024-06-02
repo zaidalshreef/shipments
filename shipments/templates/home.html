@@ -96,10 +96,14 @@ option {
                         <h5 class="card-title"> Cancelled </h5>
                     </div>
                     <div class="card-body">
-                       <p class="card-text-analytic">{{shipment_canceled}}</p>
+
+                       <p id = "test" class="card-text-analytic">{{shipment_canceled}}</p>
                         <p>Shipments</p>
                     </div>
-                       
+                       <script>
+                        var element = document.getElementById("test")
+                        console.log(element)
+                       </script>
                 </div>
                 
                         </div>
