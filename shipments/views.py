@@ -36,10 +36,11 @@ def home(request):
         for ship in shipments:
          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
-         elif ship.statuses.last().status== 'returned':
-           shipment_returnd+=1
          elif ship.statuses.last().status== 'cancelled':
             shipment_canceled+=1
+         elif ship.statuses.last().status== 'returned':
+           shipment_returnd+=1
+        
       
 
    
