@@ -21,15 +21,21 @@ Shipment Detail
 <div class="container-fluid">
    <!--<h1 class="my-4">Shipment Detail</h1>--> 
    <div class="row">
-
     <div class="col">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Shipments total</h5>
              </div>
              <div class="card-body">
-                <p class="card-text-analytic">{{shipment_total}} </p>
-                <p>Shipments</p>
+                <p class="card-text"> <strong>Shipping Number:</strong> {{ shipment.shipping_number }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ shipment.statuses.last.status }}</p>
+            <!--<p class="card-text"> <strong>Shipment ID:</strong> {{ shipment.shipment_id }}</p>-->
+           <!-- <p class="card-text"> <strong>Merchant:</strong> {{ shipment.merchant }}</p>-->
+            <p class="card-text"> <strong>Created At:</strong> {{ shipment.created_at }}</p>
+            <p class="card-text"> <strong>Type:</strong> {{ shipment.type }}</p>
+            <!--<p class="card-text"> <strong>Payment Method:</strong> {{ shipment.payment_method }}</p>-->
+            <!--<p class="card-text"> <strong>Cash on Delivery:</strong> {{ shipment.cash_on_delivery.amount }} {{ shipment.cash_on_delivery.currency }}</p>-->
+            <p class="card-text"> <strong>Policy:</strong> <a href="{{ shipment.label.url }}">PDF</a></p>
             </div>
 
             </div>
@@ -42,32 +48,19 @@ Shipment Detail
                 </div>
                    
                 <div class="card-body">
-                   <p class="card-text-analytic">{{shipment_delivered}}
-                    <p>Shipments</p>
+                    {% for package in shipment.packages %}
+                    <p class="card-text"> <strong>Content:</strong> {{ package.name }}</p>
+                   <!-- <p class="card-text"> <strong>SKU:</strong> {{ package.sku }}</p>-->
+                   <!--  <p class="card-text"> <strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>-->
+                    <p class="card-text"> <strong>Quantity:</strong> {{ package.quantity }}</p>
+                    <!--<p class="card-text"> <strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>-->
+                    <p class="card-text"> <strong>Total Amount:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
+                    <p class="card-text"> <strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
+            
+                    {% endfor %}
                 </div>
                         </div>
                     </div>
-
-                    <div class="col">
-
-             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title"> Returned </h5>
-                </div>
-                <div class="card-body">
-                   <p class="card-text-analytic">{{shipment_returnd}}</p>
-                    <p>Shipments</p>
-                </div>
-                   
-            </div>
-        </div>
-
-
-
-
-
-
-
 
     <div class="col">
 
@@ -88,6 +81,7 @@ Shipment Detail
         </div>
     </div>
 </div>
+
     <!--<h2 class="mt-4">Packages</h2>-->
     <div class="col">
     <div class="card">
@@ -109,6 +103,8 @@ Shipment Detail
     </div>
 </div>
    
+
+
 
     <div class="card">
     
