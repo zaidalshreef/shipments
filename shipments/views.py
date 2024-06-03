@@ -4,6 +4,8 @@ from .models import Shipment, ShipmentStatus
 from .services import update_salla_api, handle_status_update, handle_shipment_update, send_shipment_email
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+import logging
+
 
 
 def custom_page_not_found_view(request, exception):
@@ -33,6 +35,7 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
+       
         for ship in shipments:
          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
@@ -40,6 +43,7 @@ def home(request):
             shipment_canceled+=1
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
+           logger.info('cancelled counter $s',shipment_canceled)
         
       
 
