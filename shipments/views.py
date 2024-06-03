@@ -37,6 +37,7 @@ def home(request):
         shipment_canceled = 0
        
         for ship in shipments:
+         logger.info('cancelled counter $s',ship.statuses.last().status)
          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
          elif ship.statuses.last().status== 'Cancelled':
