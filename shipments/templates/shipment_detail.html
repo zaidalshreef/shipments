@@ -165,46 +165,44 @@ Shipment Detail
 
     <div class="col">
 
-        <div class="d-flex justify-content-between">
+        
+        {% if shipment.type == "shipment" %}
+        <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+            {% csrf_token %}
+            <label for="status">Select next status of shipment:</label>
+            <select id="status" name="status">
+                <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
+                <option value="pending">Pending</option>
+                <option value="delivering">Delivering</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            <input type="submit" value="Update Status" onclick="clicked(event)" class="btn btn-primary">
 
-            {% if shipment.type == "shipment" %}
-             <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
-                 {% csrf_token %}
-                 <label for="status">Select next status of shipment:</label>
-                 <select id="status" name="status">
-                     <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
-                     <option value="pending">Pending</option>
-                     <option value="delivering">Delivering</option>
-                     <option value="delivered">Delivered</option>
-                     <option value="cancelled">Cancelled</option>
-                 </select>
-                 <input type="submit" value="Update Status" onclick="clicked(event)" class="btn btn-primary">
-     
-                 {% else %}
-     
-                 <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
-                     {% csrf_token %}
-                     <label for="status">New Status:</label>
-                     <select id="status" name="status">
-                         <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
-                         <option value="in_progress">In Progress</option>
-                         <option value="delivered">Delivered</option>
-                         <option value="returned">Returned</option>
-                         <option value="cancelled">Cancelled</option>
-                     </select>
-                     <input type="submit" value="Update Status" onclick="clicked(event)"  class="btn btn-primary">
-             </form>
-             
-             {% endif %}
-             <script>
-                 function clicked(e)
-                 {
-                     if(!confirm('Are you sure to update status?')) {
-                         e.preventDefault();
-                     }
-                 }
-                 </script>
-         </div>
+            {% else %}
+
+            <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
+                {% csrf_token %}
+                <label for="status">New Status:</label>
+                <select id="status" name="status">
+                    <option value="" selected disabled hidden>The current status is {{ shipment.statuses.last.status }}</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="returned">Returned</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <input type="submit" value="Update Status" onclick="clicked(event)"  class="btn btn-primary">
+        </form>
+        
+        {% endif %}
+        <script>
+            function clicked(e)
+            {
+                if(!confirm('Are you sure to update status?')) {
+                    e.preventDefault();
+                }
+            }
+            </script>
      
 
 
