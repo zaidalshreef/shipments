@@ -70,6 +70,27 @@ Shipment Detail
         </div>
     </div>
 </div>
+<div class = "row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"> Packages Detail</h5>
+            </div>
+            <div class="card-body">
+            {% for package in shipment.packages %}
+            <p class="card-text"> <strong>Content:</strong> {{ package.name }}</p>
+           <!-- <p class="card-text"> <strong>SKU:</strong> {{ package.sku }}</p>-->
+           <!--  <p class="card-text"> <strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>-->
+            <p class="card-text"> <strong>Quantity:</strong> {{ package.quantity }}</p>
+            <!--<p class="card-text"> <strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>-->
+            <p class="card-text"> <strong>Total Amount:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
+            <p class="card-text"> <strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
+    
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+    </div>
 
 
 <div class="col-md-8">
@@ -117,27 +138,7 @@ Shipment Detail
 </div>
 
 
-<div class = "row">
-<div class="col-md-4">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title"> Packages Detail</h5>
-        </div>
-        <div class="card-body">
-        {% for package in shipment.packages %}
-        <p class="card-text"> <strong>Content:</strong> {{ package.name }}</p>
-       <!-- <p class="card-text"> <strong>SKU:</strong> {{ package.sku }}</p>-->
-       <!--  <p class="card-text"> <strong>Price:</strong> {{ package.price.amount }} {{ package.price.currency }}</p>-->
-        <p class="card-text"> <strong>Quantity:</strong> {{ package.quantity }}</p>
-        <!--<p class="card-text"> <strong>Weight:</strong> {{ package.weight.value }} {{ package.weight.unit }}</p>-->
-        <p class="card-text"> <strong>Total Amount:</strong> {{ shipment.total.amount }} {{ shipment.total.currency }}</p>
-        <p class="card-text"> <strong>Total Weight:</strong> {{ shipment.total_weight.value }} {{ shipment.total_weight.units }}</p>
 
-        {% endfor %}
-    </div>
-    </div>
-</div>
-</div>
 </div>
 
     <!--<h2 class="mt-4">Packages</h2>-->
