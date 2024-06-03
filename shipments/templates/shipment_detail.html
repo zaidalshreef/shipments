@@ -165,12 +165,6 @@ Shipment Detail
 
     <div class="col">
 
-        
-       
-     
-
-
-
     <div class="card">
         <div class="card-header">
             <h5 class="card-title"> shipment Tracking </h5>
@@ -189,7 +183,7 @@ Shipment Detail
                     <option value="cancelled">Cancelled</option>
                 </select>
                 <input type="submit" value="Update Status" onclick="clicked(event)" class="btn btn-primary">
-    
+            </form>
                 {% else %}
     
                 <form method="post" action="{% url 'shipments:update_status' shipment.shipment_id %}">
