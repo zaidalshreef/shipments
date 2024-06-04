@@ -37,12 +37,12 @@ def home(request):
         shipment_canceled = 0
        
         for ship in shipments:
-         logging.info('cancelled counter $s',ship.statuses.last().status)
+            logging.info(' Status cancelled counters %s'{shipment_canceled} {ship.statuses.last().status})
          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
          elif ship.statuses.last().status== 'cancelled':
             shipment_canceled+=1
-            logging.info(' Status cancelled counters %s', shipment_canceled, ship.statuses.last().status)
+            logging.info(' Status cancelled counters %s'{shipment_canceled} {ship.statuses.last().status})
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
            
