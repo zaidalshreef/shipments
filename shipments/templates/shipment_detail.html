@@ -23,9 +23,7 @@ Shipment Detail
         }
 
 
-        .li a {
-  display: inline-block;
-        }
+  
 
 </style>
 <body>
@@ -127,7 +125,7 @@ Shipment Detail
         
         
             <!--<h2 class="mt-4">Status History</h2>-->
-            <ol class="list-group mb-4">
+            <ol class="list-group list-group-horizontal">
                 {% for status in shipment.statuses.all %}
                 <li value = "{{ status.date_time }}"class="list-group-item">
                     <p >
