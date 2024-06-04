@@ -210,7 +210,7 @@ Shipment Detail
     <!--<h2 class="mt-4">Status History</h2>-->
     <ol class="list-group mb-4">
         {% for status in shipment.statuses.all %}
-        <li class="list-group-item">
+        <li value = "{{ status.date_time }}"class="list-group-item">
             <p >
                   {% if status.status == "delivered" %}
 
