@@ -46,7 +46,7 @@ def home(request):
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
         if request.method == 'GET':
-            shipment_num = request.GET.get('q')
+            shipment_num = request.GET['q']
             data = Shipment.objects.filter(shipment_num)
             contex = {
                 'data': data
