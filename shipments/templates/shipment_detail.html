@@ -37,50 +37,52 @@ Shipment Detail
 
    <div class = "row">
 
-    <div class="col">
-        <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title"> Shipping Address</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col">
-                        <h3 class="title">Ship From</h3>
-                        <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_from.name }}</p>
-                        <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
-                        <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
-                        <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_from.email }}</p>
-                        <div id="originMap" data-lat="{{ shipment.ship_from.latitude }}" data-lng="{{ shipment.ship_from.longitude }}" data-name="{{ shipment.ship_from.name }}" data-address="{{ shipment.ship_from.address_line }}" style="height: 300px; width: 100%;"></div>
-                    </div>
-                
-            
-            <div class="col">
-                
-                <h3 class="title">Ship To</h3>
-                        <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_to.name }}</p>
-                        <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
-                        <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
-                        <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_to.email }}</p>
-                        <div id="destinationMap" data-lat="{{ shipment.ship_to.latitude }}" data-lng="{{ shipment.ship_to.longitude }}" data-name="{{ shipment.ship_to.name }}" data-address="{{ shipment.ship_to.address_line }}" style="height: 300px; width: 100%;"></div>
-                    </div>
     
-       <!-- <h2 class="mt-4">Meta Information</h2>
-        <ul class="list-group mb-4">
-            {% for key, value in shipment.meta.items %}
-            <li class="list-group-item">
-                <p class="card-text"> <strong>{{ key|title }}:</strong> {{ value }}</p>
-            </li>
-            {% endfor %}
-        </ul>-->
-    </div>
-    
-    </div>
-    </div>
-    </div>
     </div>
 
 
     <div class="row"> 
+
+        <div class="col">
+            <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"> Shipping Address</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                            <div class="col">
+                            <h3 class="title">Ship From</h3>
+                            <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_from.name }}</p>
+                            <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_from.address_line }}</p>
+                            <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_from.phone }}</p>
+                            <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_from.email }}</p>
+                            <div id="originMap" data-lat="{{ shipment.ship_from.latitude }}" data-lng="{{ shipment.ship_from.longitude }}" data-name="{{ shipment.ship_from.name }}" data-address="{{ shipment.ship_from.address_line }}" style="height: 300px; width: 100%;"></div>
+                        </div>
+                    
+                
+                <div class="col">
+                    
+                    <h3 class="title">Ship To</h3>
+                            <p class="card-text"> <strong>Name:</strong> {{ shipment.ship_to.name }}</p>
+                            <p class="card-text"> <strong>Address:</strong> {{ shipment.ship_to.address_line }}</p>
+                            <p class="card-text"> <strong>Phone:</strong> {{ shipment.ship_to.phone }}</p>
+                            <p class="card-text"> <strong>Email:</strong> {{ shipment.ship_to.email }}</p>
+                            <div id="destinationMap" data-lat="{{ shipment.ship_to.latitude }}" data-lng="{{ shipment.ship_to.longitude }}" data-name="{{ shipment.ship_to.name }}" data-address="{{ shipment.ship_to.address_line }}" style="height: 300px; width: 100%;"></div>
+                        </div>
+        
+           <!-- <h2 class="mt-4">Meta Information</h2>
+            <ul class="list-group mb-4">
+                {% for key, value in shipment.meta.items %}
+                <li class="list-group-item">
+                    <p class="card-text"> <strong>{{ key|title }}:</strong> {{ value }}</p>
+                </li>
+                {% endfor %}
+            </ul>-->
+        </div>
+        
+        </div>
+        </div>
+        </div>
 
         <div class="col">
 
