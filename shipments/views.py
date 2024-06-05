@@ -50,7 +50,8 @@ def home(request):
           # data = Data.objects.filter(last_name__icontains=q)
           multiple_q = Shipment.shipping_number = q
           data = Shipment.objects.filter(multiple_q)
-      
+        else:
+          data = Shipment.shipping_number = '000004052024'
           context = {
           'data': data
             }
