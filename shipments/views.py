@@ -46,16 +46,13 @@ def home(request):
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
         if  request.method == 'GET':
-         # q = request.GET.get('q')
-          # data = Data.objects.filter(last_name__icontains=q)
-          multiple_q = Shipment.shipping_number = '000004052024'
+          q = request.GET.get('q')
+          multiple_q = Shipment.shipping_number = q
           data = Shipment.objects.filter(multiple_q)
-        else:
-          data = Shipment.shipping_number = '000004052024'
           context = {
           'data': data
             }
- 
+          
         return render(request, 'home.html',context,{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
