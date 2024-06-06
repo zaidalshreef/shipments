@@ -36,7 +36,7 @@ def home(request):
         shipment_returnd = 0 
         shipment_canceled = 0
         data = Shipment.objects.filter('000004052024')
-        logging.info(' Filter shipment %s{data} {ship.statuses.last().status}')
+        logging.info('Filter shipment %s{data}')
 
         for ship in shipments:
          logging.info(' Shipment cancelled counters %s{shipment_canceled} {ship.statuses.last().status}')
