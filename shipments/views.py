@@ -46,9 +46,9 @@ def home(request):
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
         if  request.method == 'GET':
-          q = request.GET.get('q')
+         # q = request.GET.get('q')
           # data = Data.objects.filter(last_name__icontains=q)
-          multiple_q = Shipment.shipping_number = q
+          multiple_q = Shipment.shipping_number = '000004052024'
           data = Shipment.objects.filter(multiple_q)
         else:
           data = Shipment.shipping_number = '000004052024'
