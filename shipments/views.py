@@ -35,7 +35,7 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
-        data = Shipment.objects.filter('000004052024')
+        #data = Shipment.objects.filter('000004052024')
         logging.info('Filter shipment %s{data}')
 
         for ship in shipments:
