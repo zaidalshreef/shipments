@@ -58,8 +58,6 @@ def home(request):
 
             return JsonResponse(data=data_dict, safe=False)
 
-   # return render(request, "home.html", context=ctx)
-
 
         for ship in shipments:
          
@@ -71,7 +69,7 @@ def home(request):
            shipment_returnd+=1
 
                
-        return render(request, 'home.html',context=ctx{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled}context=ctx)
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
