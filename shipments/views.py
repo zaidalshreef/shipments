@@ -39,7 +39,7 @@ def home(request):
         
 
         for ship in shipments:
-         data = Shipment.objects.search_shipments('000004052024')         
+         data = Shipment.objects.get('000004052024')  
          logging.info('Filter shipment %s{data}')
          logging.info(' Shipment cancelled counters %s{shipment_canceled} {ship.statuses.last().status}')
          if ship.statuses.last().status== 'delivered':
