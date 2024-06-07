@@ -45,7 +45,7 @@ def home(request):
           shipment_all = Shipment.objects.all()
           ctx['shipment_all'] = shipment_all
 
-        is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" and does_req_accept_json
+        is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" #and does_req_accept_json
     
         if is_ajax_request:
             html = render_to_string(
