@@ -50,13 +50,10 @@ def home(request):
             logging.info(' Shipment cancelled counters %s{shipment_canceled} {ship.statuses.last().status}')
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
-        '''if  request.method == 'GET':
-          q = request.GET.get('q')nnnnn00
-          multiple_q = Shipment.shipping_number = q
-          data = Shipment.objects.filter(multiple_q)
-          context = {
-          'data': data
-            }'''
+        if  request.method == 'GET':
+          q = request.GET.get('q')
+          data = Shipment.shipping_number = q
+          return JsonResponse(data)
           
         return render(request, 'home.html',{'data':data,'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
