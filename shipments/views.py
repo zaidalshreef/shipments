@@ -45,16 +45,6 @@ def home(request):
           shipment_all = Shipment.objects.all()
           ctx['shipment_all'] = shipment_all
 
-        is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" #and does_req_accept_json
-    
-        if is_ajax_request:
-            html = render_to_string(
-            template_name="home.html", 
-            context={"shipment_search": shipment_search}
-            )
-            data_dict = {"html_from_view": html}
-
-            return JsonResponse(data=data_dict, safe=False)
    # return render(request, "home.html", context=ctx)
 
 
@@ -71,7 +61,7 @@ def home(request):
 
     
                
-        return render(request, 'home.html'  {'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
