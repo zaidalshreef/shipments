@@ -129,7 +129,7 @@ option {
             <tr>
                 {% for shipment in shipments %}
                 {% if not foorloop.counter == 2  %}
-                <td>{{ shipment.shipping_number }}</td>\
+                <td>{{ shipment.shipping_number }}</td>
                
                 
                 <td> 
@@ -191,8 +191,9 @@ option {
 
                 </a>
                 </td>
-                {% endif %}
               </tr>
+              {% endif %}
+
               {% endfor %}
             </tbody>
         
