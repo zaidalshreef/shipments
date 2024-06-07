@@ -37,7 +37,7 @@ def home(request):
         shipment_canceled = 0
         
         
-        data = Shipment.objects.filter(Shipment.shipping_number)
+        data = Shipment.objects.filter(shipment_delivered)
 
         for ship in shipments:
          
