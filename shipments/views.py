@@ -38,7 +38,15 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
-        
+        ctx = {}
+        if request.method == 'GET':
+          q = request.GET.get("q")
+
+          shipment_search = Shipment.objects.filter(name__icontains = q)
+        else:
+          shipment_all = Shipment.objects.all()
+          ctx['shipment_all'] = shipment_all
+
    # return render(request, "home.html", context=ctx)
 
 
