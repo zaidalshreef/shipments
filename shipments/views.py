@@ -71,7 +71,7 @@ def home(request):
 
     
                
-        return render(request, 'home.html',  {'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+        return render(request, 'home.html'  {'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
