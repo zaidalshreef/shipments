@@ -41,6 +41,7 @@ def home(request):
         ctx = {}
         if request.method == 'GET' and request.GET.get("q") != None:
           q = request.GET.get("q")
+          logging.info('Number Q',q)
 
           shipment_search = Shipment.objects.filter(shipping_number__icontains = q)
         else:
