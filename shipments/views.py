@@ -42,7 +42,7 @@ def home(request):
         if request.method == 'GET':
           q = request.GET.get("q")
 
-          shipment_search = Shipment.objects.filter(name__icontains = q)
+          shipment_search = Shipment.objects.filter(shipping_number__icontains = q)
         else:
           shipment_all = Shipment.objects.all()
           ctx['shipment_all'] = shipment_all
