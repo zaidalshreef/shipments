@@ -35,22 +35,15 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
-        
-        
-        data = Shipment.objects.filter(shipment_delivered)
-
         for ship in shipments:
          
-         logging.info('Filter shipment %s{data}')
-         logging.info(' Shipment cancelled counters %s{shipment_canceled} {ship.statuses.last().status}')
          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
          elif ship.statuses.last().status== 'cancelled':
             shipment_canceled+=1
-            logging.info(' Shipment cancelled counters %s{shipment_canceled} {ship.statuses.last().status}')
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
-        return render(request, 'home.html',{'data':data,'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
