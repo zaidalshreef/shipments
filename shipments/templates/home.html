@@ -128,7 +128,7 @@ option {
 
             <tr>
                 {% for shipment in shipments %}
-                {% if not foorloop.counter == 2  %}
+                {% if  foorloop.counter > 2  %}
                 <td>{{ shipment.shipping_number }}</td>
                
                 
