@@ -38,13 +38,7 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
-        ctx = {}
-        if request.method == 'GET':
-          shipment_search = Shipment.objects.filter(name__icontains = 'q')
-        else:
-          shipment_all = Shipment.objects.all()
-          ctx['shipment_all'] = shipment_all
-
+        
    # return render(request, "home.html", context=ctx)
 
 
@@ -57,9 +51,6 @@ def home(request):
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
 
-    
-
-    
                
         return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
