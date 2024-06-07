@@ -38,6 +38,26 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
+        
+
+
+        for ship in shipments:
+         
+         if ship.statuses.last().status== 'delivered':
+           shipment_delivered+=1
+         elif ship.statuses.last().status== 'cancelled':
+            shipment_canceled+=1
+         elif ship.statuses.last().status== 'returned':
+           shipment_returnd+=1
+
+               
+        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
+
+
+def search(request):
+    try:
         ctx = {}
         if request.method == 'GET' and request.GET.get("q") != None:
           q = request.GET.get("q")
@@ -58,22 +78,9 @@ def home(request):
             data_dict = {"html_from_view": html}
 
             return JsonResponse(data=data_dict, safe=False)
-
-
-        for ship in shipments:
-         
-         if ship.statuses.last().status== 'delivered':
-           shipment_delivered+=1
-         elif ship.statuses.last().status== 'cancelled':
-            shipment_canceled+=1
-         elif ship.statuses.last().status== 'returned':
-           shipment_returnd+=1
-
-               
-        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+        return render(request, "home.html", context=ctx)
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
-
 
 
 
