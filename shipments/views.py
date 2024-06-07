@@ -4,7 +4,10 @@ from .models import Shipment, ShipmentStatus
 from .services import update_salla_api, handle_status_update, handle_shipment_update, send_shipment_email
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import render_to_string
+
 import logging
+
 
 
 
@@ -35,6 +38,26 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
+        ctx = {}
+        if request.method == 'GET':
+          shipment_search = Shipment.objects.filter(name__icontains = 'q')
+        else:
+          shipment_all = Shipment.objects.all()
+          ctx['shipment_all'] = shipment_all
+
+        is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" and does_req_accept_json
+    
+        if is_ajax_request:
+            html = render_to_string(
+            template_name="home.html", 
+            context={"shipment_search": shipment_search}
+            )
+            data_dict = {"html_from_view": html}
+
+            return JsonResponse(data=data_dict, safe=False)
+   # return render(request, "home.html", context=ctx)
+
+
         for ship in shipments:
          
          if ship.statuses.last().status== 'delivered':
@@ -43,7 +66,12 @@ def home(request):
             shipment_canceled+=1
          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
-        return render(request, 'home.html',{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
+
+    
+
+    
+               
+        return render(request, 'home.html',context=ctx{'shipments':shipments ,'shipment_total':shipment_total, 'shipment_delivered':shipment_delivered, 'shipment_canceled':shipment_canceled})
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
