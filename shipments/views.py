@@ -39,8 +39,8 @@ def home(request):
         shipment_returnd = 0 
         shipment_canceled = 0
         ctx = {}
-        if request.method == 'GET':
-          q = request.GET.get("q",None)
+        if request.method == 'GET' and request.GET.get("q") != None:
+          q = request.GET.get("q")
 
           shipment_search = Shipment.objects.filter(shipping_number__icontains = q)
         else:
