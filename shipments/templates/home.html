@@ -102,21 +102,7 @@ option {
                     </div>
                     
                 </div>
-                <script>
-                    $(document).ready(function() {
-                        $('#ajax-button').click(function() {
-                            $.ajax({
-                                url: '{% url "get_data" %}',
-                                success: function(data) {
-                                    $('#ajax-response').text(data.message);
-                                }
-                            });
-                        });
-                    });
-                    </script>
                         </div>
-
-        
 
         <form method="get" action = "">
                 <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
@@ -142,7 +128,10 @@ option {
 
             <tr>
                 {% for shipment in shipments %}
-                <td>{{ shipment.shipping_number }}</td>
+                {% if not foorloop.counter == 2  %}
+                <td>{{ shipment.shipping_number }}</td>\
+               
+                
                 <td> 
                     {% if shipment.statuses.last.status == "delivered" %}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#22C55E" class="bi bi-circle-fill" viewBox="0 0 16 16">
@@ -202,6 +191,7 @@ option {
 
                 </a>
                 </td>
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>

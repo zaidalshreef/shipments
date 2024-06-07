@@ -47,9 +47,7 @@ def home(request):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
-def get_data(request):
-    data = {'message': 'Hello, World!'}
-    return JsonResponse(data)
+
 
 
 def shipment_detail(request, shipment_id):
