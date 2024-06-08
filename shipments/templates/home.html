@@ -133,6 +133,7 @@ option {
                             const endpoint = '/home/';
                             const delay_by_in_ms = 700;
                             let scheduled_function = false;
+                            console.log(user_input);
                         
                             let ajax_call = function (endpoint, request_parameters) {
                                 $.getJSON(endpoint, request_parameters)
@@ -169,7 +170,7 @@ option {
         
         <div class="col">
 
-            <h5 class="card-title">Shipments Detail</h5>
+            <h5 class="card-title">Shipments search result</h5>
             {{ctx}}
         </div>
         <table class="table table-bordered">
