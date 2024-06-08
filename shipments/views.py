@@ -61,10 +61,9 @@ def search_shipments(request):
     shipment_search = None
 
     try:
-        if request.method == 'GET': #and request..get('q') != None:
-            q = request.GET.get('q')
-            shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
-            ctx['shipment_search'] = shipment_search
+        q = request.GET.get('q')
+        shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
+        ctx['shipment_search'] = shipment_search
         
         is_ajax_request = request.headers.get('x-requested-with') == 'XMLHttpRequest'
 
