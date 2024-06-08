@@ -168,6 +168,19 @@ option {
                                 scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters);
                             });
                         </script>
+
+
+<div id="replaceable-content" class="col-6">
+    {% if shipment_search %}
+  <ul>
+  {% for ship in shipment_search %}
+    <li>{{ ship.shipping_number }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No ships found.</p>
+{% endif %}
+  </div>
         
         <div class="col">
 
