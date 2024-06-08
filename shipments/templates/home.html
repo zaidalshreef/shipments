@@ -152,8 +152,9 @@ option {
                             user_input.on('keyup', function () {
                                 const request_parameters = {
                                     q: user_input.val() // value of user_input: the HTML element with ID user-input
+                                    
                                 };
-                        
+                                console.console.log(user_input.val())
                                 // start animating the search icon with the CSS class
                                 search_icon.addClass('blink');
                         
