@@ -123,7 +123,7 @@ option {
 
                         <form method="get" action="">
                             
-                            <input class="form-control mr-sm-2"  name="q" id="user-input" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control mr-sm-2" name="q" id="user-input" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" id="search-icon" type="submit">Search</button>
                         </form>
                         
@@ -131,10 +131,11 @@ option {
                             const user_input = $("#user-input");
                             const search_icon = $("#search-icon");
                             const shipment_div = $("#replaceable-content");
-                            const endpoint = '/home/';
+                            const endpoint = '/home/q';
                             const delay_by_in_ms = 700;
                             let scheduled_function = false;
                             console.log(user_input);
+                            console.log(search_icon);
                         
                             let ajax_call = function (endpoint, request_parameters) {
                                 $.getJSON(endpoint, request_parameters)
