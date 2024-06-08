@@ -19,6 +19,8 @@ urlpatterns = [
 
 
 
+
+
 ]
 
 # Catch-all pattern to redirect any unmatched URLs to the home page
