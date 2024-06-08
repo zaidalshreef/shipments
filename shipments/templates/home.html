@@ -171,9 +171,9 @@ option {
 
 
 <div id="replaceable-content" class="col-6">
-    {% if shipment_search %}
+    {% if shipments %}
   <ul>
-  {% for ship in shipment_search %}
+  {% for ship in shipments %}
     <li>{{ ship.shipping_number }}</li>
   {% endfor %}
   </ul>
