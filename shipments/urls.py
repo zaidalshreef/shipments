@@ -16,6 +16,7 @@ urlpatterns = [
     path('<int:shipment_id>/update/', views.update_shipment_details, name='shipment_update'),
     path('<int:shipment_id>/status/', views.update_status, name='update_status'),
     path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
+    path('search_shipments/', views.search_shipments, name='search_shipments'),
 
 
 
