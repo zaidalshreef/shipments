@@ -1,6 +1,6 @@
-    {% if shipments %}
+    {% if shipment_search %}
   <ul>
-  {% for ship in shipments %}
+  {% for ship in shipment_search %}
     <li>{{ ship.shipping_number }}</li>
   {% endfor %}
   </ul>
