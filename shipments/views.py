@@ -65,11 +65,11 @@ def search_shipments(request):
         shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
         ctx['shipment_search'] = shipment_search
         
-        is_ajax_request = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+        is_ajax_request = request.headers.get('x-requested-with') == 'XMLHttpRequest' 
 
         if is_ajax_request:
             html = render_to_string(
-                template_name="home.html",
+                template_name="search_home.html",
                 context={"shipment_search": shipment_search}
             )
             data_dict = {"html_from_view": html}

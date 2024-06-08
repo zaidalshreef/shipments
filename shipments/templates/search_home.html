@@ -1,0 +1,9 @@
+    {% if shipments %}
+  <ul>
+  {% for ship in shipments %}
+    <li>{{ ship.shipping_number }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No ships found.</p>
+{% endif %}

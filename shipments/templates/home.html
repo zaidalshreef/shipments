@@ -125,12 +125,14 @@ option {
                             <i id="search-icon" class="fas fa-search"></i>
                             <input id="user-input" placeholder="Search">
                           </div>
-                        
+                          <div id="replaceable-content" class="col-6">
+                            {% include 'search_home.html' %}
+                          </div>
                         <script>
                             const user_input = $("#user-input");
                             const search_icon = $("#search-icon");
                             const shipment_div = $("#replaceable-content");
-                            const endpoint = '/home/q';
+                            const endpoint = '/home/';
                             const delay_by_in_ms = 700;
                             let scheduled_function = false;
                             console.log(user_input);
@@ -170,17 +172,7 @@ option {
                         </script>
 
 
-<div id="replaceable-content" class="col-6">
-    {% if shipments %}
-  <ul>
-  {% for ship in shipments %}
-    <li>{{ ship.shipping_number }}</li>
-  {% endfor %}
-  </ul>
-{% else %}
-  <p>No ships found.</p>
-{% endif %}
-  </div>
+
         
         <div class="col">
 
