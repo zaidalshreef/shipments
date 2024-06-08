@@ -56,29 +56,30 @@ def home(request):
         return HttpResponse(f'Error: {str(e)}', status=500)
 
 
-def search(request):
-    try:
-        ctx = {}
-        if request.method == 'GET' and request.GET.get("q") != None:
-          q = request.GET.get("q")
-          logging.info('Number Q',q)
+def search_shipments(request):
+    ctx = {}
+    shipment_search = None
 
-          shipment_search = Shipment.objects.filter(shipping_number__icontains = q)
-        else:
-          shipment_all = Shipment.objects.all()
-          ctx['shipment_all'] = shipment_all
+    try:
+        if request.method == 'GET' and request.GET.get("q") != None:
+            q = request.GET.get("q")
+            shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
+            ctx['shipment_search'] = shipment_search
         
-        is_ajax_request = request.headers.get("x-requested-with") == "XMLHttpRequest" #and does_req_accept_json
-    
+        is_ajax_request = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+
         if is_ajax_request:
             html = render_to_string(
-            template_name="home.html", 
-            context={"shipment_search": shipment_search}
+                template_name="home.html",
+                context={"shipment_search": shipment_search}
             )
             data_dict = {"html_from_view": html}
-
             return JsonResponse(data=data_dict, safe=False)
-        return render(request, "home.html", context=ctx)
+
+        shipment_all = Shipment.objects.all()
+        ctx['shipment_all'] = shipment_all
+
+        return render(request, 'home.html', ctx)
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
