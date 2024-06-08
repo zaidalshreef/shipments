@@ -61,7 +61,7 @@ def search_shipments(request):
     shipment_search = None
 
     try:
-        if request.method == 'POST': #and request..get('q') != None:
+        if request.method == 'GET': #and request..get('q') != None:
             q = request.GET.get('q')
             shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
             ctx['shipment_search'] = shipment_search
