@@ -122,26 +122,7 @@ option {
                         <div class="col-md-4">
                             <div class="form-group">
                              <input type="text" class="form-contorol" id= 'searchfield' placeholder="Search">  
-
-
-
                             </div>
-
-
-                            <script>
-                                const searchFeild = document.querySelector('#searchfield');
-                                searchFeild.addEventListener('keyup',(e)=>{
-                                 const searchValue=e.target.value;
-                                 if(searchValue.lenght > 0)
-                                 {
-
-                                    console.log ('searchValue',searchValue)
-                                 }
-
-
-
-                                 }) 
-                            </script>
 
                         </div>
 
@@ -239,4 +220,20 @@ option {
 </div>
 
 </body>
+
+
+<script>
+    const searchFeild = document.querySelector('#searchfield');
+    searchFeild.addEventListener('keyup',(e)=>{
+     const searchValue=e.target.value;
+     if(searchValue.lenght > 0)
+     {
+
+        console.log ('searchValue',searchValue)
+     }
+
+
+
+     }) 
+</script>
 {% endblock %}
