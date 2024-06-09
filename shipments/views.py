@@ -40,8 +40,6 @@ def home(request):
         shipment_returnd = 0 
         shipment_canceled = 0
         
-
-
         for ship in shipments:
          
          if ship.statuses.last().status== 'delivered':
