@@ -130,12 +130,12 @@ option {
                             //const tableShip = document.querySelector(".ship-table")
                             //tableOutput.style.display = "none";
                             const searchFeild = document.querySelector('#searchfield');
-                            searchFeild.addEventListener('keyup',(e)=>{
+                            searchFeild.addEventListener('keyup',(e) => {
                              const searchValue=e.target.value;
                              if(searchValue.length > 0)
                              {
                                 console.log ('searchValue',searchValue);
-                                fetch("/search_shipments",{
+                                fetch("/home/search_shipments",{
                                     body: JSON.stringify({searchText: searchValue}),
                                     method: "POST",
                                 })
