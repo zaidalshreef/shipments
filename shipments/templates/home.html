@@ -121,15 +121,35 @@ option {
                         <div class="col-md-8"></div>
                         <div class="col-md-4">
                             <div class="form-group">
-                             <input type="text" class="form-contorol" placeholder="Search">  
+                             <input type="text" class="form-contorol" id= 'searchfield' placeholder="Search">  
 
 
 
                             </div>
 
 
+                            <script>
+                                const searchFeild = document.querySelector('#searchfield');
+                                searchFeild.addEventListener('keyup',(e)=>{
+                                 const searchValue=e.target.value;
+                                 if(searchValue.lenght > 0)
+                                 {
+
+                                    console.log ('object',object)
+                                 }
+
+
+
+                                 }) 
+
+
+                            
+
+
+                            </script>
 
                         </div>
+
                     </div>
 
         <table class="table table-bordered">
