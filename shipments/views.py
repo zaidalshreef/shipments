@@ -5,6 +5,7 @@ from .services import update_salla_api, handle_status_update, handle_shipment_up
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
+import json
 
 import logging
 
@@ -57,30 +58,13 @@ def home(request):
 
 
 def search_shipments(request):
-    ctx = {}
-    shipment_search = None
+    if request.method == 'POST':
+        search_str = json.load(request.body).get('searchText')
+        shipment_seach = Shipment.objects.filter(shipping_numbe__starts_with = search_str)
+        data = shipment_seach.values()
+        return JsonResponse(list(data), safe=False)
 
-    try:
-        q = request.GET.get('q')
-        shipment_search = Shipment.objects.filter(shipping_number__icontains=q)
-        ctx['shipment_search'] = shipment_search
-        
-        is_ajax_request = request.headers.get('x-requested-with') == 'XMLHttpRequest' 
-
-        if is_ajax_request:
-            html = render_to_string(
-                template_name="search_home.html",
-                context={"shipment_search": shipment_search}
-            )
-            data_dict = {"html_from_view": html}
-            return JsonResponse(data=data_dict, safe=False)
-
-        shipment_all = Shipment.objects.all()
-        ctx['shipment_all'] = shipment_all
-
-        return render(request, 'home.html', ctx)
-    except Exception as e:
-        return HttpResponse(f'Error: {str(e)}', status=500)
+ 
 
 
 
