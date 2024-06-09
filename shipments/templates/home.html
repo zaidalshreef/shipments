@@ -137,7 +137,7 @@ option {
                              {
                         
                                 console.log ('searchValue',searchValue);
-                                fetch("/search_shipments",{
+                                fetch("/home/search_shipments",{
                                     body: JSON.stringify({searchText: searchValue}),
                                     methode: "POST",
                                 })
