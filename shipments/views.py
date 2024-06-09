@@ -62,7 +62,7 @@ def search_shipments(request):
         search_str = json.load(request.body).get('searchText')
         shipment_seach = Shipment.objects.filter(shipping_numbe__istartswith=search_str, owner = request.user)
         data = shipment_seach.values()
-        return JsonResponse(list(data), safe=False)
+        return JsonResponse(data, safe=False)
 
  
 
