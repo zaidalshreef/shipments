@@ -4,6 +4,7 @@ from django.shortcuts import redirect  # Add this import
 from . import views
 from .services.webhook_service import webhook_handler
 from .services.pdf_service import generate_pdf_label
+from django.views.decorators.csrf import csrf_exempt
 
 app_name = 'shipments'
 
@@ -16,7 +17,7 @@ urlpatterns = [
     path('<int:shipment_id>/update/', views.update_shipment_details, name='shipment_update'),
     path('<int:shipment_id>/status/', views.update_status, name='update_status'),
     path('<int:shipment_id>/delete/', views.shipment_delete, name='shipment_delete'),
-    path('home/', views.search_shipments, name='search_shipments'),
+    path('search_shipments', csrf_exempt(views.search_shipments, name='search_shipments'),
 
 
 

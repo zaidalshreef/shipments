@@ -133,12 +133,21 @@ option {
                              if(searchValue.length > 0)
                              {
                         
-                                console.log ('searchValue',searchValue)
+                                console.log ('searchValue',searchValue);
+                                fetch("/search_shipments",{
+                                    body: JSON.stringify({searchText: searchValue}),
+                                    methode: "POST",
+                                })
+
+                                .then((res) => res.JSON())
+                                .then((data) => {
+                                    console.log("data",data);
+                                });
                              }
                         
                         
                         
-                             }) 
+                             });
                         </script>
 
                     </div>
