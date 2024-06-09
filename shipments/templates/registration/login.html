@@ -8,7 +8,15 @@ Login
 <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
+        <div class="mb-3 mt-3">
+            <label for="name" class="form-label">Username:</label>
+            <input type="name" class="form-control" id="Username" placeholder="Username" name="Username">
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+          </div>
+        
+        <button class="btn btn-primary"type="submit">Login</button>
     </form>
 {% endblock %}
