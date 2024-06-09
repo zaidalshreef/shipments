@@ -60,7 +60,7 @@ def home(request):
 def search_shipments(request):
     if request.method == 'POST':
         search_str = json.load(request.body).get('searchText')
-        shipment_seach = Shipment.objects.filter(shipping_numbe__starts_with = search_str)
+        shipment_seach = Shipment.objects.filter(shipping_numbe__isstartswith = search_str)
         data = shipment_seach.values()
         return JsonResponse(list(data), safe=False)
 
