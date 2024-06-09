@@ -135,7 +135,7 @@ option {
                              if(searchValue.length > 0)
                              {
                                 console.log ('searchValue',searchValue);
-                                fetch("/home",{
+                                fetch("/shipments/home/",{
                                     body: JSON.stringify({searchText: searchValue}),
                                     method: "POST",
                                 })
