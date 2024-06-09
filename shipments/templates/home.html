@@ -125,7 +125,6 @@ option {
                             </div>
 
                         </div>
-
                         <script>
                             //const tableOutput = document.querySelector(".tableResult")
                             //const tableShip = document.querySelector(".ship-table")
@@ -135,11 +134,10 @@ option {
                              const searchValue=e.target.value;
                              if(searchValue.length > 0)
                              {
-                        
                                 console.log ('searchValue',searchValue);
                                 fetch("/search_shipments",{
                                     body: JSON.stringify({searchText: searchValue}),
-                                    methode: "POST",
+                                    method: "POST",
                                 })
 
                                 .then((res) => res.JSON())
@@ -156,9 +154,7 @@ option {
                              //else 
                             // tableOutput.style.display = "none";
                                     //tableShip.style.display = "block";
-                        
-                        
-                        
+
                              });
                         </script>
 
