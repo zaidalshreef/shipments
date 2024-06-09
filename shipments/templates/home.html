@@ -126,6 +126,21 @@ option {
 
                         </div>
 
+                        <script>
+                            const searchFeild = document.querySelector('#searchfield');
+                            searchFeild.addEventListener('keyup',(e)=>{
+                             const searchValue=e.target.value;
+                             if(searchValue.length > 0)
+                             {
+                        
+                                console.log ('searchValue',searchValue)
+                             }
+                        
+                        
+                        
+                             }) 
+                        </script>
+
                     </div>
 
         <table class="table table-bordered">
@@ -222,18 +237,5 @@ option {
 </body>
 
 
-<script>
-    const searchFeild = document.querySelector('#searchfield');
-    searchFeild.addEventListener('keyup',(e)=>{
-     const searchValue=e.target.value;
-     if(searchValue.length > 0)
-     {
 
-        console.log ('searchValue',searchValue)
-     }
-
-
-
-     }) 
-</script>
 {% endblock %}
