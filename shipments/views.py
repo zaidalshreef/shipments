@@ -64,7 +64,7 @@ def search_shipments(request):
         logging.info('Search result %s' %search_str)
         shipment_seach = Shipment.objects.filter(shipping_numbe__istartswith=search_str, owner = request.user)
         data = shipment_seach.values()
-        return JsonResponse(data, safe=False)
+        return JsonResponse(list(data), safe=False)
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
 
