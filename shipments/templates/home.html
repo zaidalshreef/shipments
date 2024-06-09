@@ -127,9 +127,9 @@ option {
                         </div>
 
                         <script>
-                            const tableOutput = document.querySelector(".tableResult")
-                            const tableShip = document.querySelector(".ship-table")
-                            tableOutput.style.display = "none";
+                            //const tableOutput = document.querySelector(".tableResult")
+                            //const tableShip = document.querySelector(".ship-table")
+                            //tableOutput.style.display = "none";
                             const searchFeild = document.querySelector('#searchfield');
                             searchFeild.addEventListener('keyup',(e)=>{
                              const searchValue=e.target.value;
@@ -145,13 +145,17 @@ option {
                                 .then((res) => res.JSON())
                                 .then((data) => {
                                     console.log("data",data);
-                                    tableOutput.style.display = "block";
-                                    tableShip.style.display = "none";
+                                   // tableOutput.style.display = "block";
+                                    //tableShip.style.display = "none";
                                 if(data.length===0){
                                     tableOutput.innerHTML ="No result found"
+                                    console.log("data zero ",data);
                                 }     
                                 });
                              }
+                             //else 
+                            // tableOutput.style.display = "none";
+                                    //tableShip.style.display = "block";
                         
                         
                         
@@ -161,7 +165,7 @@ option {
                     </div>
 
 
-                    <table class="table table-bordered" id = "tableResult">
+                    <!--<table class="table table-bordered" id = "tableResult">
             
             
                         <h5 class="card-title">Shipments Detail</h5>
@@ -187,7 +191,8 @@ option {
                         </tbody>
                     
                     </table>
-                    <div class = "ship-table">
+                -->
+            <!--<div class = "ship-table">-->
 
         <table class="table table-bordered">
             
@@ -276,7 +281,7 @@ option {
             </tbody>
         
         </table>
-    </div>
+    <!--</div>-->
     </div>
 </div>
 
