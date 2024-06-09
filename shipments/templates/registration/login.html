@@ -11,16 +11,15 @@ Login
 }
 
 </style>
-<body>
   <div class="container d-flex justify-content-center"></div>
 <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
         
-        <div class="mb-0">
+        <div class="mb-3">
             <input type="name" class="form-control" id="Username" placeholder="Username" name="Username">
           </div>
-          <div class="mb-0">
+          <div class="mb-3">
             <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
           </div>
         
@@ -28,5 +27,4 @@ Login
       </div>
     </form>
   
-  </body>
 {% endblock %}
