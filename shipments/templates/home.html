@@ -135,7 +135,7 @@ option {
                              if(searchValue.trim().length > 0)
                              {
                                 console.log ('searchValue',searchValue);
-                                fetch("techsynapse.org/shipments/home/search-shipments",{
+                                fetch(" ",{
                                     body: JSON.stringify({searchText: searchValue}),
                                     method: "POST",
                                 })
