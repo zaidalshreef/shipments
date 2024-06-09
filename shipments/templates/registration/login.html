@@ -13,7 +13,10 @@ Login
 </style>
 <body>
   <div class="container d-flex justify-content-center align-items-center">
+  <div class = "row">
 <h2>Login</h2>
+</div>
+<div class = "row">
     <form method="post">
         {% csrf_token %}
         
@@ -27,6 +30,7 @@ Login
         <button class="btn btn-primary"type="submit">Login</button>
       </div>
     </form>
+  </div>
   </div>
 </body>
 {% endblock %}
