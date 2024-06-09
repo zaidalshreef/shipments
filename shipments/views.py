@@ -66,9 +66,6 @@ def search_shipments(request):
         data = shipment_seach.values()
         return JsonResponse(list(data), safe=False)
 
- 
-
-
 
 def shipment_detail(request, shipment_id):
     try:
