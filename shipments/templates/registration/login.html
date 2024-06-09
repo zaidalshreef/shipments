@@ -5,10 +5,17 @@ Login
 {% endblock %}
 
 {% block content %}
+<style>
+.container-fluid{
+  align-items: center;
+}
+
+</style>
 <body>
 <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
+        <div class="container-fluid">
         <div class="col">
             <label for="name" class="form-label">Username:</label>
             <input type="name" class="form-control" id="Username" placeholder="Username" name="Username">
@@ -19,6 +26,7 @@ Login
           </div>
         
         <button class="btn btn-primary"type="submit">Login</button>
+      </div>
     </form>
 </body>
 {% endblock %}
