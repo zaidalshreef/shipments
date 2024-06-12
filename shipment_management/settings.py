@@ -166,7 +166,7 @@ DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'default@example.com')
 # Add your API credentials to settings
 SALLA_API_KEY = os.getenv('SALLA_API_KEY', '8d20a45d-ca26-4910-b6ca-1b49f0298632')
 SALLA_API_SECRET = os.getenv('SALLA_API_SECRET', '37686b0677d48c01cc8eb9b7ad2e2cea')
-GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyA6mmmEz_JCmb6p-yD6RnDPtRt7o4SXjh8')
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyB-Aiqrk1FDmski3bjxEqb8bwSwiWZkkpQ')
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
