@@ -52,10 +52,10 @@ Shipment Detail
                 <div class="card-body">
 
                     {% if shipment.statuses.last.status == "delivered" %}
-                    <button type="button" class="btn btn-primary" disabled >Update Status</button>
+                    <h5 class="card-title">You cannot update the status anymore</h5>
 
                     {% elif shipment.statuses.last.status == "cancelled" %}
-                    <button type="button" class="btn btn-primary" disabled >Update Status</button>
+                    <h5 class="card-title">You cannot update the status anymore</h5>
 
                     {% else %}
         
