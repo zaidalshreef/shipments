@@ -61,6 +61,14 @@ def privacy(request):
     except Exception as e:
         return HttpResponse(f'Error: {str(e)}', status=500)
     
+    
+def faq(request):
+    try:
+
+     return render(request, 'faq.html')
+    except Exception as e:
+        return HttpResponse(f'Error: {str(e)}', status=500)
+    
 
 '''def search_shipments(request):
     
