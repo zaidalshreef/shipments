@@ -209,7 +209,7 @@ option {
             <tr>
                 {% for shipment in shipments %}
                 
-                {% if shipment.counter==0 %}
+                {% if shipment.counter>0 %}
                 <h5 class="card-title">There is no shipments </h5>
                 <td>{{ shipment.shipping_number }}</td>
                
