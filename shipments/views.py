@@ -39,19 +39,20 @@ def home(request):
         shipment_delivered = 0
         shipment_returnd = 0 
         shipment_canceled = 0
-        
-        for ship in shipments:
-         if (ship == 0):
+        if (shipments.count == 0):
           return HttpResponse("There is no shipments")
-         
         else:
+         for ship in shipments:
+         
+         
+      
 
          
-         if ship.statuses.last().status== 'delivered':
+          if ship.statuses.last().status== 'delivered':
            shipment_delivered+=1
-         elif ship.statuses.last().status== 'cancelled':
+          elif ship.statuses.last().status== 'cancelled':
             shipment_canceled+=1
-         elif ship.statuses.last().status== 'returned':
+          elif ship.statuses.last().status== 'returned':
            shipment_returnd+=1
 
                
