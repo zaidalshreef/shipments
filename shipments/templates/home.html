@@ -189,7 +189,9 @@ option {
                     </table>
                 -->
             <!--<div class = "ship-table">-->
-                
+                {% if shipments.count == 0 %}
+                <h5 class="card-title">There is no shipments </h5>
+                {% endif %}
         <table class="table table-bordered">
             
             
@@ -209,9 +211,8 @@ option {
             <tr>
                 {% for shipment in shipments %}
                 
-                {% if shipments.count == 0 %}
-                <h5 class="card-title">There is no shipments </h5>
-                {% endif %}
+                
+               
                 <td>{{ shipment.shipping_number }}
                 </td>
                
