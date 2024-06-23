@@ -211,7 +211,7 @@ option {
                 
                 {% if shipment.counter == 0 %}
                 <h5 class="card-title">There is no shipments </h5>
-                {% endif %}
+                
                 <td>{{ shipment.shipping_number }}</td>
                
                 
@@ -249,6 +249,7 @@ option {
                         <circle cx="8" cy="8" r="8"/>
                       </svg> {{ shipment.statuses.last.status }}
 
+                      {% endif %}
                       {% endif %}
 
 
